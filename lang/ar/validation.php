@@ -181,16 +181,8 @@ return [
 
     'attributes' => [
 
-        'attachment' => 'المرفقات',
-        'current_password' => 'كلمة المرور الحالية',
-        'title' => 'العنوان',
-        'idcard' => 'المستخدم',
-        'password' => 'كلمة المرور',
-        'phone' => 'الهاتف',
-        'group_id' => 'المجموعة',
-        "start_at" => "من",
-        "end_at" => "إلى",
-        'name' => 'الاسم'
+        'ref_num' => 'رصد',
+
     ],
 
 ];

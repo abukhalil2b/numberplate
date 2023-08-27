@@ -48,12 +48,13 @@
   
       /* card */
       .card{
-        @apply bg-[#003b4f] text-[#00bfa8] rounded border border-[#00bfa8] flex justify-center items-center text-center p-1
+        @apply bg-white text-gray-700 rounded border border-black flex justify-center items-center text-center w-36 p-1
       }
   
-      .card2{
-        @apply bg-[#b1efe6] p-1 mt-1 border rounded text-[#00bfa8]  border-[#00bfa8]
+      .selected{
+        @apply border-green-600 text-green-600 bg-green-50
       }
+      
   
     }
   

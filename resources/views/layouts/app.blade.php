@@ -1,34 +1,43 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="rtl">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'طباعة أرقام المركبات') }}</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Fonts -->
-  
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+    <title>{{ config('app.name', 'طباعة أرقام المركبات') }}</title>
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+    <!-- Fonts -->
 
-            <!-- Page Content -->
-            <main>
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+
+<body class="min-h-screen bg-gray-50">
+
+    <div x-data="{ open: false }" class="flex">
+        <aside x-cloak class="bg-gray-600/[0.2] transition ease-in-out text-white" :class=" open ? 'block fixed w-full h-full' : 'w-0 hidden' ">
+            <div class="w-32 text-xs bg-white shadow-md h-full overflow-scroll">
+                <div class="py-10 px-2">
+                    <a href="/" class="flex justify-center">
+                        <x-application-logo class="block h-9 w-auto fill-current " />
+                    </a>
+                    @include('layouts.navigation')
+                </div>
+            </div>
+        </aside>
+        <main class="w-full">
+            <div class="h-10">
+                @include('layouts.humberger')
+            </div>
+            <div class="mt-3">
                 {{ $slot }}
-            </main>
-        </div>
-    </body>
+            </div>
+        </main>
+    </div>
+
+
+</body>
+
 </html>

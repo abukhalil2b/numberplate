@@ -23,12 +23,17 @@ class HomeController extends Controller
 
         if($loggedUser->profile == 'admin'){
 
-            $bills = Bill::whereDate('created_at',date('Y-m-d'))->get();
+            $bills = Bill::whereDate('created_at',date('Y-m-d'))
+            ->latest('id')
+            ->get();
 
             return view('admin.dashboard',compact('bills'));
 
         }else{
-            $bills = Bill::where('branch_id',$loggedUser->id)->get();
+
+            $bills = Bill::whereDate('created_at',date('Y-m-d'))->where('branch_id',$loggedUser->id)
+            ->latest('id')
+            ->get();
 
             return view('dashboard',compact('bills'));
         }

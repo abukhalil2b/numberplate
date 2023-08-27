@@ -11,20 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bills', function (Blueprint $table) {
+        Schema::create('stocks', function (Blueprint $table) {
             $table->id();
             
-            $table->string('type',20)->default('private');//private - commercial - diplomatic - test - export - limit use
+            $table->string('cate',25);//plate - extra
+
+            $table->string('size',25)->nullable();//small-plate - medium-plate - large-plate - large-plate-with-khanjer - extra 
            
-            $table->string('plate_num',20)->nullable();
-            
-            $table->string('plate_code',20)->nullable();
-            
-            $table->string('ref_num',30)->nullable();
-            
+            $table->mediumInteger('quantity')->default(1);
+ 
             $table->unsignedBigInteger('branch_id');
             $table->foreign('branch_id')->references('id')->on('users')->cascadeOnDelete();
-            
+
+            $table->text('description')->nullable();//
+
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bills');
+        Schema::dropIfExists('stocks');
     }
 };

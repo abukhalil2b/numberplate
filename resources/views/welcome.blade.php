@@ -21,7 +21,7 @@
         </div>
 
         <div class="mt-5 flex justify-center text-blue-800">
-            (النسخة الأولى)
+            (النسخة الثانية)
         </div>
 
         <div class="mt-5 flex justify-center">

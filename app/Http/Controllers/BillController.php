@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bill;
+use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class BillController extends Controller
 {
@@ -23,20 +25,64 @@ class BillController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'ref_num' => 'required'
+        ]);
+
         $loggedUser = auth()->user();
 
-        // return $request->all();
+        $items = [];
 
-        Bill::create([
-            'num_plate' => $request->num_plate,
-            'zone_plate' => $request->zone_plate,
-            'size_plate' => $request->size_plate,
-            'price_printing' => $this->getPrintingPrice($request->size_plate),
-            'quantity' => $request->quantity,
-            'ref_num' => $request->ref_num,
-            'success_printing' => $request->success_printing,
-            'branch_id' => $loggedUser->id
-        ]);
+        if ($request->small > 0) {
+
+            array_push($items, ['size' => 'small', 'quantity' => $request->small]);
+        }
+
+        if ($request->medium > 0) {
+
+            array_push($items, ['size' => 'medium', 'quantity' => $request->medium]);
+        }
+
+        if ($request->large > 0) {
+
+            array_push($items, ['size' => 'large', 'quantity' => $request->large]);
+        }
+
+        if ($request->largeWithKhanjer > 0) {
+
+            array_push($items, ['size' => 'largeWithKhanjer', 'quantity' => $request->largeWithKhanjer]);
+        }
+
+        if ($request->bike > 0) {
+
+            array_push($items, ['size' => 'bike', 'quantity' => $request->bike]);
+        }
+
+        // dd($items);
+        // return $request->all();
+        //--ignore if there is no items--
+        if (count($items)) {
+
+            $bill = Bill::create([
+                'type' => $request->type,
+                'ref_num' => $request->ref_num,
+                'plate_num' => $request->plate_num,
+                'plate_code' => Str::upper($request->plate_code),
+                'branch_id' => $loggedUser->id
+            ]);
+
+            foreach ($items as $item) {
+
+                Item::create([
+                    'cate' => 'plate',
+                    'size' => $item['size'],
+                    'quantity' => $item['quantity'],
+                    'bill_id' => $bill->id,
+                    'branch_id' => $loggedUser->id,
+                    'status' => 'success'
+                ]);
+            }
+        }
 
         return back();
     }
