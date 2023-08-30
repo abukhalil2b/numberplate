@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bills', function (Blueprint $table) {
+        Schema::create('statements', function (Blueprint $table) {
             $table->id();
             
             $table->string('using',50)->default('ROP');//TRANSPORTATION - ROP
 
+            $table->string('type',20)->default('private');//private - commercial - diplomatic - temporary - export - specific - government - other
+            
+            $table->string('size',25)->nullable();//small-plate - medium-plate - large-plate - large-plate-with-khanjer - extra 
+
             $table->string('required',10)->default('pair');//single - pair
             
-            $table->string('type',20)->default('private');//private - commercial - diplomatic - temporary - export - specific - government - other
-           
             $table->string('plate_num',20)->nullable();
             
             $table->string('plate_code',20)->nullable();
@@ -38,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bills');
+        Schema::dropIfExists('statements');
     }
 };

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Bill;
 use App\Models\Item;
+use App\Models\Statement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class BillController extends Controller
@@ -25,8 +27,10 @@ class BillController extends Controller
 
     public function store(Request $request)
     {
+        // return $request->all();
         $request->validate([
-            'ref_num' => 'required'
+            'ref_num' => 'required',
+            'type' => 'required',
         ]);
 
         $loggedUser = auth()->user();
@@ -64,6 +68,8 @@ class BillController extends Controller
         if (count($items)) {
 
             $bill = Bill::create([
+                'using' => $request->using,
+                'required' => $request->required,
                 'type' => $request->type,
                 'ref_num' => $request->ref_num,
                 'plate_num' => $request->plate_num,
@@ -81,64 +87,16 @@ class BillController extends Controller
                     'branch_id' => $loggedUser->id,
                     'status' => 'success'
                 ]);
+
             }
+
         }
 
         return back();
     }
 
 
-    public function getPrintingPrice($size_plate)
-    {
-        $price = 0;
-        switch ($size_plate) {
-            case 'خصوصي كبير':
-                $price = 10;
 
-            case 'خصوصي متوسط':
-                $price = 9;
-
-            case 'خصوصي صغير':
-                $price = 8;
-
-            case 'تجاري كبير':
-                $price = 0;
-
-            case 'تجاري متوسط':
-                $price = 0;
-
-            case 'حكومي كبير':
-                $price = 0;
-
-            case 'حكومي صغير':
-                $price = 0;
-
-            case 'حكومي دراجات':
-                $price = 0;
-
-            case 'دبلوماسي كبير':
-                $price = 0;
-
-            case 'دبلوماسي متوسط':
-                $price = 0;
-
-            case 'دبلوماسي دراجات':
-                $price = 0;
-
-            case 'تصدير':
-                $price = 0;
-
-            case 'تعليم سياقة متوسط':
-                $price = 2;
-
-            case 'تعليم سياقة دراجات':
-                $price = 1;
-            default:
-                $price = 0;
-        }
-
-        return $price;
-    }
 
     /**
      * Show the form for editing the specified resource.

@@ -6,6 +6,12 @@
                     اللوحة
                 </th>
                 <th scope="col" class="px-6 py-3">
+                    size
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    sort = single - pair
+                </th>
+                <th scope="col" class="px-6 py-3">
                     رصد
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -21,6 +27,12 @@
                     <div>{{ $bill->type }}</div>
                     <span>{{ $bill->plate_num }}</span>
                     <span>{{ $bill->plate_code }}</span>
+                </td>
+                <td class="px-6 py-4">
+                {{ $bill->size }}
+                </td>
+                <td class="px-6 py-4">
+                   
                 </td>
                 <td class="px-6 py-4">
                     {{ $bill->ref_num }}
