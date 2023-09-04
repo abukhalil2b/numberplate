@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Statement;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class StatementController extends Controller
+class AdminStatementController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(User $branch)
     {
-        //
+        $statements = Statement::where('branch_id',$branch->id)
+        ->with('branch')
+        ->get();
+
+        return view('admin.statement.index',compact('statements'));
     }
 
     /**

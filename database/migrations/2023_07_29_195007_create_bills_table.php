@@ -29,6 +29,8 @@ return new class extends Migration
             $table->unsignedBigInteger('branch_id');
             $table->foreign('branch_id')->references('id')->on('users')->cascadeOnDelete();
             
+            $table->string('payment_method',10)->default('cash');//cash - visa
+            
             $table->timestamps();
         });
     }

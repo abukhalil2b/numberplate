@@ -17,7 +17,7 @@
                     <thead class="text-xs text-gray-50 bg-gray-600 ">
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                الغرض
+                                plate
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 العدد
@@ -25,34 +25,57 @@
                             <th scope="col" class="px-6 py-3">
                                 حالة الطباعة
                             </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($plateItems as $plateItem)
+                        <tr class="bg-white border-b ">
+                            <td class="px-6 py-4">
+                               
+                                <div>
+                                {{ $plateItem->size }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $plateItem->quantity }}
+                            </td>
 
+                            <td class="px-6 py-4">
+                                {{ $plateItem->status }}
+                            </td>
+                            
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-1">
+                @include('inc._model_failedprint')
+            </div>
+
+            <div class="mt-5 overflow-x-auto">
+                <table class="w-full text-sm text-center text-gray-500">
+                    <thead class="text-xs text-gray-50 bg-gray-600 ">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                extra
+                            </th>
+                            
                             <th scope="col" class="px-6 py-3">
                                 price
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($items as $item)
+                        @foreach($extraItems as $extraItem)
                         <tr class="bg-white border-b ">
                             <td class="px-6 py-4">
-                                {{ $item->cate }}
                                 <div>
-                                    @if($item->cate == 'plate')
-                                    {{ $item->size }}
-                                    @else
-                                    {{ $item->note }}
-                                    @endif
+                                {{ $extraItem->description }}
                                 </div>
                             </td>
                             <td class="px-6 py-4">
-                                {{ $item->quantity }}
-                            </td>
-
-                            <td class="px-6 py-4">
-                                {{ $item->status }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $item->price }}
+                                {{ $extraItem->price }}
                             </td>
                         </tr>
                         @endforeach
@@ -60,11 +83,10 @@
                 </table>
             </div>
 
-            <div class="mt-5 flex gap-1">
+            <div class="mt-1">
                 @include('inc._model_extra')
-
-                @include('inc._model_failedprint')
             </div>
+
 
         </div>
     </div>

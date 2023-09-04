@@ -13,9 +13,11 @@ class ItemController extends Controller
      */
     public function index(Bill $bill)
     {
-        $items = Item::where('bill_id',$bill->id)->get();
+        $plateItems = Item::where(['bill_id' => $bill->id, 'cate' => 'plate'])->get();
 
-        return view('item.index',compact('items','bill'));
+        $extraItems = Item::where(['bill_id' => $bill->id, 'cate' => 'extra'])->get();
+
+        return view('item.index', compact('plateItems','extraItems','bill'));
     }
 
     public function failedprintStore(Request $request)
@@ -54,7 +56,7 @@ class ItemController extends Controller
         foreach ($items as $item) {
 
             Item::create([
-                'cate'=>'plate',
+                'cate' => 'plate',
                 'size' => $item['size'],
                 'quantity' => $item['quantity'],
                 'bill_id' => $request->bill_id,
@@ -72,14 +74,14 @@ class ItemController extends Controller
     public function extraStore(Request $request)
     {
         // return $request->all();
-        
+
         $loggedUser = auth()->user();
 
         Item::create([
-            'cate'=>'extra',
+            'cate' => 'extra',
             'size' => null,
-            'description' =>$request->description,
-            'price' =>$request->price,
+            'description' => $request->description,
+            'price' => $request->price,
             'bill_id' => $request->bill_id,
             'branch_id' => $loggedUser->id,
             'status' => null

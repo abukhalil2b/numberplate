@@ -28,8 +28,14 @@ class BillController extends Controller
     public function store(Request $request)
     {
         // return $request->all();
+
+        if (Str::upper($request->required) == 'ROP') {
+            $request->validate([
+                'ref_num' => 'required',
+            ]);
+        }
+
         $request->validate([
-            'ref_num' => 'required',
             'type' => 'required',
         ]);
 
@@ -74,6 +80,7 @@ class BillController extends Controller
                 'ref_num' => $request->ref_num,
                 'plate_num' => $request->plate_num,
                 'plate_code' => Str::upper($request->plate_code),
+                'payment_method' => $request->payment_method,
                 'branch_id' => $loggedUser->id
             ]);
 
@@ -87,9 +94,36 @@ class BillController extends Controller
                     'branch_id' => $loggedUser->id,
                     'status' => 'success'
                 ]);
-
             }
 
+            Statement::create([
+                'using' => $request->using,
+                'type' => $request->type,
+                'size' => $request->sizeForStatement,
+                'required' => $request->required,
+                'plate_num' => $request->plate_num,
+                'plate_code' => Str::upper($request->plate_code),
+                'ref_num' => $request->ref_num,
+                'branch_id' => $loggedUser->id
+            ]);
+
+            if ($request->extra) {
+                if ($request->extra_option == 'fixing_plate') {
+                    $description = 'fixing plate';
+                    $price = 1;
+                } else {
+                    $description = 'frame with fixing plate';
+                    $price = 3;
+                }
+
+                Item::create([
+                    'cate' => 'extra',
+                    'bill_id' => $bill->id,
+                    'branch_id' => $loggedUser->id,
+                    'description' => $description,
+                    'price' => $price
+                ]);
+            }
         }
 
         return back();

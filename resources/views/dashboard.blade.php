@@ -7,7 +7,7 @@
 
         <div class="p-1 max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            <form method="post" action="{{ route('bill.store') }}" class="p-2 text-[#035b62]">
+            <form method="post" action="{{ route('bill.store') }}">
                 @csrf
 
                 <div class=" mt-5 w-full">
@@ -105,6 +105,7 @@
 
                     @include('inc._plate_size')
                     <div>for statement: <span x-text='sizeForStatement'></span></div>
+                    <input type="hidden" name="sizeForStatement" x-model="sizeForStatement">
                 </div>
 
                 <div class="mt-6 flex flex-col gap-3" x-data="extraJob">

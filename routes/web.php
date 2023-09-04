@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\AdminStatementController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BillController;
@@ -14,11 +15,6 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
 Route::get('/', [HomeController::class,'welcome']);
@@ -93,6 +89,17 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('stock/index', [StockController::class,'index'])->name('stock.index');
 
     Route::post('stock/store', [StockController::class,'store'])->name('stock.store');
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| statement
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware'=>'auth'],function(){
+
+    Route::get('admin/statement/index/{branch}', [AdminStatementController::class,'index'])->name('admin.statement.index');
 
 });
 

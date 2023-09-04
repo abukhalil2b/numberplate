@@ -41,7 +41,7 @@
 
         </form>
 
-        <div class="relative overflow-x-auto">
+        <div class=" overflow-x-auto">
             <table class="w-full text-sm text-center text-gray-500">
                 <thead class="text-xs text-gray-700 bg-gray-50 ">
                     <tr>
@@ -55,14 +55,20 @@
                 </thead>
                 <tbody>
                     @foreach($users as $user)
-                    <tr class="bg-white border-b ">
+                    <tr class="mt-1 bg-white border-b ">
                         <td class="px-6 py-4">
                             <div class="text-xl">
                                 {{ $user->name }}
                             </div>
 
                             <div>
+                                <div class="border rounded p-1 w-32">
                                 <a href="{{ route('admin.bill.index',$user->id) }}" class="text-xs">عرض المبيعات</a>
+                                </div>
+                                <div  class="mt-1 border rounded p-1 w-32">
+                                <a href="{{ route('admin.statement.index',$user->id) }}" class="text-xs">statement </a>
+                                </div>
+                                
                             </div>
                         </td>
                         <td class="px-6 py-4">
