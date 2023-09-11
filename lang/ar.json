@@ -1,14 +1,4 @@
 {
-    "memorize":"تقييم الحفظ",
-    "recite":"تقييم التلاوة",
-    "behave":"تقييم السلوك",
-    "start_at":"من",
-    "end_at":"إلى",
-    "super_admin":"حساب إدارة النظام",
-    "normal":"عضو",
-    "admin":"رئيسا أو نائبا",
-    "phone":"رقم الهاتف",
-    "idcard":"الرقم المدني",
-    "password":"كلمة المرور",
-    "failed print":"فشل الطباعة"
+    "name":"name",
+    "email":"username"
 }

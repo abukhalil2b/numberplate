@@ -12,7 +12,6 @@
 
             <div class="mt-4 w-full ">
             description
-
                 <x-textarea name="description"/>
             </div>
 

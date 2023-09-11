@@ -11,9 +11,9 @@ class AdminBranchController extends Controller
 
     public function branchCreate()
     {
-        $users = User::where('profile','branch')->get();
+        $users = User::where('profile', 'branch')->get();
 
-        return view('admin.branch.create',compact('users'));
+        return view('admin.branch.create', compact('users'));
     }
 
 
@@ -21,6 +21,10 @@ class AdminBranchController extends Controller
     {
 
         // return $request->all();
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+        ]);
 
         User::create([
             'profile' => 'branch',
@@ -31,6 +35,4 @@ class AdminBranchController extends Controller
 
         return back();
     }
-
-
 }

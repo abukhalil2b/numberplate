@@ -3,17 +3,17 @@
         <thead class="text-xs text-gray-50 bg-gray-600 ">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    اللوحة
+                    plate
                 </th>
+
                 <th scope="col" class="px-6 py-3">
-                    size
+                    single/pair
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    sort = single - pair
-                </th>
+               
                 <th scope="col" class="px-6 py-3">
                     رصد
                 </th>
+
                 <th scope="col" class="px-6 py-3">
                 details
                 </th>
@@ -28,15 +28,15 @@
                     <span>{{ $bill->plate_num }}</span>
                     <span>{{ $bill->plate_code }}</span>
                 </td>
+               
                 <td class="px-6 py-4">
-                {{ $bill->size }}
+                    {{ $bill->required }}
                 </td>
-                <td class="px-6 py-4">
-                   
-                </td>
+
                 <td class="px-6 py-4">
                     {{ $bill->ref_num }}
                 </td>
+
                 <td class="px-6 py-4">
                     <a href="{{ route('item.index',$bill->id) }}">
                         show

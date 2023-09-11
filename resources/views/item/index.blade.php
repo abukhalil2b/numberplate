@@ -17,13 +17,13 @@
                     <thead class="text-xs text-gray-50 bg-gray-600 ">
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                plate
+                                size
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                العدد
+                                quantity
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                حالة الطباعة
+                                printing status
                             </th>
                         </tr>
                     </thead>
@@ -31,9 +31,9 @@
                         @foreach($plateItems as $plateItem)
                         <tr class="bg-white border-b ">
                             <td class="px-6 py-4">
-                               
+
                                 <div>
-                                {{ $plateItem->size }}
+                                    {{ $plateItem->size }}
                                 </div>
                             </td>
                             <td class="px-6 py-4">
@@ -43,13 +43,13 @@
                             <td class="px-6 py-4">
                                 {{ $plateItem->status }}
                             </td>
-                            
+
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-            <div class="mt-1">
+            <div class="mt-1" x-data="plate">
                 @include('inc._model_failedprint')
             </div>
 
@@ -60,7 +60,7 @@
                             <th scope="col" class="px-6 py-3">
                                 extra
                             </th>
-                            
+
                             <th scope="col" class="px-6 py-3">
                                 price
                             </th>
@@ -71,7 +71,7 @@
                         <tr class="bg-white border-b ">
                             <td class="px-6 py-4">
                                 <div>
-                                {{ $extraItem->description }}
+                                    {{ $extraItem->description }}
                                 </div>
                             </td>
                             <td class="px-6 py-4">

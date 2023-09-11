@@ -1,111 +1,105 @@
-<x-app-layout>
-    <x-slot name="header">
+<!DOCTYPE html>
+<html lang="en">
 
-    </x-slot>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <div class="p-3">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/mystyle.css') }}">
+    <script defer src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script defer src="{{ asset('js/jquery-3.7.0.js') }}"></script>
+    <script defer src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script defer src="{{ asset('js/myscript.js') }}"></script>
 
-        </table>
-        <table id="myTable2">
-            <tr>
-                <th>plate info</th>
-                <th onclick="sortTable(3)" class="cursor-pointer">plate type</th>
-                <th onclick="sortTable(2)" class="cursor-pointer">plate size</th>
-                <th onclick="sortTable(0)" class="cursor-pointer">sigle of pair</th>
-                <th>branch name</th>
-            </tr>
+    <title>{{ config('app.name', 'طباعة أرقام المركبات') }}}</title>
+</head>
 
-            @foreach($statements as $statement)
-            <tr>
-                <td>
-                    <div>{{ $statement->plate_num }}</div>
-                    <div>{{ $statement->plate_code }}</div>
-                </td>
-                <td>{{ $statement->type}}</td>
-                <td>{{ $statement->size}}</td>
-                <td>{{ $statement->required}}</td>
-                <td>{{ $statement->branch->name }}</td>
+<body>
 
-            </tr>
-            @endforeach
+    <!-- container -->
+    <div class="mt-5 container">
 
-        </table>
+        <!-- card -->
+        <div class="card">
+            <div class="card-body">
+                statements
+            </div>
+        </div>
 
+        <!-- card -->
+        <div class="mt-1 card">
+            <div class="card-body table-responsive">
+
+                <!-- table -->
+                <table id="example" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>plate info</th>
+                            <th>plate type</th>
+                            <th>plate size</th>
+                            <th>single / pair</th>
+                            <th>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
+                                    <path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z" />
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                </svg>
+                                created date
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($statements as $statement)
+                        <tr>
+                            <td>
+                                <div>{{ $statement->plate_num }}</div>
+                                <div>{{ $statement->plate_code }}</div>
+                            </td>
+                            <td>{{ $statement->type}}</td>
+                            <td>{{ $statement->size}}</td>
+                            <td>{{ $statement->required}}</td>
+                            <td>
+                                <div class="created_at_cell">
+                                    {{ $statement->created_at }}
+                                </div>
+                            </td>
+
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>plate info</th>
+                            <th>plate type</th>
+                            <th>plate size</th>
+                            <th>single / pair</th>
+                            <th>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
+                                    <path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z" />
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                </svg>
+                                created date
+                            </th>
+                        </tr>
+                        </thead>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+
+        <!-- footer -->
+        <div class="p-3">
+            
+        </div>
+
+        <!-- / container -->
     </div>
 
-    <script>
-        function sortTable(n) {
-            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-            table = document.getElementById("myTable2");
-            switching = true;
-            // Set the sorting direction to ascending:
-            dir = "asc";
-            /* Make a loop that will continue until
-            no switching has been done: */
-            while (switching) {
-                // Start by saying: no switching is done:
-                switching = false;
-                rows = table.rows;
-                /* Loop through all table rows (except the
-                first, which contains table headers): */
-                for (i = 1; i < (rows.length - 1); i++) {
-                    // Start by saying there should be no switching:
-                    shouldSwitch = false;
-                    /* Get the two elements you want to compare,
-                    one from current row and one from the next: */
-                    x = rows[i].getElementsByTagName("TD")[n];
-                    y = rows[i + 1].getElementsByTagName("TD")[n];
-                    /* Check if the two rows should switch place,
-                    based on the direction, asc or desc: */
-                    if (dir == "asc") {
-                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                            // If so, mark as a switch and break the loop:
-                            shouldSwitch = true;
-                            break;
-                        }
-                    } else if (dir == "desc") {
-                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                            // If so, mark as a switch and break the loop:
-                            shouldSwitch = true;
-                            break;
-                        }
-                    }
-                }
-                if (shouldSwitch) {
-                    /* If a switch has been marked, make the switch
-                    and mark that a switch has been done: */
-                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                    switching = true;
-                    // Each time a switch is done, increase this count by 1:
-                    switchcount++;
-                } else {
-                    /* If no switching has been done AND the direction is "asc",
-                    set the direction to "desc" and run the while loop again. */
-                    if (switchcount == 0 && dir == "asc") {
-                        dir = "desc";
-                        switching = true;
-                    }
-                }
-            }
-        }
-    </script>
 
-    <style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
+</body>
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
-
-</x-app-layout>
+</html>

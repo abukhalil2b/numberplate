@@ -111,10 +111,10 @@
                 <div class="mt-6 flex flex-col gap-3" x-data="extraJob">
 
                     <div class="mt-4 w-64">
-                        <div @click="toggleExtraOption" class="card w-full cursor-pointer" :class="extra ? 'selectedCard' : '' ">
-                            <span class="text-xs" x-text="extra ? 'need extra ' : 'no extra jop' "></span>
+                        <div @click="toggleExtraOption" class="h-12 card w-full cursor-pointer" :class="extra ? 'selectedCard' : '' ">
+                            <span class="text-md" x-text="extra ? 'yes, need extra ' : 'no extra jop' "></span>
                         </div>
-                        <div x-cloak x-show="extra" @click="fixingPlateOnly" class="mt-1 card w-full cursor-pointer" :class="extra_option == 'fixing_plate' ? 'selectedCard' : '' ">
+                        <div x-cloak x-show="extra" @click="fixingPlateOnly" class="mt-3 card w-full cursor-pointer" :class="extra_option == 'fixing_plate' ? 'selectedCard' : '' ">
                             <span class="text-xs">fixing plate: 1 R.O</span>
                         </div>
                         <div x-cloak x-show="extra" @click="fixingPlateWithFrame" class="mt-1 card w-full cursor-pointer" :class="extra_option == 'frame_with_fixing_plate' ? 'selectedCard' : '' ">
@@ -122,7 +122,7 @@
                         </div>
                     </div>
 
-                    <div x-cloak x-show="extra" class="mt-4 w-64 text-center">
+                    <div x-cloak x-show="extra" class="mt-2 w-64 text-center">
                         <div class="w-full flex gap-1">
                             <div @click="cashPayment" class="mt-1 card w-full cursor-pointer" :class="payment_method == 'cash' ? 'selectedCard' : '' ">
                                 <span class="text-xs">cash</span>
@@ -148,7 +148,9 @@
             </form>
 
 
+            <div class="mt-4">
             @include('inc._bill_index')
+            </div>
 
 
         </div>
