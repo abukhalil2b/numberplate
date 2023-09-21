@@ -16,11 +16,24 @@
 
 <hr>
 
-<x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="w-full mt-4">
+@if(auth()->user()->profile == 'admin')
+<x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')" class="w-full mt-4">
     الصفحة الرئيسية
 </x-nav-link>
+
+<x-nav-link :href="route('admin.user.index')" :active="request()->routeIs('admin.user.index')" class="w-full mt-4">
+    المستخدمين
+</x-nav-link>
+
+
+@else
+<x-nav-link :href="route('branch.dashboard')" :active="request()->routeIs('branch.dashboard')" class="w-full mt-4">
+    الصفحة الرئيسية
+</x-nav-link>
+@endif
+
 <hr class="mt-5">
 
-<x-nav-link :href="route('stock.index')" :active="request()->routeIs('stock.index')" class="w-full mt-4">
-    المخزن
+<x-nav-link :href="route('stock.plate.index')" :active="request()->routeIs('stock.plate.index')" class="w-full mt-4">
+    plate stock
 </x-nav-link>

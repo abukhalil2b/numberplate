@@ -32,7 +32,9 @@
                                 <div class="mt-1 border rounded p-1 w-32">
                                     <a href="{{ route('admin.statement.index',$user->id) }}" class="text-xs">statement </a>
                                 </div>
-
+                                <div class="mt-1 border rounded p-1 w-32">
+                                    <a href="{{ route('admin.branch.stock.index',$user->id) }}" class="text-xs">stock </a>
+                                </div>
                             </div>
                         </td>
                         <td class="px-6 py-4">

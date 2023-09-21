@@ -1,52 +1,73 @@
 <x-app-layout>
-    <x-slot name="header">
 
-    </x-slot>
-
-    <div class="py-1" x-data="numbercodes">
+    <div class="" x-data="numbercodes">
 
         <div class="p-1 max-w-7xl mx-auto sm:px-6 lg:px-8">
-
+            <div x-data="{ show:false }">
+                <div @click="show = ! show" class="border rounded p-1 cursor-pointer w-40 text-center text-xs" :class="show ? 'bg-blue-100' : '' "> show stock balance</div>
+                <div x-cloak x-show="show" class="p-1">
+                    <div>
+                        small:
+                        {{$smallPlate->total}}
+                    </div>
+                    <div>
+                        medium:
+                        {{$mediumPlate->total}}
+                    </div>
+                    <div>
+                        large:
+                        {{$largePlate->total}}
+                    </div>
+                    <div>
+                        largeWithKhanjer:
+                        {{$largeWithKhanjerPlate->total}}
+                    </div>
+                    <div>
+                        bike:
+                        {{$bikePlate->total}}
+                    </div>
+                </div>
+            </div>
             <form method="post" action="{{ route('bill.store') }}">
                 @csrf
 
                 <div class=" mt-5 w-full">
-                    plate type
+                    select plate type
                 </div>
                 <div class="mt-2 flex flex-wrap gap-1">
-                    <div class="plate  bg-yellow-300 text-black" :class="plateType == 'private' ? 'selected' : '' " @click="getPrivateCode">
+                    <div class="private_plate" :class="plateType == 'private' ? 'private_plate_selected' : '' " @click="getPrivateCode">
                         private
                     </div>
 
-                    <div class="plate bg-red-600 text-white" :class="plateType == 'commercial' ? 'selected' : '' " @click="getCommercialCode">
+                    <div class="commercial_plate" :class="plateType == 'commercial' ? 'commercial_plate_selected' : '' " @click="getCommercialCode">
                         commercial
                     </div>
 
-                    <div class="plate " :class="plateType == 'diplomatic' ? 'selected' : '' " @click="getDiplomaticCode">
+                    <div class="diplomatic_plate " :class="plateType == 'diplomatic' ? 'diplomatic_plate_selected' : '' " @click="getDiplomaticCode">
                         diplomatic
                     </div>
 
-                    <div class="plate bg-green-600 text-white" :class="plateType == 'temporary' ? 'selected' : '' " @click="getTemporaryCode">
+                    <div class="temporary_plate" :class="plateType == 'temporary' ? 'temporary_plate_selected' : '' " @click="getTemporaryCode">
                         temporary
                     </div>
 
-                    <div class="plate bg-blue-600 text-white" :class="plateType == 'export' ? 'selected' : '' " @click="getExportCode">
+                    <div class="export_plate" :class="plateType == 'export' ? 'export_plate_selected' : '' " @click="getExportCode">
                         export
                     </div>
 
-                    <div class="plate bg-black text-white" :class="plateType == 'specific' ? 'selected' : '' " @click="getSpecificCode">
+                    <div class="specific_plate" :class="plateType == 'specific' ? 'specific_plate_selected' : '' " @click="getSpecificCode">
                         specific use
                     </div>
 
-                    <div class="plate text-red-300" :class="plateType == 'learners' ? 'selected' : '' " @click="getLearnersCode">
+                    <div class="learners_plate" :class="plateType == 'learners' ? 'learners_plate_selected' : '' " @click="getLearnersCode">
                         learners
                     </div>
 
-                    <div class="plate text-red-300" :class="plateType == 'government' ? 'selected' : '' " @click="getGovernmentCode">
+                    <div class="government_plate" :class="plateType == 'government' ? 'government_plate_selected' : '' " @click="getGovernmentCode">
                         government
                     </div>
 
-                    <div class="plate " :class="plateType == 'other' ? 'selected' : '' " @click="getOtherCode">
+                    <div class="other_plate " :class="plateType == 'other' ? 'other_plate_selected' : '' " @click="getOtherCode">
                         other
                     </div>
                 </div>
@@ -93,10 +114,10 @@
                     </div>
 
                     <div class="mt-4 w-64 flex gap-1">
-                        <div @click="selectPairPlate" class="plate" :class="required == 'pair' ? 'selected' : '' ">
+                        <div @click="selectPairPlate" class="plate" :class="required == 'pair' ? 'plate_selected' : '' ">
                             pair
                         </div>
-                        <div @click="selectSinglePlate" class="plate" :class="required == 'single' ? 'selected' : '' ">
+                        <div @click="selectSinglePlate" class="plate" :class="required == 'single' ? 'plate_selected' : '' ">
                             single
                         </div>
 
@@ -149,7 +170,7 @@
 
 
             <div class="mt-4">
-            @include('inc._bill_index')
+                @include('inc._latest_bill_index')
             </div>
 
 

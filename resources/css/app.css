@@ -2,17 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
-    font-family: 'Helvetica';
-    src: url('../fonts/HelveticaNeueLTW20-Light.woff');
-  }
-  
-  body{
-    font-family: 'Helvetica';
-  }
-  
-  /* 
+    font-family: "Helvetica";
+    src: url("../fonts/HelveticaNeueLTW20-Light.woff");
+}
+
+body {
+    font-family: "Helvetica";
+}
+
+/* 
   
   #032a38
   #003b4f
@@ -21,39 +20,120 @@
   #ffb031
   #ffffff
   */
-  
-  @layer components {
- 
-      /* card */
-      .card{
-        @apply bg-white text-gray-700 rounded border border-black flex justify-center items-center text-center w-36 p-1
-      }
 
-      /* plate */
-      .plate{
-        @apply opacity-50 cursor-pointer bg-white text-gray-500 rounded border-2 border-gray-400 flex justify-center items-center text-center w-36 p-1
-      }
-  
-  
-      .selected{
-        @apply border-black opacity-100
-      }
-
-      .selectedCard{
-        @apply bg-blue-100 border-blue-800 text-blue-800
-      }
-      
-  
+@layer components {
+    /* card */
+    .card {
+        @apply bg-white text-gray-700 rounded border border-black flex justify-center items-center text-center w-36 p-1;
     }
-  
-  /* alpine */
-  [x-cloak] {
+
+    .selectedCard {
+        @apply bg-blue-100 border-blue-800 text-blue-800;
+    }
+
+    /* plate  */
+    .plate {
+        @apply bg-white text-black/20 border-black/20 cursor-pointer rounded border-2  flex justify-center items-center text-center w-36 p-1;
+    }
+
+    .plate_selected {
+        @apply border-black  text-black;
+    }
+
+    /* plate private */
+    .private_plate {
+        @apply bg-yellow-300/20 text-black/50 cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center w-36 p-1;
+    }
+
+    .private_plate_selected {
+        @apply border-black bg-yellow-300 text-black;
+    }
+
+    /* plate commercial */
+    .commercial_plate {
+        @apply bg-red-300/50 text-white cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center w-36 p-1;
+    }
+
+    .commercial_plate_selected {
+        @apply border-black bg-red-300 text-white;
+    }
+
+    /* plate diplomatic */
+    .diplomatic_plate {
+        @apply bg-white/20 text-black/50 cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center w-36 p-1;
+    }
+
+    .diplomatic_plate_selected {
+        @apply border-black bg-white text-black;
+    }
+
+    /* plate temporary */
+    .temporary_plate {
+        @apply bg-green-300/20 text-white cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center w-36 p-1;
+    }
+
+    .temporary_plate_selected {
+        @apply border-black bg-green-300 text-white;
+    }
+
+    /* plate export */
+    .export_plate {
+        @apply bg-blue-300/20 text-white cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center w-36 p-1;
+    }
+
+    .export_plate_selected {
+        @apply border-black bg-blue-300 text-white;
+    }
+
+    /* plate specific */
+    .specific_plate {
+        @apply bg-black/20 text-white cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center w-36 p-1;
+    }
+
+    .specific_plate_selected {
+        @apply border-black bg-black text-white;
+    }
+
+    /* plate learners */
+    .learners_plate {
+        @apply bg-white/20 text-red-300/50 cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center w-36 p-1;
+    }
+
+    .learners_plate_selected {
+        @apply border-black bg-white text-red-300;
+    }
+
+    /* plate government */
+    .government_plate {
+        @apply bg-white/20 text-red-300/50 cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center w-36 p-1;
+    }
+
+    .government_plate_selected {
+        @apply border-black bg-white text-red-300;
+    }
+
+    /* plate other */
+    .other_plate {
+        @apply bg-white/20 text-black/50 cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center w-36 p-1;
+    }
+
+    .other_plate_selected {
+        @apply border-black bg-white text-black;
+    }
+
+    .btn{
+        @apply inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150
+    }
+}
+
+/* alpine */
+[x-cloak] {
     display: none !important;
-  }
-  /* end alpine */
-  
-  /* loader */
-  .loader {
+}
+/* end alpine */
+
+/* loader */
+.loader {
     border: 2px solid #ccc;
     border-radius: 50%;
     border-top: 2px solid #ff9400;
@@ -61,23 +141,22 @@
     height: 36px;
     -webkit-animation: spin 1s linear infinite; /* Safari */
     animation: spin 1s linear infinite;
-  }
-  /* Safari */
-  @-webkit-keyframes spin {
+}
+/* Safari */
+@-webkit-keyframes spin {
     0% {
         -webkit-transform: rotate(0deg);
     }
     100% {
         -webkit-transform: rotate(360deg);
     }
-  }
-  
-  @keyframes spin {
+}
+
+@keyframes spin {
     0% {
         transform: rotate(0deg);
     }
     100% {
         transform: rotate(360deg);
     }
-  }
-  
+}

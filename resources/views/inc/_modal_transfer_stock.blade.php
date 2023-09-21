@@ -1,13 +1,15 @@
 <div>
 
-    <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-stock')" class="text-xs">
-        + {{__('stock')}}
-    </x-primary-button>
+    <div x-data="" x-on:click.prevent="$dispatch('open-modal', 'transfer-stock{{ $branch->id }}')" class="card text-xs">
+                    
+    {{ $branch->name }}
+
+    </div>
 
 
-    <x-modal name="create-stock" :show="$errors->isNotEmpty()" focusable>
+    <x-modal name="transfer-stock{{ $branch->id }}" :show="$errors->isNotEmpty()" focusable>
 
-        <form action="{{ route('admin.stock.store') }}" method="POST" class="p-3 flex flex-col items-center">
+        <form action="{{ route('stock.transfer.store') }}" method="POST" class="p-3 flex flex-col items-center">
             @csrf
 
             <div class="mt-4 w-full ">
@@ -17,7 +19,13 @@
             </div>
 
             <div class="mt-4 w-full ">
-                plate size
+            {{ $branch->name }}
+            <input type="hidden" name="branch_id" value="{{ $branch->id }}">
+            </div>
+
+            <div class="mt-4 w-full ">
+            plate size
+
                 <select name="size" class="w-full">
                     <option value="small">small</option>
                     <option value="medium">medium</option>
@@ -34,14 +42,14 @@
 
 
             <div class="mt-4 w-60 flex justify-center">
-                <input type="hidden" name="branch_id" value="{{ $branch->id }}">
+
                 <x-secondary-button type="submit" class="w-full flex justify-center">
                     save
                 </x-secondary-button>
 
             </div>
 
-           
+            @if($errors->any())
             @foreach($errors->all() as $error)
 
             <div class="text-red-400">
@@ -49,7 +57,7 @@
             </div>
 
             @endforeach
-       
+            @endif
         </form>
 
     </x-modal>

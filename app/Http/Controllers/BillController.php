@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bill;
 use App\Models\Item;
 use App\Models\Statement;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -93,6 +94,15 @@ class BillController extends Controller
                     'bill_id' => $bill->id,
                     'branch_id' => $loggedUser->id,
                     'status' => 'success'
+                ]);
+
+                Stock::create([
+                    'instock' => 0,
+                    'cate' => 'plate',
+                    'size' => $item['size'],
+                    'quantity' => - $item['quantity'],
+                    'branch_id' => $loggedUser->id,
+                    'note' => 'sold',
                 ]);
             }
 

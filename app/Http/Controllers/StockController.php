@@ -11,39 +11,36 @@ class StockController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function plateIndex()
     {
-        $branches = User::where('profile','branch')->get();
+        $loggedUser = auth()->user();
 
-        $stocks = Stock::all();
+        if ($loggedUser->profile == 'admin') {
+            
+            $plateStocks = Stock::where('cate', 'plate')
+            ->latest('id')
+            ->get();
 
-        return view('stock.index',compact('stocks','branches'));
+        } else {
+
+            $plateStocks = Stock::where(['branch_id' => $loggedUser->id, 'cate' => 'plate'])
+            ->latest('id')
+            ->get();
+        }
+
+
+        return view('stock.plate.index', compact('plateStocks'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+
+
+
 
     /**
      * size	cate			description
      */
     public function store(Request $request)
     {
-        Stock::create([
-            'cate'=>'plate',
-            
-            'size'=>$request->size,
-            
-            'quantity'=>$request->quantity,
-            
-            'branch_id'=>$request->branch_id
-        ]);
-
-        return back();
     }
 
     /**

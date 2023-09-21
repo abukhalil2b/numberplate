@@ -77,14 +77,29 @@ class ItemController extends Controller
 
         $loggedUser = auth()->user();
 
+        $price = 1;
+
+        $description = 'fixing plate';
+
+        if($request->extra_option == 'frame_with_fixing_plate'){
+
+            $price = 3;
+            
+            $description = 'frame with fixing plate';
+        }
+
         Item::create([
             'cate' => 'extra',
             'size' => null,
-            'description' => $request->description,
-            'price' => $request->price,
+            'description' => $description,
+            'price' => $price,
             'bill_id' => $request->bill_id,
             'branch_id' => $loggedUser->id,
             'status' => null
+        ]);
+
+        Bill::where('id',$request->bill_id)->update([
+            'payment_method'=>$request->payment_method
         ]);
 
         return back();

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->mediumInteger('quantity')->default(1);
             
             $table->double('price')->default(1.0);
+//Special PHP Packages For Money
 
             $table->unsignedBigInteger('bill_id')->nullable();// can be null in case bought purfume 
             $table->foreign('bill_id')->references('id')->on('bills')->cascadeOnDelete();

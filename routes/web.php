@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AdminStatementController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\AdminStockController;
 use App\Http\Controllers\AdminBranchController;
 use App\Http\Controllers\AdminBillController;
 use Illuminate\Support\Facades\Route;
@@ -13,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| welcome
 |--------------------------------------------------------------------------
 */
 
@@ -22,10 +24,26 @@ Route::get('/', [HomeController::class,'welcome']);
 
 Route::group(['middleware'=>'auth'],function(){
 
-    Route::get('/dashboard', [HomeController::class,'dashboard'])->name('dashboard');
+    Route::get('admin/dashboard', [HomeController::class,'adminDashboard'])->name('admin.dashboard');
+
+    Route::get('branch/dashboard', [HomeController::class,'branchDashboard'])->name('branch.dashboard');
 
     Route::get('profile', [ProfileController::class, 'show'])->name('profile');
 
+});
+
+
+
+/*
+|--------------------------------------------------------------------------
+| admin user
+|--------------------------------------------------------------------------
+*/
+
+Route::group(['middleware'=>'auth'],function(){
+
+    Route::get('admin/user/index', [UserController::class,'index'])->name('admin.user.index');
+;
 
 });
 
@@ -36,7 +54,10 @@ Route::group(['middleware'=>'auth'],function(){
 */
 Route::group(['middleware'=>'auth'],function(){
 
+    Route::get('admin/branch/stock/index/{branch}', [AdminBranchController::class,'stockIndex'])->name('admin.branch.stock.index');
+
     Route::get('admin/branch/create', [AdminBranchController::class,'branchCreate'])->name('admin.branch.create');
+
     Route::post('admin/branch/store', [AdminBranchController::class,'branchStore'])->name('admin.branch.store');
 
 });
@@ -81,15 +102,35 @@ Route::group(['middleware'=>'auth'],function(){
 
 /*
 |--------------------------------------------------------------------------
+| admin stock
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware'=>'auth'],function(){
+
+    Route::get('admin/stock/show/{stock}', [AdminStockController::class,'show'])
+    ->name('admin.stock.show');
+
+    Route::get('admin/stock/transfer/create/{fromBranch}/{size}', [AdminStockController::class,'transferCreate'])
+    ->name('admin.stock.transfer.create');
+    
+    Route::post('admin/stock/transfer/store', [AdminStockController::class,'transferStore'])
+    ->name('admin.stock.transfer.store');
+   
+    Route::post('admin/stock/store', [AdminStockController::class,'store'])
+    ->name('admin.stock.store');
+
+});
+
+/*
+|--------------------------------------------------------------------------
 | stock
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware'=>'auth'],function(){
 
-    Route::get('stock/index', [StockController::class,'index'])->name('stock.index');
 
-    Route::post('stock/store', [StockController::class,'store'])->name('stock.store');
-
+    Route::get('stock/plate/index', [StockController::class,'plateIndex'])->name('stock.plate.index');
+ 
 });
 
 /*

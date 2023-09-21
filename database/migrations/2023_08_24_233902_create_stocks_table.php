@@ -16,14 +16,19 @@ return new class extends Migration
             
             $table->string('cate',25);//plate - extra
 
+            $table->boolean('instock')->default(true);//true - false
+
             $table->string('size',25)->nullable();//small-plate - medium-plate - large-plate - large-plate-with-khanjer - extra 
            
             $table->mediumInteger('quantity')->default(1);
  
             $table->unsignedBigInteger('branch_id');
+            
             $table->foreign('branch_id')->references('id')->on('users')->cascadeOnDelete();
 
             $table->text('description')->nullable();//
+
+            $table->string('note',10)->default('received');//received - transfer - sold
 
             $table->timestamps();
         });

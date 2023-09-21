@@ -182,6 +182,8 @@ return [
     'attributes' => [
 
         'ref_num' => 'رصد',
+        'branch_id' => 'الفرع',
+        'quantity' => 'الكمية'
 
     ],
 
