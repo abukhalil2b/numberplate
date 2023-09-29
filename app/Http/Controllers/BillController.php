@@ -75,7 +75,7 @@ class BillController extends Controller
         if (count($items)) {
 
             $bill = Bill::create([
-                'using' => $request->using,
+                'using' => 'rop',
                 'required' => $request->required,
                 'type' => $request->type,
                 'ref_num' => $request->ref_num,
@@ -107,7 +107,7 @@ class BillController extends Controller
             }
 
             Statement::create([
-                'using' => $request->using,
+                'using' => 'rop',
                 'type' => $request->type,
                 'size' => $request->sizeForStatement,
                 'required' => $request->required,

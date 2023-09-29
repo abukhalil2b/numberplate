@@ -14,7 +14,7 @@
     <script defer src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script defer src="{{ asset('js/myscript.js') }}"></script>
 
-    <title>{{ config('app.name', 'طباعة أرقام المركبات') }}}</title>
+    <title>{{ config('app.name', 'طباعة أرقام المركبات') }}</title>
 </head>
 
 <body>

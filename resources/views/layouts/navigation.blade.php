@@ -16,21 +16,10 @@
 
 <hr>
 
-@if(auth()->user()->profile == 'admin')
-<x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')" class="w-full mt-4">
-    الصفحة الرئيسية
-</x-nav-link>
-
-<x-nav-link :href="route('admin.user.index')" :active="request()->routeIs('admin.user.index')" class="w-full mt-4">
-    المستخدمين
-</x-nav-link>
-
-
-@else
 <x-nav-link :href="route('branch.dashboard')" :active="request()->routeIs('branch.dashboard')" class="w-full mt-4">
     الصفحة الرئيسية
 </x-nav-link>
-@endif
+
 
 <hr class="mt-5">
 

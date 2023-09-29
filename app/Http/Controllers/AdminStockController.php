@@ -9,6 +9,26 @@ use Illuminate\Http\Request;
 class AdminStockController extends Controller
 {
 
+    public function plateIndex()
+    {
+        $loggedUser = auth()->user();
+
+        if ($loggedUser->profile == 'admin') {
+            
+            $plateStocks = Stock::where('cate', 'plate')
+            ->latest('id')
+            ->get();
+
+        } else {
+
+            $plateStocks = Stock::where(['branch_id' => $loggedUser->id, 'cate' => 'plate'])
+            ->latest('id')
+            ->get();
+        }
+
+
+        return view('admin.stock.plate.index', compact('plateStocks'));
+    }
 
     public function show(Stock $stock)
     {

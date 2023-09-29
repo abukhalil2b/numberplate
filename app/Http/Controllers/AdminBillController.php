@@ -10,7 +10,10 @@ class AdminBillController extends Controller
 
     public function index(User $branch)
     {
+        $todayDate = date('Y-m-d');
+
         $latestBills = Bill::where('branch_id',$branch->id)
+        ->whereDate('created_at',$todayDate)
         ->latest('id')
         ->get();
         

@@ -103,17 +103,6 @@
                 <div x-data="plate">
 
                     <div class="mt-4 w-64 flex gap-1">
-                        <label class="block w-24 p-1 border rounded bg-white">
-                            <input type="radio" name="using" value="rop" checked>
-                            ROP
-                        </label>
-                        <label class="block w-40 p-1 border rounded bg-white">
-                            <input type="radio" name="using" value="transportation">
-                            <span class="text-xs">TRANSPORTATION</span>
-                        </label>
-                    </div>
-
-                    <div class="mt-4 w-64 flex gap-1">
                         <div @click="selectPairPlate" class="plate" :class="required == 'pair' ? 'plate_selected' : '' ">
                             pair
                         </div>

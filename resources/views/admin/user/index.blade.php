@@ -1,269 +1,76 @@
-<x-app-layout>
-    <div class="p-1 max-w-7xl mx-auto sm:px-6 lg:px-8">
+@extends('layouts.admin')
 
-        <!-- content -->
-        <div class="overflow-x-auto bg-white border rounded p-1">
-            <div class="text-red-800 text-center">Superadmin</div>
-            <table class="w-full text-sm text-center text-gray-500">
-                <thead class="text-xs text-gray-700 bg-gray-50 ">
-                    <tr>
-                        <th scope="col" class="text-xl px-6 py-3">
-                            name
-                        </th>
-                        <th scope="col" class="text-xl px-6 py-3">
-                            username
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $user)
-                    <tr class="mt-1 bg-white  ">
-                        <td class="">
-                            <div class="text-xs">
-                                {{ $user->name }}
-                            </div>
-                        </td>
-                        <td class="">
-                            <div class="text-xs">
-                                {{ $user->email }}
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+@section('content')
 
-        <div class="mt-2 overflow-x-auto bg-white border rounded p-1">
-            <div class="text-red-800 text-center"> المدير العام | General Director</div>
-            <table class="w-full text-sm text-center text-gray-500">
-                <thead class="text-xs text-gray-700 bg-gray-50 ">
-                    <tr>
-                        <th scope="col" class="text-xl px-6 py-3">
-                            name
-                        </th>
-                        <th scope="col" class="text-xl px-6 py-3">
-                            username
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $user)
-                    <tr class="mt-1 bg-white  ">
-                        <td class="">
-                            <div class="text-xs">
-                                {{ $user->name }}
-                            </div>
-                        </td>
-                        <td class="">
-                            <div class="text-xs">
-                                {{ $user->email }}
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
-
-        <div class="mt-2 overflow-x-auto bg-white border rounded p-1">
-            <div class="text-red-800 text-center"> الرئيس التنفيذي | Executive </div>
-            <table class="w-full text-sm text-center text-gray-500">
-                <thead class="text-xs text-gray-700 bg-gray-50 ">
-                    <tr>
-                        <th scope="col" class="text-xl px-6 py-3">
-                            name
-                        </th>
-                        <th scope="col" class="text-xl px-6 py-3">
-                            username
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $user)
-                    <tr class="mt-1 bg-white  ">
-                        <td class="">
-                            <div class="text-xs">
-                                {{ $user->name }}
-                            </div>
-                        </td>
-                        <td class="">
-                            <div class="text-xs">
-                                {{ $user->email }}
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
-        <div class="mt-2 overflow-x-auto bg-white border rounded p-1">
-            <div class="text-red-800 text-center">رئيس مجلس الإدارة | Chairman</div>
-            <table class="w-full text-sm text-center text-gray-500">
-                <thead class="text-xs text-gray-700 bg-gray-50 ">
-                    <tr>
-                        <th scope="col" class="text-xl px-6 py-3">
-                            name
-                        </th>
-                        <th scope="col" class="text-xl px-6 py-3">
-                            username
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $user)
-                    <tr class="mt-1 bg-white  ">
-                        <td class="">
-                            <div class="text-xs">
-                                {{ $user->name }}
-                            </div>
-                        </td>
-                        <td class="">
-                            <div class="text-xs">
-                                {{ $user->email }}
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
-        <div class="mt-2 overflow-x-auto bg-white border rounded p-1">
-            <div class="text-red-800 text-center">المحاسب | Accountant</div>
-            <table class="w-full text-sm text-center text-gray-500">
-                <thead class="text-xs text-gray-700 bg-gray-50 ">
-                    <tr>
-                        <th scope="col" class="text-xl px-6 py-3">
-                            name
-                        </th>
-                        <th scope="col" class="text-xl px-6 py-3">
-                            username
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $user)
-                    <tr class="mt-1 bg-white  ">
-                        <td class="">
-                            <div class="text-xs">
-                                {{ $user->name }}
-                            </div>
-                        </td>
-                        <td class="">
-                            <div class="text-xs">
-                                {{ $user->email }}
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
-
-        <div class="mt-2 overflow-x-auto bg-white border rounded p-1">
-            <div class="text-red-800 text-center">مدير الفرع Branch Manager</div>
-            <table class="w-full text-sm text-center text-gray-500">
-                <thead class="text-xs text-gray-700 bg-gray-50 ">
-                    <tr>
-                        <th scope="col" class="text-xl px-6 py-3">
-                            name
-                        </th>
-                        <th scope="col" class="text-xl px-6 py-3">
-                            username
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $user)
-                    <tr class="mt-1 bg-white  ">
-                        <td class="">
-                            <div class="text-xs">
-                                {{ $user->name }}
-                            </div>
-                        </td>
-                        <td class="">
-                            <div class="text-xs">
-                                {{ $user->email }}
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
-
-        <div class="mt-2 overflow-x-auto bg-white border rounded p-1">
-            <div class="text-red-800 text-center">مسؤل المخزن | Store Keeper</div>
-            <table class="w-full text-sm text-center text-gray-500">
-                <thead class="text-xs text-gray-700 bg-gray-50 ">
-                    <tr>
-                        <th scope="col" class="text-xl px-6 py-3">
-                            name
-                        </th>
-                        <th scope="col" class="text-xl px-6 py-3">
-                            username
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $user)
-                    <tr class="mt-1 bg-white  ">
-                        <td class="">
-                            <div class="text-xs">
-                                {{ $user->name }}
-                            </div>
-                        </td>
-                        <td class="">
-                            <div class="text-xs">
-                                {{ $user->email }}
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
-
-        <div class="mt-2 overflow-x-auto bg-white border rounded p-1">
-            <div class="text-red-800 text-center">مدير المشروع | Project Manager</div>
-            <table class="w-full text-sm text-center text-gray-500">
-                <thead class="text-xs text-gray-700 bg-gray-50 ">
-                    <tr>
-                        <th scope="col" class="text-xl px-6 py-3">
-                            name
-                        </th>
-                        <th scope="col" class="text-xl px-6 py-3">
-                            username
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $user)
-                    <tr class="mt-1 bg-white  ">
-                        <td class="">
-                            <div class="text-xs">
-                                {{ $user->name }}
-                            </div>
-                        </td>
-                        <td class="">
-                            <div class="text-xs">
-                                {{ $user->email }}
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
-
-        <!-- /content -->
-
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Dashboard v2</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard v2</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
-</x-app-layout>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <div class="col-md-12">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">{{ $userRole }}</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>name</th>
+                                        <th>username</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($users as $key => $user)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix">
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+@endsection

@@ -1,56 +1,72 @@
 <div>
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+        + {{__('New Stock')}}
+    </button>
 
-    <x-primary-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-stock')" class="text-xs">
-        + {{__('stock')}}
-    </x-primary-button>
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">New Stock</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
 
-    <x-modal name="create-stock" :show="$errors->isNotEmpty()" focusable>
+                <form method="post" action="{{ route('admin.stock.store') }}" class="p-2">
+                    @csrf
+                    <div class="modal-body">
 
-        <form action="{{ route('admin.stock.store') }}" method="POST" class="p-3 flex flex-col items-center">
-            @csrf
 
-            <div class="mt-4 w-full ">
-                description
+                        <div class="form-group {{ $errors->get('name') ? 'error':'' }} ">
+                            <label>description</label>
+                            <textarea class="form-control" rows="3" placeholder="description" name="name"></textarea>
+                        </div>
 
-                <x-textarea name="description" />
+
+                        <div class="form-group">
+                            <label> plate size</label>
+                            <select name="size" class="form-control">
+                                <option value="small">small</option>
+                                <option value="medium">medium</option>
+                                <option value="large">large</option>
+                                <option value="largeWithKhanjer">Large With Khanjer</option>
+                                <option value="bike">bike</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group {{ $errors->get('quantity') ? 'error':'' }} ">
+                            <label for="exampleInputquantity"> quantity | الكمية </label>
+                            <input type="number" class="form-control" id="exampleInputquantity" placeholder="quantity" name="quantity">
+                        </div>
+
+
+                        @if($errors->any())
+                        @foreach($errors->all() as $error)
+
+                        <div class="text-danger">
+                            {{ $error}}
+                        </div>
+
+                        @endforeach
+                        @endif
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"> {{__('Save')}} </button>
+                    </div>
+                    <input type="hidden" name="branch_id" value="{{ $branch->id }}">
+                </form>
+
             </div>
-
-            <div class="mt-4 w-full ">
-                plate size
-                <select name="size" class="w-full">
-                    <option value="small">small</option>
-                    <option value="medium">medium</option>
-                    <option value="large">large</option>
-                    <option value="largeWithKhanjer">Large With Khanjer</option>
-                    <option value="bike">bike</option>
-                </select>
-            </div>
-
-            <div class="mt-2 w-full flex flex-col items-center">
-                quantity
-                <x-text-input type="number" name="quantity" class="w-60 mt-1 block" />
-            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 
 
-            <div class="mt-4 w-60 flex justify-center">
-                <input type="hidden" name="branch_id" value="{{ $branch->id }}">
-                <x-secondary-button type="submit" class="w-full flex justify-center">
-                    save
-                </x-secondary-button>
 
-            </div>
-
-           
-            @foreach($errors->all() as $error)
-
-            <div class="text-red-400">
-                {{ $error}}
-            </div>
-
-            @endforeach
-       
-        </form>
-
-    </x-modal>
 </div>

@@ -1,52 +1,89 @@
-<x-app-layout>
+@extends('layouts.admin')
 
-    <div class="p-1 max-w-7xl mx-auto sm:px-6 lg:px-8">
+@section('content')
 
-        @include('inc._modal_create_branch')
-
-
-        <div class=" overflow-x-auto">
-            <table class="w-full text-sm text-center text-gray-500">
-                <thead class="text-xs text-gray-700 bg-gray-50 ">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            اسم الفرع
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            المستخدم
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $user)
-                    <tr class="mt-1 bg-white border-b ">
-                        <td class="px-6 py-4">
-                            <div class="text-xl">
-                                {{ $user->name }}
-                            </div>
-
-                            <div>
-                                <div class="border rounded p-1 w-32">
-                                    <a href="{{ route('admin.bill.index',$user->id) }}" class="text-xs">عرض المبيعات</a>
-                                </div>
-                                <div class="mt-1 border rounded p-1 w-32">
-                                    <a href="{{ route('admin.statement.index',$user->id) }}" class="text-xs">statement </a>
-                                </div>
-                                <div class="mt-1 border rounded p-1 w-32">
-                                    <a href="{{ route('admin.branch.stock.index',$user->id) }}" class="text-xs">stock </a>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="text-xl">
-                                {{ $user->email }}
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Dashboard v2</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard v2</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
+    <!-- /.content-header -->
 
-</x-app-layout>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <div class="col-md-12">
+                @include('inc._modal_create_branch')
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">الفروع</h3>
+
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">
+                                            اسم الفرع
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            المستخدم
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($users as $user)
+                                    <tr>
+                                        <td>
+                                            {{ $user->name }}
+
+                                            <div>
+                                                <a href="{{ route('admin.bill.index',$user->id) }}" class="p-2 d-block text-xs">عرض المبيعات</a>
+                                                <a href="{{ route('admin.statement.index',$user->id) }}" class="p-2 d-block text-xs">statement </a>
+                                                <a href="{{ route('admin.branch.stock.index',$user->id) }}" class="p-2 d-block text-xs">stock </a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{ $user->email }}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix">
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+@endsection

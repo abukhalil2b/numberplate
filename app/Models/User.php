@@ -45,4 +45,8 @@ class User extends Authenticatable
     public function stocks(){
         return $this->hasMany(Stock::class,'branch_id');
     }
+
+    public function roles(){
+        return $this->belongsToMany(Role::class,'user_role','user_id','role_id');
+    }
 }

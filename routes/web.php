@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\AdminStatisticController;
 use App\Http\Controllers\AdminStatementController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -18,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 | welcome
 |--------------------------------------------------------------------------
 */
+
+Route::get('index2', function(){
+    return view('index2');
+});
 
 Route::get('/', [HomeController::class,'welcome']);
 
@@ -42,7 +47,9 @@ Route::group(['middleware'=>'auth'],function(){
 
 Route::group(['middleware'=>'auth'],function(){
 
-    Route::get('admin/user/index', [UserController::class,'index'])->name('admin.user.index');
+    Route::get('admin/user/index/{role}', [UserController::class,'index'])->name('admin.user.index');
+
+    Route::get('admin/user/show/{user}', [UserController::class,'show'])->name('admin.user.show');
 ;
 
 });
@@ -88,6 +95,19 @@ Route::group(['middleware'=>'auth'],function(){
 
 /*
 |--------------------------------------------------------------------------
+| statistic
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware'=>'auth'],function(){
+
+    Route::get('admin/statistic/dashboard', [AdminStatisticController::class,'dashboard'])
+    ->name('admin.statistic.dashboard');
+
+});
+
+
+/*
+|--------------------------------------------------------------------------
 | items
 |--------------------------------------------------------------------------
 */
@@ -106,6 +126,9 @@ Route::group(['middleware'=>'auth'],function(){
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware'=>'auth'],function(){
+
+    Route::get('admin/stock/plate/index', [AdminStockController::class,'plateIndex'])
+    ->name('admin.stock.plate.index');
 
     Route::get('admin/stock/show/{stock}', [AdminStockController::class,'show'])
     ->name('admin.stock.show');
@@ -127,7 +150,6 @@ Route::group(['middleware'=>'auth'],function(){
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware'=>'auth'],function(){
-
 
     Route::get('stock/plate/index', [StockController::class,'plateIndex'])->name('stock.plate.index');
  

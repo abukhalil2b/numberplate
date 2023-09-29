@@ -26,7 +26,11 @@
 
         <div class="mt-5 flex justify-center">
             @auth
-            <a href="{{ url('/dashboard') }}" class="">دخول</a>
+            @if(auth()->user()->profile == 'admin')
+            <a href="{{ url('admin/dashboard') }}" class="">دخول</a>
+            @else
+            <a href="{{ url('branch/dashboard') }}" class="">دخول</a>
+            @endif
             @else
             <a href="{{ route('login') }}" class="">دخول</a>
             @endauth
