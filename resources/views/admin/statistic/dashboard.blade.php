@@ -45,10 +45,10 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div id="example1_wrapper" class="">
 
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-12" style="overflow: scroll;">
                                         <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
                                             <thead>
                                                 <tr>
@@ -137,7 +137,6 @@
     $(function() {
         $("#example1").DataTable({
             columnDefs: [{ targets: [0], sortable: false, orderable: false }],
-            "responsive": true,
             "lengthChange": true,
             "autoWidth": false,
             "buttons": ["excel", "pdf", "print", "colvis"],

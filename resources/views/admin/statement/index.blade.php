@@ -1,41 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.admin')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+@section('title', 'Statements')
 
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap5.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/mystyle.css') }}">
-    <script defer src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script defer src="{{ asset('js/jquery-3.7.0.js') }}"></script>
-    <script defer src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-    <script defer src="{{ asset('js/myscript.js') }}"></script>
+@section('content')
+<!-- DataTables -->
 
-    <title>{{ config('app.name', 'طباعة أرقام المركبات') }}</title>
-</head>
+<link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
-<body>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Dashboard v2</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard v2</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
-    <!-- container -->
-    <div class="mt-5 container">
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
 
-        <!-- card -->
-        <div class="card">
-            <div class="card-body">
-                statements
-            </div>
-        </div>
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <div class="col-md-12">
 
-        <!-- card -->
-        <div class="mt-1 card">
-            <div class="card-body table-responsive">
+                    <!-- TABLE: Statistic -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Statistic</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div id="example1_wrapper" class="">
 
-                <!-- table -->
-                <table id="example" class="display" style="width:100%">
-                    <thead>
+                                <div class="row">
+                                    <div class="col-sm-12" style="overflow: scroll;">
+                                        <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
+                                        <thead>
                         <tr>
                             <th>plate info</th>
                             <th>plate type</th>
@@ -85,21 +100,56 @@
                         </tr>
                         </thead>
                     </tfoot>
-                </table>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+
+                </div>
+                <!-- /.col -->
 
             </div>
-        </div>
+            <!-- /.row -->
+        </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
 
-        <!-- footer -->
-        <div class="p-3">
+@endsection
 
-        </div>
+@section('script')
+@parent
 
-        <!-- / container -->
-    </div>
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('AdminLTE-3.2.0/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('AdminLTE-3.2.0/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('AdminLTE-3.2.0/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
+<script>
+    $(function() {
+        $("#example1").DataTable({
+            columnDefs: [{ targets: [0], sortable: false, orderable: false }],
+            "lengthChange": true,
+            "autoWidth": false,
+            "buttons": ["excel", "pdf", "print", "colvis"],
+            lengthMenu: [50, 100, 200, 500],
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
+    });
+</script>
 
-</body>
-
-</html>
+@endsection
