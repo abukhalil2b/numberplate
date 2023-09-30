@@ -20,8 +20,8 @@
 
         </div>
 
-        <div class="mt-5 flex justify-center text-blue-800">
-            (النسخة الثانية)
+        <div class="mt-10 py-10 flex justify-center text-purple-800">
+            ( النسخة التجريبية الثالثة )
         </div>
 
         <div class="mt-5 flex justify-center">

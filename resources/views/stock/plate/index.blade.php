@@ -1,7 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-
-    </x-slot>
 
 
     <div class="mt-5">
@@ -29,7 +26,7 @@
             </thead>
             <tbody>
                 @foreach($plateStocks as $plateStock)
-                <tr class="border-b {{ $plateStock->instock == 1 ? 'bg-white ' : 'bg-red-100 border-red-600' }}">
+                <tr class="border-b">
                     <td class="px-6">
                         {{ $plateStock->size }}
                     </td>

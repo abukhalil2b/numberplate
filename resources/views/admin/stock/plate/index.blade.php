@@ -41,7 +41,13 @@
                                 <thead>
                                     <tr>
                                         <th>
+                                            date
+                                        </th>
+                                        <th>
                                             status
+                                        </th>
+                                        <th>
+                                            note
                                         </th>
                                         <th>
                                             size
@@ -55,22 +61,26 @@
                                         <th>
                                             description
                                         </th>
-                                        <th>
-                                            date
-                                        </th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                     @foreach($plateStocks as $plateStock)
-                                    <tr >
+                                    <tr>
+                                        <td class="text-xs">
+                                            {{ $plateStock->created_at->format('d-m-Y') }}
+                                        </td>
                                         <td>
                                             @if($plateStock->instock == 1)
                                             <span class="text-success">IN</span>
                                             @else
                                             <span class="text-warning">OUT</span>
                                             @endif
-                                       
+
+                                        </td>
+                                        <td class="text-xs">
+                                            {{ $plateStock->note }}
                                         </td>
                                         <td>
                                             {{ $plateStock->size }}
@@ -87,9 +97,7 @@
                                             <div class="text-xs">{{ $plateStock->description }}</div>
                                         </td>
 
-                                        <td class="text-xs">
-                                            {{ $plateStock->created_at->format('d-m-Y') }}
-                                        </td>
+
                                     </tr>
                                     @endforeach
 

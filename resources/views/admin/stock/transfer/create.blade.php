@@ -85,8 +85,16 @@
                                             <input type="hidden" name="size" value="{{ $size }}">
                                             <input type="hidden" name="fromBranch_id" value="{{ $fromBranch->id }}">
 
-
                                             <button class="btn btn-primary">transfer</button>
+                                            
+                                            <!-- show errors -->
+                                            @foreach($errors->all() as $error)
+
+                                            <div class="text-danger">
+                                                {{ $error}}
+                                            </div>
+
+                                            @endforeach
 
                                         </td>
                                     </tr>
@@ -104,6 +112,7 @@
         </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->
+
 </div>
 <!-- /.content-wrapper -->
 

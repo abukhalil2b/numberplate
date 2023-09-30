@@ -33,22 +33,22 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">مبيعات اليوم</h3>
+                            <h3 class="card-title"> sales {{ $todayDate }}</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th>
                                             plate
                                         </th>
 
-                                        <th scope="col" class="px-6 py-3">
+                                        <th>
                                             single/pair
                                         </th>
 
-                                        <th scope="col" class="px-6 py-3">
+                                        <th>
                                             رصد
                                         </th>
 
@@ -58,17 +58,17 @@
                                     @foreach($latestBills as $latestBill)
                                     <tr class="bg-white border-b ">
 
-                                        <td class="px-6 py-4">
+                                        <td class="text-xs">
                                             <div>{{ $latestBill->type }}</div>
                                             <span>{{ $latestBill->plate_num }}</span>
                                             <span>{{ $latestBill->plate_code }}</span>
                                         </td>
 
-                                        <td class="px-6 py-4">
+                                        <td>
                                             {{ $latestBill->required }}
                                         </td>
 
-                                        <td class="px-6 py-4">
+                                        <td>
                                             {{ $latestBill->ref_num }}
                                         </td>
 

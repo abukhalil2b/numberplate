@@ -55,10 +55,11 @@
                                         <td>
                                             {{ $user->name }}
 
-                                            <div>
-                                                <a href="{{ route('admin.bill.index',$user->id) }}" class="p-2 d-block text-xs">عرض المبيعات</a>
-                                                <a href="{{ route('admin.statement.index',$user->id) }}" class="p-2 d-block text-xs">statement </a>
-                                                <a href="{{ route('admin.branch.stock.index',$user->id) }}" class="p-2 d-block text-xs">stock </a>
+                                            <div class="d-flex justify-content-between">
+                                                <a href="{{ route('admin.bill.today_index',$user->id) }}" class="btn btn-xs btn-secondary">  today sales </a>
+                                                <a href="{{ route('admin.bill.index',$user->id) }}" class="btn btn-xs btn-secondary">  sales </a>
+                                                <a href="{{ route('admin.statement.index',$user->id) }}" class="btn btn-xs btn-secondary">statement </a>
+                                                <a href="{{ route('admin.branch.stock.index',$user->id) }}" class="btn btn-xs btn-secondary">stock </a>
                                             </div>
                                         </td>
                                         <td>

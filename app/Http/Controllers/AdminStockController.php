@@ -13,26 +13,16 @@ class AdminStockController extends Controller
     {
         $loggedUser = auth()->user();
 
-        if ($loggedUser->profile == 'admin') {
-            
-            $plateStocks = Stock::where('cate', 'plate')
+        $plateStocks = Stock::where('cate', 'plate')
             ->latest('id')
             ->get();
-
-        } else {
-
-            $plateStocks = Stock::where(['branch_id' => $loggedUser->id, 'cate' => 'plate'])
-            ->latest('id')
-            ->get();
-        }
-
 
         return view('admin.stock.plate.index', compact('plateStocks'));
     }
 
     public function show(Stock $stock)
     {
-        return view('admin.stock.show',compact('stock'));
+        return view('admin.stock.show', compact('stock'));
     }
 
 
@@ -42,52 +32,52 @@ class AdminStockController extends Controller
         // return $request->all();
 
         $request->validate([
-            'size'=>'required',
-            'quantity'=>'required',
-            'branch_id'=>'required'
+            'size' => 'required',
+            'quantity' => 'required',
+            'branch_id' => 'required'
         ]);
 
-        $branch = User::where(['profile'=>'branch','id'=>$request->branch_id])->first();
+        $branch = User::where(['profile' => 'branch', 'id' => $request->branch_id])->first();
 
-        if(! $branch){
+        if (!$branch) {
             abort(404);
         }
 
-      
-       
+
+
         Stock::create([
-            'instock'=> 1,
+            'instock' => 1,
 
-            'cate'=>'plate',
-            
-            'size'=>$request->size,
-            
-            'quantity'=>$request->quantity,
+            'cate' => 'plate',
 
-            'description'=>$request->description,
-            
-            'branch_id'=>$branch->id,
+            'size' => $request->size,
 
-            'note'=>'received'
+            'quantity' => $request->quantity,
+
+            'description' => $request->description,
+
+            'branch_id' => $branch->id,
+
+            'note' => 'received'
         ]);
 
         return back();
     }
 
 
-    public function transferCreate(User $fromBranch,$size)
+    public function transferCreate(User $fromBranch, $size)
     {
-        $branches = User::where('profile','branch')
-        ->whereNot('id',$fromBranch->id)
-        ->get();
+        $branches = User::where('profile', 'branch')
+            ->whereNot('id', $fromBranch->id)
+            ->get();
 
         $plateStock = Stock::where([
             'cate' => 'plate',
             'branch_id' => $fromBranch->id,
-            'size'=>$size
+            'size' => $size
         ])->selectRaw('sum(quantity) as quantity')->first();
 
-        return view('admin.stock.transfer.create',compact('branches','fromBranch','size','plateStock'));
+        return view('admin.stock.transfer.create', compact('branches', 'fromBranch', 'size', 'plateStock'));
     }
 
 
@@ -99,58 +89,57 @@ class AdminStockController extends Controller
         // return $stock;
 
         $request->validate([
-            'fromBranch_id'=>'required',
-            'toBranch_id'=>'required'
+            'fromBranch_id' => 'required',
+            'toBranch_id' => 'required',
+            'quantity'=>'required|numeric|gt:0'
         ]);
 
-        $fromBranch = User::where(['profile'=>'branch','id'=>$request->fromBranch_id])->first();
+        $fromBranch = User::where(['profile' => 'branch', 'id' => $request->fromBranch_id])->first();
 
-        if(! $fromBranch ){
+        if (!$fromBranch) {
             abort(404);
         }
 
-        $toBranch = User::where(['profile'=>'branch','id'=>$request->toBranch_id])->first();
+        $toBranch = User::where(['profile' => 'branch', 'id' => $request->toBranch_id])->first();
 
-        if(! $toBranch ){
+        if (!$toBranch) {
             abort(404);
         }
 
         Stock::create([
-            'instock'=> 0,
+            'instock' => 0,
 
-            'cate'=>'plate',
-            
-            'size'=>$request->size,
-            
-            'quantity'=> - $request->quantity,
+            'cate' => 'plate',
 
-            'description'=>'transfered to ' . $toBranch->name,
-            
-            'branch_id'=>$fromBranch->id,
+            'size' => $request->size,
 
-            'note'=>'transfer'
+            'quantity' => -$request->quantity,
+
+            'description' => 'transfered to ' . $toBranch->name,
+
+            'branch_id' => $fromBranch->id,
+
+            'note' => 'transferred'
         ]);
 
 
         Stock::create([
-            'instock'=> 1,
+            'instock' => 1,
 
-            'cate'=>'plate',
-            
-            'size'=>$request->size,
-            
-            'quantity'=> $request->quantity,
+            'cate' => 'plate',
 
-            'description'=>'received from ' . $fromBranch->name,
-            
-            'branch_id'=>$toBranch->id,
+            'size' => $request->size,
 
-            'note'=>'received'
+            'quantity' => $request->quantity,
+
+            'description' => 'received from ' . $fromBranch->name,
+
+            'branch_id' => $toBranch->id,
+
+            'note' => 'received'
         ]);
 
 
-        return redirect()->route('admin.branch.stock.index',$fromBranch->id);
+        return redirect()->route('admin.branch.stock.index', $fromBranch->id);
     }
-
-   
 }

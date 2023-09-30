@@ -8,31 +8,39 @@ use Illuminate\Http\Request;
 
 class StockController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function plateIndex()
+
+    public function plateReceived()
     {
         $loggedUser = auth()->user();
 
-        if ($loggedUser->profile == 'admin') {
-            
-            $plateStocks = Stock::where('cate', 'plate')
+        $plateStocks = Stock::where(['branch_id' => $loggedUser->id, 'cate' => 'plate', 'note' => 'received'])
             ->latest('id')
             ->get();
-
-        } else {
-
-            $plateStocks = Stock::where(['branch_id' => $loggedUser->id, 'cate' => 'plate'])
-            ->latest('id')
-            ->get();
-        }
-
 
         return view('stock.plate.index', compact('plateStocks'));
     }
 
+    public function plateSold()
+    {
+        $loggedUser = auth()->user();
 
+        $plateStocks = Stock::where(['branch_id' => $loggedUser->id, 'cate' => 'plate', 'note' => 'sold'])
+            ->latest('id')
+            ->get();
+
+        return view('stock.plate.index', compact('plateStocks'));
+    }
+
+    public function plateTransferred()
+    {
+        $loggedUser = auth()->user();
+
+        $plateStocks = Stock::where(['branch_id' => $loggedUser->id, 'cate' => 'plate', 'note' => 'transferred'])
+            ->latest('id')
+            ->get();
+
+        return view('stock.plate.index', compact('plateStocks'));
+    }
 
 
 

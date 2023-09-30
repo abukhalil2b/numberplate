@@ -76,6 +76,8 @@ Route::group(['middleware'=>'auth'],function(){
 */
 Route::group(['middleware'=>'auth'],function(){
 
+    Route::get('admin/bill/today_index/{branch}', [AdminBillController::class,'todayIndex'])->name('admin.bill.today_index');
+
     Route::get('admin/bill/index/{branch}', [AdminBillController::class,'index'])->name('admin.bill.index');
 
 });
@@ -151,7 +153,11 @@ Route::group(['middleware'=>'auth'],function(){
 */
 Route::group(['middleware'=>'auth'],function(){
 
-    Route::get('stock/plate/index', [StockController::class,'plateIndex'])->name('stock.plate.index');
+    Route::get('stock/plate/received', [StockController::class,'plateReceived'])->name('stock.plate.received');
+
+    Route::get('stock/plate/sold', [StockController::class,'plateSold'])->name('stock.plate.sold');
+
+    Route::get('stock/plate/transferred', [StockController::class,'plateTransferred'])->name('stock.plate.transferred');
  
 });
 

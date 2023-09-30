@@ -23,6 +23,14 @@
 
 <hr class="mt-5">
 
-<x-nav-link :href="route('stock.plate.index')" :active="request()->routeIs('stock.plate.index')" class="w-full mt-4">
-    plate stock
+<x-nav-link :href="route('stock.plate.sold')" :active="request()->routeIs('stock.plate.sold')" class="w-full mt-4">
+   sold plate
+</x-nav-link>
+
+<x-nav-link :href="route('stock.plate.transferred')" :active="request()->routeIs('stock.plate.transferred')" class="w-full mt-4">
+   transferred plate
+</x-nav-link>
+
+<x-nav-link :href="route('stock.plate.received')" :active="request()->routeIs('stock.plate.received')" class="w-full mt-4">
+   received plate
 </x-nav-link>

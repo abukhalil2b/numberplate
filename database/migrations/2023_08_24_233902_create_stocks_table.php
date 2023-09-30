@@ -28,7 +28,7 @@ return new class extends Migration
 
             $table->text('description')->nullable();//
 
-            $table->string('note',10)->default('received');//received - transfer - sold
+            $table->string('note',15)->default('received');//received - transferred - sold
 
             $table->timestamps();
         });
