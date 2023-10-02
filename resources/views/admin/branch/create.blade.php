@@ -31,10 +31,11 @@
                 <!-- Left col -->
                 <div class="col-md-12">
                 @include('inc._modal_create_branch')
-                    <div class="card">
+                    <div class="mt-1 card">
                         <div class="card-header">
-                            <h3 class="card-title">الفروع</h3>
-
+                            <h3 class="card-title">
+                            {{__('branches')}}
+                            </h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -42,10 +43,10 @@
                                 <thead>
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
-                                            اسم الفرع
+                                            {{__('branch name')}}
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            المستخدم
+                                            {{ __('username') }}
                                         </th>
                                     </tr>
                                 </thead>

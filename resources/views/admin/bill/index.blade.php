@@ -56,9 +56,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach($latestBills as $latestBill)
-                                    <tr class="bg-white border-b ">
+                                    <tr class="bg-white border-b text-xs">
 
-                                        <td class="text-xs">
+                                        <td class="">
                                             <div>{{ $latestBill->type }}</div>
                                             <span>{{ $latestBill->plate_num }}</span>
                                             <span>{{ $latestBill->plate_code }}</span>

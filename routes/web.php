@@ -105,6 +105,9 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('admin/statistic/dashboard', [AdminStatisticController::class,'dashboard'])
     ->name('admin.statistic.dashboard');
 
+    Route::get('admin/statistic/index/{branch}', [AdminStatisticController::class,'index'])
+    ->name('admin.statistic.index');
+
 });
 
 
