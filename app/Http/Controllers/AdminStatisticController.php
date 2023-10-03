@@ -27,7 +27,7 @@ class AdminStatisticController extends Controller
         
         $thisMonth = $months[0];
 
-        $statistics = DB::select("SELECT `bills`.`type`,`size`,`required`,SUM(`quantity`) as total FROM `items` JOIN `bills` ON `items`.`bill_id` = `bills`.`id` WHERE `status` = 'success' AND `cate` = 'plate' AND `items`.`branch_id` = ? AND month(items.created_at) = ? GROUP BY `required`,`size`;", [$branch->id, $thisMonth]);
+        $statistics = DB::select("SELECT `bills`.`type`,`size`,`required`,SUM(`quantity`) as total FROM `items` JOIN `bills` ON `items`.`bill_id` = `bills`.`id` WHERE `status` = 'success' AND `cate` = 'plate' AND `items`.`branch_id` = ? AND month(items.created_at) = ? GROUP BY `type`,`required`,`size`;", [$branch->id, $thisMonth]);
 
         return view('admin.statistic.index', compact('statistics', 'thisMonth', 'branch'));
     }

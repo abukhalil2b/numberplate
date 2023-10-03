@@ -20,9 +20,6 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::get('index2', function(){
-    return view('index2');
-});
 
 Route::get('/', [HomeController::class,'welcome']);
 
