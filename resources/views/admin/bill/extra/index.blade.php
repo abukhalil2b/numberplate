@@ -9,12 +9,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Dashboard v2</h1>
+                    <h1 class="m-0"> {{ $branch->name }}</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard v2</li>
+                        <li class="breadcrumb-item active"> {{ $branch->name }}</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -33,7 +33,18 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title"> sales {{ $todayDate }}</h3>
+                            <form action="{{ route('admin.bill.extra.index',$branch->id) }}" method="POST">
+                                @csrf
+                                <label>
+                                    from date
+                                    <input type="date" name="date_from" class="form-control" value="{{ $date_from }}">
+                                </label>
+                                <label>
+                                    to date
+                                    <input type="date" name="date_to" class="form-control" value="{{ $date_to }}">
+                                </label>
+                                <button class="btn btn-primary">search</button>
+                            </form>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -41,37 +52,28 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            plate
+                                            description
                                         </th>
-
                                         <th>
-                                            single/pair
+                                            quantity
                                         </th>
-
                                         <th>
-                                            رصد
+                                            total price
                                         </th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($latestBills as $latestBill)
+                                    @foreach($items as $item)
                                     <tr class="bg-white border-b text-xs">
-
-                                        <td class="">
-                                            <div>{{ $latestBill->type }}</div>
-                                            <span>{{ $latestBill->plate_num }}</span>
-                                            <span>{{ $latestBill->plate_code }}</span>
-                                        </td>
-
                                         <td>
-                                            {{ $latestBill->required }}
+                                            {{ $item->description }}
                                         </td>
-
                                         <td>
-                                            {{ $latestBill->ref_num }}
+                                            {{ $item->quantity }}
                                         </td>
-
+                                        <td>
+                                            {{ $item->totalPrice }}
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -86,7 +88,7 @@
                 </div>
                 <!-- /.col -->
             </div>
-            <!-- /.row -->
+
         </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->

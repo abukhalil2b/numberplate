@@ -24,13 +24,13 @@
 <hr class="mt-5">
 
 <x-nav-link :href="route('stock.plate.sold')" :active="request()->routeIs('stock.plate.sold')" class="w-full mt-4">
-   sold plate
+   {{ __('plate sold') }}
 </x-nav-link>
 
 <x-nav-link :href="route('stock.plate.transferred')" :active="request()->routeIs('stock.plate.transferred')" class="w-full mt-4">
-   transferred plate
+   {{ __('plate transferred') }}
 </x-nav-link>
 
 <x-nav-link :href="route('stock.plate.received')" :active="request()->routeIs('stock.plate.received')" class="w-full mt-4">
-   received plate
+   {{ __('plate received') }}
 </x-nav-link>

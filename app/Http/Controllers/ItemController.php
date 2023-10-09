@@ -73,6 +73,10 @@ class ItemController extends Controller
      */
     public function extraStore(Request $request)
     {
+
+        $request->validate([
+            'payment_method'=>'required'
+        ]);
         // return $request->all();
 
         $loggedUser = auth()->user();

@@ -1,13 +1,14 @@
 <div class="overflow-x-auto">
+
     <table class="w-full text-sm text-center text-gray-500">
         <thead class="text-xs text-gray-50 bg-gray-600 ">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    plate
+                    {{ __('plate') }}
                 </th>
 
                 <th scope="col" class="px-6 py-3">
-                    single/pair
+                    {{ __('single/pair') }}
                 </th>
                
                 <th scope="col" class="px-6 py-3">
@@ -15,7 +16,7 @@
                 </th>
 
                 <th scope="col" class="px-6 py-3">
-                details
+                {{ __('details') }}
                 </th>
             </tr>
         </thead>
@@ -39,7 +40,7 @@
 
                 <td class="px-6 py-4">
                     <a href="{{ route('item.index',$latestBill->id) }}">
-                        show
+                         {{ __('show') }}
                     </a>
                 </td>
             </tr>

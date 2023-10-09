@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,4 +38,22 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
+    public function localizationStore($local)
+    {
+        if (!in_array($local, ['en', 'ar'])) {
+            abort(400);
+        }
+
+        session(['localization' => $local]);
+
+        $loggedUser = auth()->user();
+
+        if ($loggedUser->profile == 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+
+        if ($loggedUser->profile == 'branch') {
+            return redirect()->route('branch.dashboard');
+        }
+    }
 }

@@ -34,6 +34,20 @@
             <div class="mt-3">
                 {{ $slot }}
             </div>
+
+            <div class="p-3 mt-3">
+
+                @if($errors->any())
+                @foreach($errors->all() as $error)
+
+                <div class="text-red-400">
+                    {{ $error}}
+                </div>
+
+                @endforeach
+                @endif
+            </div>
+
         </main>
     </div>
 

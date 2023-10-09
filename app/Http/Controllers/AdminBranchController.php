@@ -14,7 +14,7 @@ class AdminBranchController extends Controller
     public function stockIndex(User $branch)
     {
 
-        $plateStocks = Stock::where([
+        $groupedPlateStocks = Stock::where([
             'cate' => 'plate',
             'branch_id' => $branch->id,
 
@@ -22,7 +22,20 @@ class AdminBranchController extends Controller
             ->groupBy('size')
             ->get();
 
-        return view('admin.branch.stock.index', compact('plateStocks', 'branch'));
+        // $loggedUser = auth()->user();
+
+        $branchPlateStocks = Stock::where('cate', 'plate')
+            ->latest('id')
+            ->where('branch_id', $branch->id)
+            ->get();
+
+        return view('admin.branch.stock.index', compact('groupedPlateStocks', 'branch', 'branchPlateStocks'));
+    }
+
+    public function branchShow(User $branch)
+    {
+
+        return view('admin.branch.show', compact('branch'));
     }
 
     public function branchCreate()

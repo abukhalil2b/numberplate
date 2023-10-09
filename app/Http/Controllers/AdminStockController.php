@@ -9,17 +9,6 @@ use Illuminate\Http\Request;
 class AdminStockController extends Controller
 {
 
-    public function plateIndex()
-    {
-        $loggedUser = auth()->user();
-
-        $plateStocks = Stock::where('cate', 'plate')
-            ->latest('id')
-            ->get();
-
-        return view('admin.stock.plate.index', compact('plateStocks'));
-    }
-
     public function show(Stock $stock)
     {
         return view('admin.stock.show', compact('stock'));
@@ -33,7 +22,7 @@ class AdminStockController extends Controller
 
         $request->validate([
             'size' => 'required',
-            'quantity' => 'required',
+            'quantity' => 'required|numeric|gt:0',
             'branch_id' => 'required'
         ]);
 

@@ -65,25 +65,22 @@
             </a>
         </li>
 
+        @foreach(App\Models\User::where('profile','branch')->get() as $branch)
+
         <li class="nav-item">
-            <a href="{{ route('admin.stock.plate.index') }}" class="nav-link">
+            <a href="{{ route('admin.branch.show',$branch->id) }}" class="nav-link">
                 <i class="nav-icon fas fa-store"></i>
                 <p>
-                    stock monitor
+                    {{$branch->email}}
+                </p>
+                |
+                <p class="text-xs">
+                    {{$branch->name}}
                 </p>
             </a>
         </li>
 
-        <li class="nav-item">
-            <a href="{{ route('admin.statistic.dashboard') }}" class="nav-link">
-                <i class="nav-icon fas fa-chart-bar"></i>
-                <p>
-                    statistic
-                </p>
-            </a>
-        </li>
+        @endforeach
 
-
-        
     </ul>
 </nav>

@@ -2,23 +2,22 @@
 
 
     <div class="mt-5">
+        <div class="p-1 rounded border m-1">
+            <div class="text-xl"> {{ __($title) }}: </div>
+            <div> {{ $loggedUser->name }}</div>
+        </div>
         <table class="w-full text-sm text-center text-gray-500">
             <thead class="text-xs text-gray-50 bg-gray-600 ">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        size
+                        {{ __('size') }}
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        quantity
+                        {{ __('quantity') }}
                     </th>
+
                     <th scope="col" class="px-6 py-3">
-                        branch
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        description
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        date
+                        {{ __('date') }}
                     </th>
 
 
@@ -28,18 +27,10 @@
                 @foreach($plateStocks as $plateStock)
                 <tr class="border-b">
                     <td class="px-6">
-                        {{ $plateStock->size }}
+                        {{ __($plateStock->size) }}
                     </td>
                     <td class="px-6 py-1">
                         {{ abs($plateStock->quantity) }}
-                    </td>
-
-                    <td class="px-6 py-1">
-                        {{ $plateStock->branch->name }}
-                    </td>
-
-                    <td class="px-6 py-1 text-xs">
-                        {{ $plateStock->description }}
                     </td>
 
                     <td class="text-xs">

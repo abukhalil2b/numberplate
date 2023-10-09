@@ -180,7 +180,7 @@ return [
     */
 
     'attributes' => [
-
+        'payment_method'=>'طريقة الدفع',
         'ref_num' => 'رصد',
         'branch_id' => 'الفرع',
         'quantity' => 'الكمية'

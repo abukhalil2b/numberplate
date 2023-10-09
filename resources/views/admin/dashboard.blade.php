@@ -9,12 +9,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Dashboard v2</h1>
+                    <h1 class="m-0">{{ __('today sales') }}</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard v2</li>
+                        <li class="breadcrumb-item active">{{ __('today sales') }}</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -31,11 +31,65 @@
                 <!-- Left col -->
                 <div class="col-md-12">
 
-                    <div class="pb-2 text-xl mt-5">
-                        مبيعات اليوم
-                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
 
-                    @include('inc._bill_index')
+                                مبيعات اليوم
+
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">
+                                            branch name
+                                        </th>
+
+                                        <th scope="col" class="px-6 py-3">
+                                            plate
+                                        </th>
+
+                                        <th scope="col" class="px-6 py-3">
+                                            single/pair
+                                        </th>
+
+                                        <th scope="col" class="px-6 py-3">
+                                            رصد
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($latestBills as $latestBill)
+                                    <tr class="bg-white border-b ">
+                                        <td>
+                                            {{ $latestBill->branch->name }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div>{{ $latestBill->type }}</div>
+                                            <span>{{ $latestBill->plate_num }}</span>
+                                            <span>{{ $latestBill->plate_code }}</span>
+                                        </td>
+
+                                        <td class="px-6 py-4">
+                                            {{ $latestBill->required }}
+                                        </td>
+
+                                        <td class="px-6 py-4">
+                                            {{ $latestBill->ref_num }}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix">
+
+                        </div>
+                    </div>
 
                 </div>
                 <!-- /.col -->

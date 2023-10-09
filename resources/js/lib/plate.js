@@ -46,20 +46,21 @@ export default function () {
                     if (this.plates[0] == this.plates[1]) {
                         this.sizeForStatement = size;
                     } else {
+                        // CASE: small and medium THEN size = medium
                         if (
                             this.plates[0] == "medium" &&
                             this.plates[1] == "small"
                         ) {
-                            this.sizeForStatement = "meduim";
+                            this.sizeForStatement = "medium";
                         }
 
                         if (
                             this.plates[1] == "medium" &&
                             this.plates[0] == "small"
                         ) {
-                            this.sizeForStatement = "meduim";
+                            this.sizeForStatement = "medium";
                         }
-
+                        // CASE: medium and large THEN size = large
                         if (
                             this.plates[0] == "large" &&
                             this.plates[1] == "medium"
@@ -70,6 +71,21 @@ export default function () {
                         if (
                             this.plates[1] == "large" &&
                             this.plates[0] == "medium"
+                        ) {
+                            this.sizeForStatement = "large";
+                        }
+
+                        // CASE: small and large THEN size = large
+                        if (
+                            this.plates[0] == "large" &&
+                            this.plates[1] == "small"
+                        ) {
+                            this.sizeForStatement = "large";
+                        }
+
+                        if (
+                            this.plates[1] == "large" &&
+                            this.plates[0] == "small"
                         ) {
                             this.sizeForStatement = "large";
                         }
@@ -155,6 +171,8 @@ export default function () {
                             this.largeWithKhanjer = this.largeWithKhanjer + 1;
                             this.plates.push("largeWithKhanjer");
                         }
+
+                        this.sizeForStatement = "largeWithKhanjer";
                         break;
 
                     case "single":
@@ -162,6 +180,8 @@ export default function () {
                             this.largeWithKhanjer = this.largeWithKhanjer + 1;
                             this.plates.push("largeWithKhanjer");
                         }
+
+                        this.sizeForStatement = "largeWithKhanjer";
                         break;
                 }
             }
@@ -175,6 +195,8 @@ export default function () {
                             this.bike = this.bike + 1;
                             this.plates.push("bike");
                         }
+
+                        this.sizeForStatement = "bike";
                         break;
 
                     case "single":
@@ -182,6 +204,8 @@ export default function () {
                             this.bike = this.bike + 1;
                             this.plates.push("bike");
                         }
+
+                        this.sizeForStatement = "bike";
                         break;
                 }
             }

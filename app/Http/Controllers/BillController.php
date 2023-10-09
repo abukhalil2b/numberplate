@@ -117,7 +117,7 @@ class BillController extends Controller
                 'branch_id' => $loggedUser->id
             ]);
 
-            if ($request->extra) {
+            if ($request->extra_option != 'no') {
                 if ($request->extra_option == 'fixing_plate') {
                     $description = 'fixing plate';
                     $price = 1;

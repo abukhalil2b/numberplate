@@ -7,56 +7,48 @@
 
     <x-modal name="create-extra" :show="$errors->isNotEmpty()" focusable>
 
-        <form action="{{ route('item.extra.store') }}" method="POST" class="p-3 flex flex-col items-center">
+        <form action="{{ route('item.extra.store') }}" method="POST" class="p-3 flex flex-col items-start">
             @csrf
 
-            <div class="mt-6 flex flex-col gap-3" x-data="extraJob">
+            <p class="mt-3">{{ __('Extra') }}:</p>
+            <label class="block mt-2">
+                <input type="radio" name="extra_option" value="no" checked>
+                {{ __('NO') }}
+            </label>
 
-                <div class="mt-4 w-64">
+            <label class="block mt-2">
+                <input type="radio" name="extra_option" value="fixing_plate">
+                {{ __('fixing plate') }}: 1 R.O
+            </label>
 
-                    <div @click="fixingPlateOnly" class="mt-3 card w-full cursor-pointer" :class="extra_option == 'fixing_plate' ? 'selectedCard' : '' ">
-                        <span class="text-xs">fixing plate: 1 R.O</span>
-                    </div>
-                    <div @click="fixingPlateWithFrame" class="mt-1 card w-full cursor-pointer" :class="extra_option == 'frame_with_fixing_plate' ? 'selectedCard' : '' ">
-                        <span class="text-xs">frame with fixing plate: 3 R.O</span>
-                    </div>
-                </div>
+            <label class="block mt-2">
+                <input type="radio" name="extra_option" value="frame_with_fixing_plate">
+                {{ __('frame with fixing plate') }}: 3 R.O
+            </label>
 
-
-                <div class="w-full flex gap-1">
-                    <div @click="cashPayment" class="mt-1 card w-full cursor-pointer" :class="payment_method == 'cash' ? 'selectedCard' : '' ">
-                        <span class="text-xs">cash</span>
-                    </div>
-                    <div @click="visaPayment" class="mt-1 card w-full cursor-pointer" :class="payment_method == 'visa' ? 'selectedCard' : '' ">
-                        <span class="text-xs">visa</span>
-                    </div>
-                </div>
-
-                <input type="hidden" name="extra" x-model="extra">
-                <input type="hidden" name="extra_option" x-model="extra_option">
-                <input type="hidden" name="payment_method" x-model="payment_method">
-            </div>
-
+            <p class="mt-3">{{ __('Payment Method') }}:</p>
+            <label class="block mt-2">
+                <input type="radio" name="payment_method" value="cash">
+                {{ __('cash') }}
+            </label>
+            <label class="block mt-2">
+                <input type="radio" name="payment_method" value="visa">
+                {{ __('visa') }}
+            </label>
 
             <input type="hidden" name="bill_id" value="{{ $bill->id }}">
 
-            <div class="mt-4 w-60 flex justify-center">
+            <div class="mt-4 w-full flex gap-2">
 
-                <x-secondary-button type="submit" class="w-full flex justify-center">
-                    save
+                <x-primary-button type="submit" class="w-full flex justify-center">
+                    {{ __('save') }}
+                </x-primary-button>
+                <x-secondary-button x-on:click.prevent="show = false"  class="w-full flex justify-center">
+                {{ __('cancel') }}
                 </x-secondary-button>
 
             </div>
 
-            @if($errors->any())
-            @foreach($errors->all() as $error)
-
-            <div class="text-red-400">
-                {{ $error}}
-            </div>
-
-            @endforeach
-            @endif
         </form>
 
     </x-modal>

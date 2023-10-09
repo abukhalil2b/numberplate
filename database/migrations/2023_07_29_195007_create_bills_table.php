@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->string('required',10)->default('pair');//single - pair
             
-            $table->string('type',20)->default('private');//private - commercial - diplomatic - temporary - export - specific - government - other
+            $table->string('type',20)->default('private');//private - commercial - diplomatic - temporary - export - specific - learners - government - other
            
             $table->string('plate_num',20)->nullable();
             
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->unsignedBigInteger('branch_id');
             $table->foreign('branch_id')->references('id')->on('users')->cascadeOnDelete();
             
-            $table->string('payment_method',10)->default('cash');//cash - visa
+            $table->string('payment_method',10)->nullable();//null - cash - visa
             
             $table->timestamps();
         });

@@ -42,16 +42,6 @@
                             <input type="number" class="form-control" id="exampleInputquantity" placeholder="quantity" name="quantity">
                         </div>
 
-
-                        @if($errors->any())
-                        @foreach($errors->all() as $error)
-
-                        <div class="text-danger">
-                            {{ $error}}
-                        </div>
-
-                        @endforeach
-                        @endif
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

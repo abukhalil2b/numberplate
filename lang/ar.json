@@ -1,4 +1,56 @@
 {
-    "name":"name",
+    "plate received":"لوحات تم استلامها",
+    "plate sold":"لوحات تم بيعها",
+    "plate transferred":"لوحات تم نقلها",
+
+    "save":"حفظ",
+    "cancel":"إلغاء",
+    "NO":"لا",
+    "Extra":"إضافات",
+    "visa":"فيزا",
+    "cash":"نقداً",
+    "Payment Method":"طريقة الدفع",
+    "frame with fixing plate":"شراء فريم مع التركيب",
+    "fixing plate":"التركيب فقط",
+
+    "private":"خصوصي",
+    "commercial":"نجاري",
+    "diplomatic":"دبلوماسي",
+    "temporary":"فحص",
+    "export":"تصدير",
+    "specific use":"محدود الإستخدام",
+    "learners":"تعليم",
+    "government":"حكومي",
+    "other":"آخر",
+
+    "show stock balance":"مشاهدة المتبقي قي المخزن",
+    "select plate type":"اختر نوع اللوحة",
+
+    "code":"الرمز",
+    "number":"الرقم",
+    "single":"لوحة واحدة",
+    "pair":"لوحتين",
+
+    "failed print":"فشل الطباعة",
+    "printing status":"حالة الطباعة",
+    "quantity":"الكمية",
+    "success":"نجح",
+    "failed":"فشل",
+    "size":"الحجم",
+    "price":"السعر",
+    "extra":"إضافات",
+
+    "plate":"اللوحة",
+    "single/pair":"فردي/زوجي",
+    "details":"تفاصيل",
+    "show":"عرض",
+    
+    "small":"صغير",
+    "medium":"متوسط",
+    "large":"كبير",
+    "largeWithKhanjer":"كبير مع خنجر",
+    "large with khanjer":"كبير مع خنجر",
+    "bike":"دراجة",
+
     "email":"username"
 }

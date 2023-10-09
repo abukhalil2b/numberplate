@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->mediumInteger('quantity')->default(1);
             
-            $table->double('price')->default(1.0);
+            $table->decimal('price',6,3)->default(1.000);
 //Special PHP Packages For Money
 
             $table->unsignedBigInteger('bill_id')->nullable();// can be null in case bought purfume 

@@ -7,7 +7,7 @@
         <div class="p-1 max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             <div class="w-full bg-white p-3 border rounded shadow">
-                <div> {{ $bill->type }}</div>
+                <div> {{ __($bill->type) }}</div>
                 <span>{{ $bill->plate_num }}</span>
                 <span>{{ $bill->plate_code }}</span>
             </div>
@@ -17,13 +17,13 @@
                     <thead class="text-xs text-gray-50 bg-gray-600 ">
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                size
+                                {{ __('size') }}
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                quantity
+                                {{ __('quantity') }}
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                printing status
+                                {{ __('printing status') }}
                             </th>
                         </tr>
                     </thead>
@@ -33,7 +33,7 @@
                             <td class="px-6 py-4">
 
                                 <div>
-                                    {{ $plateItem->size }}
+                                    {{ __($plateItem->size) }}
                                 </div>
                             </td>
                             <td class="px-6 py-4">
@@ -41,7 +41,7 @@
                             </td>
 
                             <td class="px-6 py-4">
-                                {{ $plateItem->status }}
+                                {{ __($plateItem->status) }}
                             </td>
 
                         </tr>
@@ -58,11 +58,11 @@
                     <thead class="text-xs text-gray-50 bg-gray-600 ">
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                extra
+                                {{ __('extra') }}
                             </th>
 
                             <th scope="col" class="px-6 py-3">
-                                price
+                                {{ __('price') }}
                             </th>
                         </tr>
                     </thead>
@@ -71,7 +71,7 @@
                         <tr class="bg-white border-b ">
                             <td class="px-6 py-4">
                                 <div>
-                                    {{ $extraItem->description }}
+                                    {{ __($extraItem->description) }}
                                 </div>
                             </td>
                             <td class="px-6 py-4">

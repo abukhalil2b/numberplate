@@ -5,7 +5,7 @@
     </x-primary-button>
 
 
-    <x-modal name="create-failedprint" :show="$errors->isNotEmpty()" focusable>
+    <x-modal name="create-failedprint" :show="false" focusable>
 
         <form action="{{ route('item.failedprint.store') }}" method="POST" class="p-3 flex flex-col items-center">
             @csrf
@@ -14,23 +14,18 @@
 
             <input type="hidden" name="bill_id" value="{{ $bill->id }}">
 
-            <div class="mt-2 w-60 flex justify-center">
+            <div class="mt-2 w-full flex gap-2">
 
-                <x-secondary-button type="submit" class="w-full flex justify-center">
+                <x-primary-button type="submit" class="w-full flex justify-center">
                     save
+                </x-primary-button>
+
+                <x-secondary-button x-on:click.prevent="show = false" class="w-full flex justify-center">
+                {{ __('cancel') }}
                 </x-secondary-button>
 
             </div>
 
-            @if($errors->any())
-            @foreach($errors->all() as $error)
-
-            <div class="text-red-400">
-                {{ $error}}
-            </div>
-
-            @endforeach
-            @endif
         </form>
 
     </x-modal>

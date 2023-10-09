@@ -16,7 +16,8 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Dashboard v2</h1>
+                    <h3>Statistic</h3>
+                    <h6 class=" text-danger">month: ({{ $thisMonth }}) | Branch: {{ $branch->name }}</h6>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -41,12 +42,20 @@
                     <!-- TABLE: Statistic -->
                     <div class="card">
                         <div class="card-header">
-                            
                             <div class="card-title">
-                                <h3>Statistic</h3>
-                                <h6 class=" text-danger">month: ({{ $thisMonth }}) | Branch: {{ $branch->name }}</h6>
+                                <form action="{{ route('admin.statistic.index',$branch->id) }}" method="POST">
+                                    @csrf
+                                    <label>
+                                        months
+                                        <select name="month" class="form-control">
+                                            @foreach($months as $month)
+                                            <option @if($thisMonth==$month) selected @endif value="{{ $month }}">{{ $month }}</option>
+                                            @endforeach
+                                        </select>
+                                    </label>
+                                    <button class="btn btn-primary">search</button>
+                                </form>
                             </div>
-                           
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">

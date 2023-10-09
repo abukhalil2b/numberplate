@@ -30,7 +30,6 @@
             <div class="row">
                 <!-- Left col -->
                 <div class="col-md-12">
-
                     @include('inc._modal_create_stock')
                     <div class="mt-3 p-3 text-xl text-red-800">
                         {{ $branch->name}}
@@ -52,16 +51,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($plateStocks as $plateStock)
+                                    @foreach($groupedPlateStocks as $groupedPlateStock)
                                     <tr>
                                         <td>
-                                            {{ $plateStock->size}}
+                                            {{ $groupedPlateStock->size}}
                                         </td>
                                         <td>
-                                            {{ $plateStock->totalQuantity}}
+                                            {{ $groupedPlateStock->totalQuantity}}
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.stock.transfer.create',['fromBranch'=>$branch->id,'size'=>$plateStock->size]) }}" class="btn btn-outline-primary">
+                                            <a href="{{ route('admin.stock.transfer.create',['fromBranch'=>$branch->id,'size'=>$groupedPlateStock->size]) }}" class="btn btn-outline-primary">
                                                 transfer
                                             </a>
                                         </td>
@@ -73,11 +72,95 @@
                         <!-- /.card-body -->
                     </div>
 
-
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
-            </div><!--/. container-fluid -->
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+            <!-- Second row -->
+            <div class="row">
+                <!-- Left col -->
+                <div class="col-md-12">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">plate stock monitor ( {{ $branch->name }} )</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table class="table table-bordered text-xs">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            date
+                                        </th>
+                                        <th>
+                                            status
+                                        </th>
+                                        <th>
+                                            note
+                                        </th>
+                                        <th>
+                                            size
+                                        </th>
+                                        <th>
+                                            quantity
+                                        </th>
+                                        <th>
+                                            description
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach($branchPlateStocks as $branchPlateStock)
+                                    <tr>
+                                        <td class="text-xs">
+                                            {{ $branchPlateStock->created_at->format('d-m-Y') }}
+                                        </td>
+                                        <td>
+                                            @if($branchPlateStock->instock == 1)
+                                            <span class="text-success">IN</span>
+                                            @else
+                                            <span class="text-warning">OUT</span>
+                                            @endif
+
+                                        </td>
+                                        <td class="text-xs">
+                                            {{ $branchPlateStock->note }}
+                                        </td>
+                                        <td>
+                                            {{ $branchPlateStock->size }}
+                                        </td>
+                                        <td>
+                                            {{ abs($branchPlateStock->quantity) }}
+                                        </td>
+
+                                        <td class="px-6 py-1 ">
+                                            <div class="text-xs">{{ $branchPlateStock->description }}</div>
+                                        </td>
+
+
+                                    </tr>
+                                    @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix">
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /Second row -->
+
+        </div>
+        <!--/. container-fluid -->
     </section>
     <!-- /.content -->
 </div>
