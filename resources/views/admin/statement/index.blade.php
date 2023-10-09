@@ -43,7 +43,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
-                                <form action="{{ route('admin.statement.index',$branch->id) }}" method="POST">
+                                <form action="{{ route('admin.statement.search',$branch->id) }}" method="POST">
                                     @csrf
                                     <label>
                                         months

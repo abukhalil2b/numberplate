@@ -74,7 +74,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('admin/bill/plate/index/{branch}', [AdminBillController::class, 'plateIndex'])->name('admin.bill.plate.index');
 
-    Route::post('admin/bill/plate/index/{branch}', [AdminBillController::class, 'plateIndex'])->name('admin.bill.plate.index');
+    Route::post('admin/bill/plate/search/{branch}', [AdminBillController::class, 'plateIndex'])->name('admin.bill.plate.search');
 });
 
 
@@ -87,7 +87,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('admin/bill/extra/index/{branch}', [AdminBillController::class, 'extraIndex'])->name('admin.bill.extra.index');
 
-    Route::post('admin/bill/extra/index/{branch}', [AdminBillController::class, 'extraIndex'])->name('admin.bill.extra.index');
+    Route::post('admin/bill/extra/search/{branch}', [AdminBillController::class, 'extraIndex'])->name('admin.bill.extra.search');
 });
 
 
@@ -119,8 +119,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('admin/statistic/index/{branch}', [AdminStatisticController::class, 'index'])
         ->name('admin.statistic.index');
 
-    Route::post('admin/statistic/index/{branch}', [AdminStatisticController::class, 'index'])
-        ->name('admin.statistic.index');
+    Route::post('admin/statistic/search/{branch}', [AdminStatisticController::class, 'index'])
+        ->name('admin.statistic.search');
 });
 
 /*
@@ -132,7 +132,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('admin/statement/index/{branch}', [AdminStatementController::class, 'index'])->name('admin.statement.index');
 
-    Route::post('admin/statement/index/{branch}', [AdminStatementController::class, 'index'])->name('admin.statement.index');
+    Route::post('admin/statement/search/{branch}', [AdminStatementController::class, 'index'])->name('admin.statement.search');
     
 });
 

@@ -33,7 +33,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <form action="{{ route('admin.bill.extra.index',$branch->id) }}" method="POST">
+                            <form action="{{ route('admin.bill.extra.search',$branch->id) }}" method="POST">
                                 @csrf
                                 <label>
                                     from date
