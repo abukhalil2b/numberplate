@@ -14,7 +14,7 @@
     "fixing plate":"التركيب فقط",
 
     "private":"خصوصي",
-    "commercial":"نجاري",
+    "commercial":"تجاري",
     "diplomatic":"دبلوماسي",
     "temporary":"فحص",
     "export":"تصدير",
@@ -34,6 +34,7 @@
     "failed print":"فشل الطباعة",
     "printing status":"حالة الطباعة",
     "quantity":"الكمية",
+    "date":"التاريخ",
     "success":"نجح",
     "failed":"فشل",
     "size":"الحجم",
@@ -44,7 +45,9 @@
     "single/pair":"فردي/زوجي",
     "details":"تفاصيل",
     "show":"عرض",
-    
+
+    "stock plate":"مخزن اللوحات",
+
     "small":"صغير",
     "medium":"متوسط",
     "large":"كبير",

@@ -4,6 +4,7 @@
 
         <div class="p-1 max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col items-center">
 
+            <!-- plate size -->
             <div x-data="{ show:false }">
                 <div @click="show = ! show" class="border rounded p-1 cursor-pointer w-40 text-center text-xs" :class="show ? 'bg-blue-100' : '' "> {{ __('show stock balance') }}</div>
                 <div x-cloak x-show="show" class="p-1">
@@ -29,12 +30,14 @@
                     </div>
                 </div>
             </div>
+
             <form method="post" action="{{ route('bill.store') }}">
                 @csrf
 
                 <div class=" mt-5 w-full text-center">
                     {{ __('select plate type') }}
                 </div>
+
                 <div class="mt-2 flex flex-wrap gap-1 justify-center">
                     <div class="private_plate" :class="plateType == 'private' ? 'private_plate_selected' : '' " @click="getPrivateCode">
                         {{ __('private') }}
@@ -74,7 +77,6 @@
                 </div>
 
                 <input type="hidden" x-model="plateType" name="type">
-
 
                 <div class="mt-5 flex flex-wrap gap-1">
                     <template x-for="code in codes">
@@ -119,31 +121,31 @@
                     <input type="hidden" name="sizeForStatement" x-model="sizeForStatement">
                 </div>
 
-                <div class="p-1 mt-6 text-center" x-data="{ extra_option:'no'}">
+                <div class="p-1 mt-6 flex flex-col justify-center items-center" x-data="{ extra_option:'no'}">
                     <p class="mt-3">{{ __('Extra') }}:</p>
-                    <label class="block mt-2">
+                    <label class="mt-2 border w-64 flex gap-1 items-center bg-white cursor-pointer">
                         <input type="radio" id="no" name="extra_option" value="no" x-model="extra_option">
                         {{ __('NO') }}
                     </label>
 
-                    <label class="block mt-2">
+                    <label class="mt-2 border w-64 flex gap-1 items-center bg-white cursor-pointer">
                         <input type="radio" id="fixing_plate" name="extra_option" value="fixing_plate" x-model="extra_option">
                         {{ __('fixing plate') }}: 1 R.O
                     </label>
 
-                    <label class="block mt-2">
+                    <label class="mt-2 border w-64 flex gap-1 items-center bg-white cursor-pointer">
                         <input type="radio" id="frame_with_fixing_plate" name="extra_option" value="frame_with_fixing_plate" x-model="extra_option">
                         {{ __('frame with fixing plate') }}: 3 R.O
                     </label>
 
                     <div x-cloak x-show="extra_option != 'no' ">
 
-                        <p class="mt-3">{{ __('Payment Method') }}:</p>
-                        <label class="block mt-2">
+                        <p class="mt-3 text-center">{{ __('Payment Method') }}:</p>
+                        <label class="mt-2 border w-64 flex gap-1 items-center bg-white cursor-pointer">
                             <input type="radio" id="cash" name="payment_method" value="cash">
                             {{ __('cash') }}
                         </label>
-                        <label class="block mt-2">
+                        <label class="mt-2 border w-64 flex gap-1 items-center bg-white cursor-pointer">
                             <input type="radio" id="visa" name="payment_method" value="visa">
                             {{ __('visa') }}
                         </label>

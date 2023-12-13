@@ -142,7 +142,7 @@ Route::group(['middleware' => 'auth'], function () {
 | items
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','localization']], function () {
 
     Route::get('item/index/{bill}', [ItemController::class, 'index'])->name('item.index');
 
@@ -177,6 +177,8 @@ Route::group(['middleware' => 'auth'], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => ['auth', 'localization']], function () {
+
+    Route::get('stock/plate/dashboard', [StockController::class, 'plateDashboard'])->name('stock.plate.dashboard');
 
     Route::get('stock/plate/received', [StockController::class, 'plateReceived'])->name('stock.plate.received');
 

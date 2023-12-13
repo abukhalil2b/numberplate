@@ -23,6 +23,10 @@
 
 <hr class="mt-5">
 
+<x-nav-link :href="route('stock.plate.dashboard')" :active="request()->routeIs('stock.plate.dashboard')" class="w-full mt-4">
+   {{ __('stock plate') }}
+</x-nav-link>
+
 <x-nav-link :href="route('stock.plate.sold')" :active="request()->routeIs('stock.plate.sold')" class="w-full mt-4">
    {{ __('plate sold') }}
 </x-nav-link>

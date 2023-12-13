@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('cate');
         });
 
+        
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('title',20);

@@ -17,9 +17,8 @@ class AdminBranchController extends Controller
         $groupedPlateStocks = Stock::where([
             'cate' => 'plate',
             'branch_id' => $branch->id,
-
-        ])->select(DB::raw('sum(quantity) as totalQuantity'), 'size')
-            ->groupBy('size')
+        ])->select(DB::raw('sum(quantity) as totalQuantity'), 'size','type')
+            ->groupBy('size','type')
             ->get();
 
         // $loggedUser = auth()->user();
@@ -27,6 +26,7 @@ class AdminBranchController extends Controller
         $branchPlateStocks = Stock::where('cate', 'plate')
             ->latest('id')
             ->where('branch_id', $branch->id)
+            ->limit(10)
             ->get();
 
         return view('admin.branch.stock.index', compact('groupedPlateStocks', 'branch', 'branchPlateStocks'));

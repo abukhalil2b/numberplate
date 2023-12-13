@@ -20,6 +20,9 @@
                                 {{ __('size') }}
                             </th>
                             <th scope="col" class="px-6 py-3">
+                                {{ __('type') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 {{ __('quantity') }}
                             </th>
                             <th scope="col" class="px-6 py-3">
@@ -34,6 +37,12 @@
 
                                 <div>
                                     {{ __($plateItem->size) }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+
+                                <div>
+                                    {{ __($plateItem->type) }}
                                 </div>
                             </td>
                             <td class="px-6 py-4">

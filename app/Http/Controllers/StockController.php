@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 class StockController extends Controller
 {
 
+    public function plateDashboard(Request $request)
+    {
+        $loggedUser = auth()->user();
+
+        return view('stock.plate.dashboard',compact('loggedUser'));
+    }
+
     public function plateReceived()
     {
         $title = 'plate received';
@@ -16,13 +23,23 @@ class StockController extends Controller
 
         $plateStocks = Stock::where(['branch_id' => $loggedUser->id, 'cate' => 'plate', 'note' => 'received'])
             ->latest('id')
-            ->get();
+            ->paginate(100);
 
-        return view('stock.plate.index', compact('plateStocks','loggedUser','title'));
+        return view('stock.plate.index', compact('plateStocks', 'loggedUser', 'title'));
     }
 
+    /*
+       show available dates
+       show list stock based on last date
+
+    */
     public function plateSold()
     {
+        // $yearWithMonthList =Stock::selectRaw('DISTINCT year(created_at) year ,month(created_at) as month')
+        // ->latest('id')
+        // ->get();
+
+        // return $yearWithMonthList;
 
         $title = 'plate sold';
 
@@ -30,9 +47,15 @@ class StockController extends Controller
 
         $plateStocks = Stock::where(['branch_id' => $loggedUser->id, 'cate' => 'plate', 'note' => 'sold'])
             ->latest('id')
-            ->get();
+            ->paginate(100);
 
-        return view('stock.plate.index', compact('plateStocks','loggedUser','title'));
+        return view('stock.plate.index', compact('plateStocks', 'loggedUser', 'title'));
+
+        /*
+            note = [received - sold]
+            received => add new plate to stock
+            sold => plate is sold
+        */
     }
 
     public function plateTransferred()
@@ -43,18 +66,9 @@ class StockController extends Controller
 
         $plateStocks = Stock::where(['branch_id' => $loggedUser->id, 'cate' => 'plate', 'note' => 'transferred'])
             ->latest('id')
-            ->get();
+            ->paginate(100);
 
-        return view('stock.plate.index', compact('plateStocks','loggedUser','title'));
-    }
-
-
-
-    /**
-     * size	cate			description
-     */
-    public function store(Request $request)
-    {
+        return view('stock.plate.index', compact('plateStocks', 'loggedUser', 'title'));
     }
 
     /**

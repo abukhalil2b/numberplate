@@ -20,9 +20,7 @@ class HomeController extends Controller
     /**-- admin dashboard --*/
     public function adminDashboard()
     {
-
         // $loggedUser = auth()->user();
-
         $latestBills = Bill::whereDate('created_at', date('Y-m-d'))
         ->with('branch')
             ->latest('id')
@@ -36,7 +34,6 @@ class HomeController extends Controller
     {
         $loggedUser = auth()->user();
 
-
         //small plate instock
         $smallPlate = Stock::where([
             'cate' => 'plate',
@@ -44,7 +41,6 @@ class HomeController extends Controller
             'size' => 'small'
         ])->selectRaw('sum(quantity) as total')
             ->first();
-
         //medium plate instock
         $mediumPlate = Stock::where([
             'cate' => 'plate',

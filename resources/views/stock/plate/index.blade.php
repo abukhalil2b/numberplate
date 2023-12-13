@@ -1,7 +1,6 @@
 <x-app-layout>
 
-
-    <div class="mt-5">
+    <div class="mt-5 p-4">
         <div class="p-1 rounded border m-1">
             <div class="text-xl"> {{ __($title) }}: </div>
             <div> {{ $loggedUser->name }}</div>
@@ -19,7 +18,6 @@
                     <th scope="col" class="px-6 py-3">
                         {{ __('date') }}
                     </th>
-
 
                 </tr>
             </thead>
@@ -40,6 +38,11 @@
 
                 </tr>
                 @endforeach
+                <tr>
+                    <td colspan="3">
+                        {{ $plateStocks->links() }}
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

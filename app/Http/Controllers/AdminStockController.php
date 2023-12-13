@@ -21,6 +21,7 @@ class AdminStockController extends Controller
         // return $request->all();
 
         $request->validate([
+            'type' => 'required',
             'size' => 'required',
             'quantity' => 'required|numeric|gt:0',
             'branch_id' => 'required'
@@ -32,12 +33,12 @@ class AdminStockController extends Controller
             abort(404);
         }
 
-
-
         Stock::create([
             'instock' => 1,
 
             'cate' => 'plate',
+
+            'type' => $request->type,
 
             'size' => $request->size,
 

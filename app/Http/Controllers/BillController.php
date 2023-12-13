@@ -44,6 +44,7 @@ class BillController extends Controller
 
         $items = [];
 
+        // add selected  plate into array of items
         if ($request->small > 0) {
 
             array_push($items, ['size' => 'small', 'quantity' => $request->small]);
@@ -86,9 +87,11 @@ class BillController extends Controller
             ]);
 
             foreach ($items as $item) {
-
+                
+                // store plate 
                 Item::create([
                     'cate' => 'plate',
+                    'type' => $request->type,
                     'size' => $item['size'],
                     'quantity' => $item['quantity'],
                     'bill_id' => $bill->id,
@@ -99,8 +102,9 @@ class BillController extends Controller
                 Stock::create([
                     'instock' => 0,
                     'cate' => 'plate',
+                    'type' => $request->type,
                     'size' => $item['size'],
-                    'quantity' => - $item['quantity'],
+                    'quantity' => -$item['quantity'],
                     'branch_id' => $loggedUser->id,
                     'note' => 'sold',
                 ]);
@@ -125,9 +129,10 @@ class BillController extends Controller
                     $description = 'frame with fixing plate';
                     $price = 3;
                 }
-
+                // store extra 
                 Item::create([
                     'cate' => 'extra',
+                    'type' => $request->type,
                     'bill_id' => $bill->id,
                     'branch_id' => $loggedUser->id,
                     'description' => $description,

@@ -84,7 +84,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">plate stock monitor ( {{ $branch->name }} )</h3>
+                            <h3 class="card-title"> last 10 records of plate stock ( {{ $branch->name }} )</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -102,6 +102,9 @@
                                         </th>
                                         <th>
                                             size
+                                        </th>
+                                        <th>
+                                            type
                                         </th>
                                         <th>
                                             quantity
@@ -132,6 +135,9 @@
                                         </td>
                                         <td>
                                             {{ $branchPlateStock->size }}
+                                        </td>
+                                        <td>
+                                            {{ $branchPlateStock->type }}
                                         </td>
                                         <td>
                                             {{ abs($branchPlateStock->quantity) }}

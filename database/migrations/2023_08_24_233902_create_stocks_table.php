@@ -16,6 +16,8 @@ return new class extends Migration
             
             $table->string('cate',25);//plate - extra
 
+            $table->string('type',20);//private - commercial - diplomatic - temporary - export - specific - government - other
+            
             $table->boolean('instock')->default(true);//true - false
 
             $table->string('size',25)->nullable();//small-plate - medium-plate - large-plate - large-plate-with-khanjer - extra 
