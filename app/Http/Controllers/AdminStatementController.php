@@ -23,13 +23,15 @@ class AdminStatementController extends Controller
 
         $thisMonth = $request->month ? $request->month : $months[0];
 
-         $statements = Statement::where('branch_id', $branch->id)
+        $statements = Statement::where('branch_id', $branch->id)
             ->whereMonth('created_at', $thisMonth)
             ->select('type', 'size', 'required', DB::raw('COUNT(`id`) as total'))
             ->groupby('type', 'size', 'required')
             ->get();
 
-        return view('admin.statement.index', compact('statements', 'branch','thisMonth','months'));
+        $title = 'Month:' . $thisMonth . ' | Branch: ' . $branch->name . '';
+
+        return view('admin.statement.index', compact('title', 'statements', 'branch', 'thisMonth', 'months'));
     }
 
     /**

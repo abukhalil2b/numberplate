@@ -1,175 +1,199 @@
-@extends('layouts.admin')
+<x-layout.default>
 
-@section('content')
+    <style>
+        .plate-box {
+            border: 1px solid #999;
+            border-radius: 5px;
+            padding: 5px;
+            box-shadow: 0px 1px 3px #999;
+        }
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Dashboard v2</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard v2</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+        .bg-private {
+            background-color: #fde047;
+            color: black;
+        }
+
+        .bg-commercial {
+            background-color: #fca5a5;
+            color: white;
+        }
+
+        .bg-diplomatic {
+            background-color: white;
+            color: black;
+        }
+
+        .bg-temporary {
+            background-color: lightgreen;
+            color: white;
+        }
+
+        .bg-export {
+            background-color: skyblue;
+            color: white;
+        }
+
+        .bg-specific {
+            background-color: black;
+            color: white;
+        }
+
+        .bg-learners {
+            background-color: white;
+            color: red;
+        }
+
+        .bg-government {
+            background-color: white;
+            color: red;
+        }
+
+        .bg-other {
+            background-color: white;
+            color: black;
+        }
+    </style>
+
+    <div class="p-3 text-center text-xl">
+        Stock: {{ $branch->name }}
     </div>
-    <!-- /.content-header -->
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
+    <div class="grid grid-cols-1 gap-6 pt-5 md:grid-cols-2 lg:grid-cols-4">
 
-            <!-- Main row -->
-            <div class="row">
-                <!-- Left col -->
-                <div class="col-md-12">
-                    @include('inc._modal_create_stock')
-                    <div class="mt-3 p-3 text-xl text-red-800">
-                        {{ $branch->name}}
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Bordered Table</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-
-                                        <th>Size</th>
-                                        <th>Total Quantity</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($groupedPlateStocks as $groupedPlateStock)
-                                    <tr>
-                                        <td>
-                                            {{ $groupedPlateStock->size}}
-                                        </td>
-                                        <td>
-                                            {{ $groupedPlateStock->totalQuantity}}
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('admin.stock.transfer.create',['fromBranch'=>$branch->id,'size'=>$groupedPlateStock->size]) }}" class="btn btn-outline-primary">
-                                                transfer
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-
-                </div>
-                <!-- /.col -->
+        <!-- private -->
+        <div class="plate-box bg-private">
+            <div class="text-xl">
+                <h2 class="text-center">private</h2>
             </div>
-            <!-- /.row -->
-
-            <!-- Second row -->
-            <div class="row">
-                <!-- Left col -->
-                <div class="col-md-12">
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title"> last 10 records of plate stock ( {{ $branch->name }} )</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <table class="table table-bordered text-xs">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            date
-                                        </th>
-                                        <th>
-                                            status
-                                        </th>
-                                        <th>
-                                            note
-                                        </th>
-                                        <th>
-                                            size
-                                        </th>
-                                        <th>
-                                            type
-                                        </th>
-                                        <th>
-                                            quantity
-                                        </th>
-                                        <th>
-                                            description
-                                        </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    @foreach($branchPlateStocks as $branchPlateStock)
-                                    <tr>
-                                        <td class="text-xs">
-                                            {{ $branchPlateStock->created_at->format('d-m-Y') }}
-                                        </td>
-                                        <td>
-                                            @if($branchPlateStock->instock == 1)
-                                            <span class="text-success">IN</span>
-                                            @else
-                                            <span class="text-warning">OUT</span>
-                                            @endif
-
-                                        </td>
-                                        <td class="text-xs">
-                                            {{ $branchPlateStock->note }}
-                                        </td>
-                                        <td>
-                                            {{ $branchPlateStock->size }}
-                                        </td>
-                                        <td>
-                                            {{ $branchPlateStock->type }}
-                                        </td>
-                                        <td>
-                                            {{ abs($branchPlateStock->quantity) }}
-                                        </td>
-
-                                        <td class="px-6 py-1 ">
-                                            <div class="text-xs">{{ $branchPlateStock->description }}</div>
-                                        </td>
-
-
-                                    </tr>
-                                    @endforeach
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer clearfix">
-
-                        </div>
-                    </div>
-
+            <div class="">
+                @foreach($privates as $private)
+                <div class="p-1 flex justify-between">
+                    <div>{{ $private->size }}</div>
+                    <div class="badge bg-dark w-16">{{ $private->total }}</div>
                 </div>
-                <!-- /.col -->
+                @endforeach
             </div>
-            <!-- /Second row -->
-
         </div>
-        <!--/. container-fluid -->
-    </section>
-    <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
 
-@endsection
+        <!-- commercial -->
+        <div class="plate-box bg-commercial">
+            <div class="text-xl">
+                <h2 class="text-center">commercial</h2>
+            </div>
+            <div class="">
+                @foreach($commercials as $commercial)
+                <div class="p-1 flex justify-between">
+                    <div>{{ $commercial->size }}</div>
+                    <div class="badge bg-dark w-16">{{ $commercial->total }}</div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- diplomatic -->
+        <div class="plate-box bg-diplomatic">
+            <div class="text-xl">
+                <h2 class="text-center">diplomatic</h2>
+            </div>
+            <div class="">
+                @foreach($diplomatics as $diplomatic)
+                <div class="p-1 flex justify-between">
+                    <div>{{ $diplomatic->size }}</div>
+                    <div class="badge bg-dark w-16">{{ $diplomatic->total }}</div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- temporary -->
+        <div class="plate-box bg-temporary">
+            <div class="text-xl">
+                <h2 class="text-center">temporary</h2>
+            </div>
+            <div class="">
+                @foreach($temporarys as $temporary)
+                <div class="p-1 flex justify-between">
+                    <div>{{ $temporary->size }}</div>
+                    <div class="badge bg-dark w-16">{{ $temporary->total }}</div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- export -->
+        <div class="plate-box bg-export">
+            <div class="text-xl">
+                <h2 class="text-center">export</h2>
+            </div>
+            <div class="">
+                @foreach($exports as $export)
+                <div class="p-1 flex justify-between">
+                    <div>{{ $export->size }}</div>
+                    <div class="badge bg-dark w-16">{{ $export->total }}</div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- specific -->
+        <div class="plate-box bg-specific">
+            <div class="text-xl">
+                <h2 class="text-center">specific</h2>
+            </div>
+            <div class="">
+                @foreach($specifics as $specific)
+                <div class="p-1 flex justify-between">
+                    <div>{{ $specific->size }}</div>
+                    <div class="badge bg-dark w-16">{{ $specific->total }}</div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- learners -->
+        <div class="plate-box bg-learners">
+            <div class="text-xl">
+                <h2 class="text-center">learners</h2>
+            </div>
+            <div class="">
+                @foreach($learners as $learner)
+                <div class="p-1 flex justify-between">
+                    <div>{{ $learner->size }}</div>
+                    <div class="badge bg-dark w-16">{{ $learner->total }}</div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- government -->
+        <div class="plate-box bg-government">
+            <div class="text-xl">
+                <h2 class="text-center">government</h2>
+            </div>
+            <div class="">
+                @foreach($governments as $government)
+                <div class="p-1 flex justify-between">
+                    <div>{{ $government->size }}</div>
+                    <div class="badge bg-dark w-16">{{ $government->total }}</div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- other -->
+        <div class="plate-box bg-other">
+            <div class="text-xl">
+                <h2 class="text-center">other</h2>
+            </div>
+            <div class="">
+                @foreach($commercials as $commercial)
+                <div class="p-1 flex justify-between">
+                    <div>{{ $commercial->size }}</div>
+                    <div class="badge bg-dark w-16">{{ $commercial->total }}</div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+</x-layout.default>

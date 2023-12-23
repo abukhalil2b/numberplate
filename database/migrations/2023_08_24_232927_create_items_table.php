@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
 
             $table->string('cate', 25); //plate - extra
+
             // in case this item not a plate we set type nullable
             $table->string('type', 20)->nullable(); //private - commercial - diplomatic - temporary - export - specific - government - other
+
+            $table->string('required',10)->nullable();//single - pair
 
             $table->string('size', 25)->nullable(); //small-plate - medium-plate - large-plate - large-plate-with-khanjer - extra 
 

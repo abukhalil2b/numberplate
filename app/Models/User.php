@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -14,9 +14,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'profile',
         'name',
         'email',
         'password',
+        'plain_password',
     ];
 
     /**
@@ -42,11 +44,31 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function stocks(){
-        return $this->hasMany(Stock::class,'branch_id');
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class, 'branch_id');
     }
 
-    public function roles(){
-        return $this->belongsToMany(Role::class,'user_role','user_id','role_id');
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
+    }
+
+    public function hasPermission($title)
+    {
+        $permission = Permission::where('title', $title)->first();
+
+        //false if not exist
+        if (!$permission) {
+            return false;
+        } else {
+            $exist = DB::table('permission_user')
+                ->where(['user_id' => $this->id, 'permission_id' => $permission->id])
+                ->first();
+            if (!$exist) {
+                return false;
+            }
+        }
+        return true;
     }
 }

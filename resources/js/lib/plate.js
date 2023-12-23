@@ -1,4 +1,5 @@
 export default function () {
+    
     Array.prototype.removeByValue = function (val) {
         for (var i = 0; i < this.length; i++) {
             if (this[i] === val) {
@@ -10,14 +11,118 @@ export default function () {
     };
 
     return {
+        plateType:'',
+
+        private: ['D','DD','DR','DW','DY','R','RR','RS','RM','RW','RY','S','SS','M','MM','MW','MY','W','WW','Y','YA','YY','A','AA','AB','AD','AR','AS','AM','AW','AY','B','BB','BH','BD','BR','BS','BW','BY','H','HH','HD','HR','HS','HY'],
+
+        commercial: ['AK','BA','BK'],
+
+        diplomatic: ['CD'],
+
+        temporary: [],
+
+        export: [],
+
+        specific: [],
+
+        learners: [],
+
+        government: [],
+
+        other: [],
+
+        codes: [],
+
+        selectedCode : '',
+
         required: "pair",
+
         small: 0,
+
         medium: 0,
+
         large: 0,
+
         largeWithKhanjer: 0,
+
         bike: 0,
+
         plates: [],
+
         sizeForStatement: "",
+
+        getPrivateCode() {
+            this.resetValues();
+
+            this.plateType = 'private';
+
+            this.codes = this.private
+        },
+
+        getCommercialCode() {
+            this.resetValues();
+
+            this.plateType = 'commercial';
+
+            this.codes = this.commercial
+        },
+
+        getDiplomaticCode() {
+            this.resetValues();
+
+            this.plateType = 'diplomatic';
+
+            this.codes = this.diplomatic
+        },
+
+        getTemporaryCode() {
+            this.resetValues();
+
+            this.plateType = 'temporary';
+
+            this.codes = this.temporary
+        },
+
+        getExportCode() {
+            this.resetValues();
+
+            this.plateType = 'export';
+
+            this.codes = this.export
+        },
+
+        getLearnersCode() {
+            this.resetValues();
+
+            this.plateType = 'learners';
+
+            this.codes = this.learners
+        },
+
+        getSpecificCode() {
+            this.resetValues();
+
+            this.plateType = 'specific';
+
+            this.codes = this.specific
+        },
+
+        getGovernmentCode() {
+            this.resetValues();
+
+            this.plateType = 'government';
+
+            this.codes = this.government
+        },
+
+        getOtherCode() {
+            this.resetValues();
+            
+            this.plateType = 'other';
+
+            this.codes = this.other
+        },
+
         selectPairPlate() {
             this.required = "pair";
             this.resetValues();
@@ -27,6 +132,7 @@ export default function () {
             this.required = "single";
             this.resetValues();
         },
+
         resetValues() {
             this.small = 0;
             this.medium = 0;
@@ -34,7 +140,9 @@ export default function () {
             this.largeWithKhanjer = 0;
             this.bike = 0;
             this.plates = [];
+            this.sizeForStatement = "";
         },
+
         setSizeForStatement(size, required) {
             if (required == "single") {
                 this.sizeForStatement = size;
@@ -93,6 +201,7 @@ export default function () {
                 }
             }
         },
+
         addSmall() {
             if (this.small == 0 || this.small == 1) {
                 switch (this.required) {
@@ -113,7 +222,7 @@ export default function () {
                         break;
                 }
 
-                console.log(this.plates);
+                
             }
         },
 
@@ -137,7 +246,7 @@ export default function () {
                         break;
                 }
 
-                console.log(this.plates);
+                
             }
         },
 
@@ -194,18 +303,18 @@ export default function () {
                         if (this.plates.length < 2) {
                             this.bike = this.bike + 1;
                             this.plates.push("bike");
+                            this.sizeForStatement = "bike";
                         }
 
-                        this.sizeForStatement = "bike";
                         break;
 
                     case "single":
                         if (this.plates.length < 1) {
                             this.bike = this.bike + 1;
                             this.plates.push("bike");
+                            this.sizeForStatement = "bike";
                         }
 
-                        this.sizeForStatement = "bike";
                         break;
                 }
             }
@@ -218,7 +327,7 @@ export default function () {
                 //remove this plate
                 this.plates = this.plates.removeByValue("small");
 
-                console.log(this.plates);
+                
             }
         },
 
@@ -229,7 +338,7 @@ export default function () {
                 //remove this plate
                 this.plates = this.plates.removeByValue("medium");
 
-                console.log(this.plates);
+                
             }
         },
 

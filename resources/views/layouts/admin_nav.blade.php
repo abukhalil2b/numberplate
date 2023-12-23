@@ -12,52 +12,30 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{ route('admin.user.index',['role'=>'director']) }}" class="nav-link">
+                    <a href="" class="nav-link">
                         <i class="fas fa-user nav-icon"></i>
-                        <p class="text-xs"> المدير العام | General Director</p>
+                        <p class="text-xs"> جديد | New </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.user.index',['role'=>'executive']) }}" class="nav-link">
+                    <a href="" class="nav-link">
                         <i class="fas fa-user nav-icon"></i>
-                        <p class="text-xs">الرئيس التنفيذي | Executive</p>
+                        <p class="text-xs"> </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.user.index',['role'=>'chariman']) }}" class="nav-link">
+                    <a href="" class="nav-link">
                         <i class="fas fa-user nav-icon"></i>
-                        <p class="text-xs"> رئيس مجلس الإدارة | Chairman </p>
+                        <p class="text-xs">
+                            </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.user.index',['role'=>'accountant']) }}" class="nav-link">
-                        <i class="fas fa-user nav-icon"></i>
-                        <p class="text-xs"> المحاسب | Accountant </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.user.index',['role'=>'branch_manager']) }}" class="nav-link">
-                        <i class="fas fa-user nav-icon"></i>
-                        <p class="text-xs"> مدير الفرع | Branch Manager </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.user.index',['role'=>'store_keeper']) }}" class="nav-link">
-                        <i class="fas fa-user nav-icon"></i>
-                        <p class="text-xs"> مسؤل المخزن | Store Keeper </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.user.index',['role'=>'project_manager']) }}" class="nav-link">
-                        <i class="fas fa-user nav-icon"></i>
-                        <p class="text-xs"> مدير المشروع | Project Manager </p>
-                    </a>
-                </li>
+
             </ul>
         </li>
 
         <li class="nav-item">
-            <a href="{{ route('admin.branch.create') }}" class="nav-link">
+            <a href="" class="nav-link">
                 <i class="nav-icon fas fa-tree"></i>
                 <p>
                     branches
@@ -65,22 +43,22 @@
             </a>
         </li>
 
-        @foreach(App\Models\User::where('profile','branch')->get() as $branch)
+       
 
         <li class="nav-item">
-            <a href="{{ route('admin.branch.show',$branch->id) }}" class="nav-link">
+            <a href="" class="nav-link">
                 <i class="nav-icon fas fa-store"></i>
                 <p>
-                    {{$branch->email}}
+                  
                 </p>
                 |
                 <p class="text-xs">
-                    {{$branch->name}}
+                    
                 </p>
             </a>
         </li>
 
-        @endforeach
+       
 
     </ul>
 </nav>

@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="" x-data="numbercodes">
+    <div class="" x-data="plate">
 
         <div class="p-1 max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col items-center">
 
@@ -47,9 +47,11 @@
                         {{ __('commercial') }}
                     </div>
 
+                    @if( auth()->user()->hasPermission('diplomatic') )
                     <div class="diplomatic_plate " :class="plateType == 'diplomatic' ? 'diplomatic_plate_selected' : '' " @click="getDiplomaticCode">
                         {{ __('diplomatic') }}
                     </div>
+                    @endif
 
                     <div class="temporary_plate" :class="plateType == 'temporary' ? 'temporary_plate_selected' : '' " @click="getTemporaryCode">
                         {{ __('temporary') }}
@@ -103,7 +105,7 @@
                     </div>
                 </div>
 
-                <div x-data="plate" class="flex flex-col items-center">
+                <div class="flex flex-col items-center">
 
                     <div class="mt-4 w-64 flex gap-1">
                         <div @click="selectPairPlate" class="plate" :class="required == 'pair' ? 'plate_selected' : '' ">

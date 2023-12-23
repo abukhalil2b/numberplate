@@ -55,5 +55,14 @@
     "large with khanjer":"كبير مع خنجر",
     "bike":"دراجة",
 
-    "email":"username"
+    "email":"username",
+
+    "superadmin":"إدارة البرنامج",
+    "director":"المدير العام",
+    "executive":"الرئيس التنفيذي",
+    "chairman":"رئيس مجلس الإدارة",
+    "accountant":"المحاسب",
+    "branch_manager":"مدير الفرع",
+    "store_keeper":"مسؤل المخزن",
+    "project_manager":"مدير المشروع"
 }

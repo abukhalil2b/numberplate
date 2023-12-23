@@ -3,7 +3,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\AdminStatisticController;
+use App\Http\Controllers\AdminPermissionController;
 use App\Http\Controllers\AdminStatementController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -44,9 +44,15 @@ Route::group(['middleware' => ['auth', 'localization']], function () {
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('admin/user/index/{role}', [UserController::class, 'index'])->name('admin.user.index');
+    Route::get('admin/user/index', [UserController::class, 'index'])->name('admin.user.index');
 
     Route::get('admin/user/show/{user}', [UserController::class, 'show'])->name('admin.user.show');
+
+    Route::get('admin/user/edit/{user}', [UserController::class, 'edit'])->name('admin.user.edit');
+
+    Route::post('admin/user/store', [UserController::class, 'store'])->name('admin.user.store');
+
+    Route::post('admin/user/update', [UserController::class, 'update'])->name('admin.user.update');
 });
 
 /*
@@ -60,10 +66,23 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('admin/branch/show/{branch}', [AdminBranchController::class, 'branchShow'])->name('admin.branch.show');
 
-    Route::get('admin/branch/create', [AdminBranchController::class, 'branchCreate'])->name('admin.branch.create');
+    Route::get('admin/branch/index', [AdminBranchController::class, 'branchIndex'])->name('admin.branch.index');
 
     Route::post('admin/branch/store', [AdminBranchController::class, 'branchStore'])->name('admin.branch.store');
+
 });
+
+/*
+|--------------------------------------------------------------------------
+| admin - branch
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('admin/branch/permission/index/{branch}', [AdminPermissionController::class, 'branchPermissionIndex'])->name('admin.branch.permission.index');
+    
+    Route::post('admin/branch/permission/update/{branch}', [AdminPermissionController::class, 'branchPermissionUpdate'])->name('admin.branch.permission.update');
+});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -109,19 +128,6 @@ Route::group(['middleware' => 'auth'], function () {
 */
 Route::get('localization/store/{local}', [ProfileController::class, 'localizationStore'])->name('localization.store');
 
-/*
-|--------------------------------------------------------------------------
-| statistic
-|--------------------------------------------------------------------------
-*/
-Route::group(['middleware' => 'auth'], function () {
-
-    Route::get('admin/statistic/index/{branch}', [AdminStatisticController::class, 'index'])
-        ->name('admin.statistic.index');
-
-    Route::post('admin/statistic/search/{branch}', [AdminStatisticController::class, 'index'])
-        ->name('admin.statistic.search');
-});
 
 /*
 |--------------------------------------------------------------------------

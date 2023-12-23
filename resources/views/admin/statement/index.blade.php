@@ -1,157 +1,144 @@
-@extends('layouts.admin')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('title', 'statements')
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ $title }}</title>
 
-@section('content')
-<!-- DataTables -->
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
-<link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h3>Statement</h3>
-                    <h6 class=" text-danger">month: ({{ $thisMonth }}) | Branch: {{ $branch->name }}</h6>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Statement</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
+<body>
     <!-- Main content -->
-    <section class="content">
+    <section class="content p-3">
         <div class="container-fluid">
 
+            <form action="{{ route('admin.statement.search',$branch->id) }}" method="POST" x-data="{ focus: false }" @click.outside="focus = false">
+                @csrf
+                months
+                <div class="py-2 d-flex">
+                    <select name="month" class="form-control" style="width: 100px;">
+                        @foreach($months as $month)
+                        <option @if($thisMonth==$month) selected @endif value="{{ $month }}">{{ $month }}</option>
+                        @endforeach
+                    </select>
+
+                    <button type="submit" class="mx-3 btn btn-primary gap-2">
+                        <svg class="mx-auto" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="11.5" cy="11.5" r="9.5" stroke="currentColor" stroke-width="1.5" opacity="0.5"></circle>
+                            <path d="M18.5 18.5L22 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                        </svg>
+                        search
+                    </button>
+                    <a href="{{ route('admin.branch.show',$branch->id) }}" class="btn btn-outline-secondary">back</a>
+                </div>
+            </form>
             <!-- Main row -->
             <div class="row">
-                <!-- Left col -->
-                <div class="col-md-12">
+                <div class="col-sm-12" style="overflow: scroll;">
+                    <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
+                        <thead>
+                            <tr>
+                                <th>plate type</th>
+                                <th>plate size</th>
+                                <th>single / pair</th>
+                                <th>total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($statements as $statement)
+                            <tr>
 
-                    <!-- TABLE: statement -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">
-                                <form action="{{ route('admin.statement.search',$branch->id) }}" method="POST">
-                                    @csrf
-                                    <label>
-                                        months
-                                        <select name="month" class="form-control">
-                                            @foreach($months as $month)
-                                            <option @if($thisMonth==$month) selected @endif value="{{ $month }}">{{ $month }}</option>
-                                            @endforeach
-                                        </select>
-                                    </label>
-                                    <button class="btn btn-primary">search</button>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <div id="example1_wrapper" class="">
-
-                                <div class="row">
-                                    <div class="col-sm-12" style="overflow: scroll;">
-                                        <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
-                                            <thead>
-                                                <tr>
-                                                    <th>type</th>
-                                                    <th>single/pair</th>
-                                                    <th>size</th>
-                                                    <th>total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                @foreach($statements as $statement)
-                                                <tr>
-                                                    <td>
-                                                        <div>{{ $statement->type }}</div>
-                                                    </td>
-
-                                                    <td>
-                                                        {{ $statement->required }}
-                                                    </td>
-
-                                                    <td>
-                                                        {{ $statement->size }}
-                                                    </td>
-
-                                                    <td>
-                                                        {{ $statement->total }}
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-
-                                            <tfoot>
-                                                <tr>
-                                                    <th rowspan="1" colspan="1">type</th>
-                                                    <th rowspan="1" colspan="1">single/pair</th>
-                                                    <th rowspan="1" colspan="1"> size </th>
-                                                    <th rowspan="1" colspan="1">total</th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
+                                <td>{{ $statement->type}}</td>
+                                <td>{{ $statement->size}}</td>
+                                <td>{{ $statement->required}}</td>
+                                <td>
+                                    <div>
+                                        {{ $statement->total }}
                                     </div>
-                                </div>
+                                </td>
 
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
 
+                                <th>plate type</th>
+                                <th>plate size</th>
+                                <th>single / pair</th>
+                                <th>total</th>
+                            </tr>
+                            </thead>
+                        </tfoot>
+                    </table>
                 </div>
-                <!-- /.col -->
-
             </div>
             <!-- /.row -->
         </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
 
-@endsection
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap -->
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- overlayScrollbars -->
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('AdminLTE-3.2.0/dist/js/adminlte.js') }}"></script>
 
-@section('script')
-@parent
+    <!-- DataTables  & Plugins -->
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <!-- PAGE PLUGINS -->
+    <!-- jQuery Mapael -->
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/jquery-mousewheel/jquery.mousewheel.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/raphael/raphael.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/jquery-mapael/jquery.mapael.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/jquery-mapael/maps/usa_states.min.js') }}"></script>
 
-<!-- DataTables  & Plugins -->
-<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-3.2.0/plugins/jszip/jszip.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-3.2.0/plugins/pdfmake/pdfmake.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-3.2.0/plugins/pdfmake/vfs_fonts.js') }}"></script>
-<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <script>
+        $(function() {
+            $("#example1").DataTable({
+                columnDefs: [{
+                    targets: [0],
+                    sortable: false,
+                    orderable: false,
+                }],
+                "paginate": false,
+                "bInfo": false,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["excel", "pdf", "print", "colvis"],
+                lengthMenu: [50, 100, 200, 500],
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-<script>
-    $(function() {
-        $("#example1").DataTable({
-            "lengthChange": true,
-            "autoWidth": false,
-            "buttons": ["excel", "pdf", "print", "colvis"],
-            lengthMenu: [50, 100, 200, 500],
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+    </script>
 
-    });
-</script>
 
-@endsection
+</body>
+
+</html>

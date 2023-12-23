@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/dist/css/adminlte.min.css') }}">
-</head>
+
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
@@ -101,14 +101,7 @@
                 <div class="user-panel mt-3 pb-3 mb-3  d-flex">
                     <i class="fas fa-lock fa-fw"></i>
                     <p>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                            this.closest('form').submit();" class="p-3 text-danger">
-                            logout
-                        </a>
-                    </form>
+                    
                     </p>
                 </div>
 
@@ -131,7 +124,35 @@
             <!-- /.sidebar -->
         </aside>
 
-        @yield('content')
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            @yield('content')
+
+            <!-- Success -->
+            <div class="p-3">
+                @if(session('success'))
+                <h1 class="text-success">{{session('success')}}</h1>
+                @endif
+            </div>
+            <!-- /Success -->
+
+            <!-- Errors -->
+            <div class="p-3">
+                @if($errors->any())
+                @foreach($errors->all() as $error)
+
+                <div class="text-danger">
+                    {{ $error}}
+                </div>
+
+                @endforeach
+                @endif
+            </div>
+            <!-- /Errors -->
+
+        </div>
+        <!-- /.content-wrapper -->
 
 
         <!-- Control Sidebar -->
@@ -140,19 +161,7 @@
         </aside>
         <!-- /.control-sidebar -->
 
-        <!-- Errors -->
-        <div>
-            @if($errors->any())
-            @foreach($errors->all() as $error)
 
-            <div class="text-danger">
-                {{ $error}}
-            </div>
-
-            @endforeach
-            @endif
-        </div>
-        <!-- /Errors -->
 
         <!-- Main Footer -->
         <footer class="main-footer">

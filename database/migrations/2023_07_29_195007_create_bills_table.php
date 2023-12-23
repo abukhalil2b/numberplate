@@ -16,7 +16,7 @@ return new class extends Migration
             
             $table->string('using',50)->default('ROP');//TRANSPORTATION - ROP
 
-            $table->string('required',10)->default('pair');//single - pair
+            $table->string('required',10)->nullable();//single - pair
             
             $table->string('type',20)->default('private');//private - commercial - diplomatic - temporary - export - specific - learners - government - other
            

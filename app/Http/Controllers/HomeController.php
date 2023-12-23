@@ -22,7 +22,7 @@ class HomeController extends Controller
     {
         // $loggedUser = auth()->user();
         $latestBills = Bill::whereDate('created_at', date('Y-m-d'))
-        ->with('branch')
+        ->with(['branch','items'])
             ->latest('id')
             ->get();
 

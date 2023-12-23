@@ -1,0 +1,10 @@
+{
+    "superadmin": "superadmin",
+    "director": "General Director",
+    "executive": "Executive",
+    "chairman": "Chairman",
+    "accountant": "Accountant",
+    "branch_manager": "Branch Manager",
+    "store_keeper": "Store Keeper",
+    "project_manager": "Project Manager"
+}

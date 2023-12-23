@@ -26,7 +26,8 @@
         </div>
     </div>
 
-    <div class="mt-2 flex gap-2">
+    @if( auth()->user()->hasPermission('large with khanjer') )
+    <div class="mt-2 flex gap-2" x-cloak x-show="plateType == 'government' ">
         <div class="card">{{ __('large with khanjer') }}</div>
         <div class="flex gap-1">
             <div class="card w-8 cursor-pointer" @click="addLargeWithKhanjer">+</div>
@@ -34,6 +35,7 @@
             <div class="card w-8 cursor-pointer" @click="subLargeWithKhanjer">-</div>
         </div>
     </div>
+    @endif
 
     <div class="mt-2 flex gap-2">
         <div class="card">{{ __('bike') }}</div>
