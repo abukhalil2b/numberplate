@@ -28,7 +28,7 @@ class BillController extends Controller
 
     public function store(Request $request)
     {
-        return $request->all();
+        // return $request->all();
 
         if (Str::upper($request->required) == 'ROP') {
             $request->validate([
@@ -91,6 +91,7 @@ class BillController extends Controller
                 // store plate 
                 Item::create([
                     'cate' => 'plate',
+                    'required' => $request->required,
                     'type' => $request->type,
                     'size' => $item['size'],
                     'quantity' => $item['quantity'],
