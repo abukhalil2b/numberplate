@@ -38,6 +38,8 @@ return new class extends Migration
 
             $table->text('description')->nullable(); //in case bought another service -- cate = extra
 
+            $table->date('issue_date');
+            
             $table->timestamps();
         });
     }

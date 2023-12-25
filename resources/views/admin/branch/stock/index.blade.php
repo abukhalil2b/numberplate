@@ -73,7 +73,12 @@
                 </div>
                 @endforeach
             </div>
+            <div class="flex gap-1">
+                <a class="btn btn-sm" href="">add new plate</a>
+                <a class="btn btn-sm" href="">transfer</a>
+            </div>
         </div>
+
 
         <!-- commercial -->
         <div class="plate-box bg-commercial">
@@ -87,6 +92,10 @@
                     <div class="badge bg-dark w-16">{{ $commercial->total }}</div>
                 </div>
                 @endforeach
+            </div>
+            <div class="flex gap-1">
+                <a class="btn btn-sm" href="">+ add new plate</a>
+                <a class="btn btn-sm" href="">transfer</a>
             </div>
         </div>
 
@@ -103,6 +112,10 @@
                 </div>
                 @endforeach
             </div>
+            <div class="flex gap-1">
+                <a class="btn btn-sm" href="">+ add new plate</a>
+                <a class="btn btn-sm" href="">transfer</a>
+            </div>
         </div>
 
         <!-- temporary -->
@@ -117,6 +130,10 @@
                     <div class="badge bg-dark w-16">{{ $temporary->total }}</div>
                 </div>
                 @endforeach
+            </div>
+            <div class="flex gap-1">
+                <a class="btn btn-sm" href="">+ add new plate</a>
+                <a class="btn btn-sm" href="">transfer</a>
             </div>
         </div>
 
@@ -133,6 +150,10 @@
                 </div>
                 @endforeach
             </div>
+            <div class="flex gap-1">
+                <a class="btn btn-sm" href="">+ add new plate</a>
+                <a class="btn btn-sm" href="">transfer</a>
+            </div>
         </div>
 
         <!-- specific -->
@@ -147,6 +168,10 @@
                     <div class="badge bg-dark w-16">{{ $specific->total }}</div>
                 </div>
                 @endforeach
+            </div>
+            <div class="flex gap-1">
+                <a class="btn btn-sm" href="">+ add new plate</a>
+                <a class="btn btn-sm" href="">transfer</a>
             </div>
         </div>
 
@@ -163,6 +188,10 @@
                 </div>
                 @endforeach
             </div>
+            <div class="flex gap-1">
+                <a class="btn btn-sm" href="">+ add new plate</a>
+                <a class="btn btn-sm" href="">transfer</a>
+            </div>
         </div>
 
         <!-- government -->
@@ -178,6 +207,10 @@
                 </div>
                 @endforeach
             </div>
+            <div class="flex gap-1">
+                <a class="btn btn-sm" href="">+ add new plate</a>
+                <a class="btn btn-sm" href="">transfer</a>
+            </div>
         </div>
 
         <!-- other -->
@@ -192,6 +225,10 @@
                     <div class="badge bg-dark w-16">{{ $commercial->total }}</div>
                 </div>
                 @endforeach
+            </div>
+            <div class="flex gap-1">
+                <a class="btn btn-sm" href="">+ add new plate</a>
+                <a class="btn btn-sm" href="">transfer</a>
             </div>
         </div>
     </div>

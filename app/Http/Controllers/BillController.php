@@ -83,7 +83,8 @@ class BillController extends Controller
                 'plate_num' => $request->plate_num,
                 'plate_code' => Str::upper($request->plate_code),
                 'payment_method' => $request->payment_method,
-                'branch_id' => $loggedUser->id
+                'branch_id' => $loggedUser->id,
+                'issue_date'=> date('Y-m-d')
             ]);
 
             foreach ($items as $item) {
@@ -97,7 +98,8 @@ class BillController extends Controller
                     'quantity' => $item['quantity'],
                     'bill_id' => $bill->id,
                     'branch_id' => $loggedUser->id,
-                    'status' => 'success'
+                    'status' => 'success',
+                    'issue_date'=> date('Y-m-d')
                 ]);
 
                 Stock::create([
@@ -108,6 +110,7 @@ class BillController extends Controller
                     'quantity' => -$item['quantity'],
                     'branch_id' => $loggedUser->id,
                     'note' => 'sold',
+                    'issue_date'=> date('Y-m-d')
                 ]);
             }
 
@@ -119,7 +122,8 @@ class BillController extends Controller
                 'plate_num' => $request->plate_num,
                 'plate_code' => Str::upper($request->plate_code),
                 'ref_num' => $request->ref_num,
-                'branch_id' => $loggedUser->id
+                'branch_id' => $loggedUser->id,
+                'issue_date'=> date('Y-m-d')
             ]);
 
             if ($request->extra_option != 'no') {
@@ -137,7 +141,8 @@ class BillController extends Controller
                     'bill_id' => $bill->id,
                     'branch_id' => $loggedUser->id,
                     'description' => $description,
-                    'price' => $price
+                    'price' => $price,
+                    'issue_date'=> date('Y-m-d')
                 ]);
             }
         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bill;
 use App\Models\Item;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -17,11 +18,14 @@ class ItemController extends Controller
 
         $extraItems = Item::where(['bill_id' => $bill->id, 'cate' => 'extra'])->get();
 
-        return view('item.index', compact('plateItems','extraItems','bill'));
+        return view('item.index', compact('plateItems', 'extraItems', 'bill'));
     }
 
     public function failedprintStore(Request $request)
     {
+        // return $request->all();
+
+        $bill = Bill::find($request->bill_id);
 
         $loggedUser = auth()->user();
 
@@ -52,17 +56,34 @@ class ItemController extends Controller
             array_push($items, ['size' => 'bike', 'quantity' => $request->bike]);
         }
 
+        if (count($items)) {
 
-        foreach ($items as $item) {
+            foreach ($items as $item) {
+                /*-- stock --*/
+                Item::create([
+                    'cate' => 'plate',
+                    'type' => $bill->type,
+                    'size' => $item['size'],
+                    'quantity' => $item['quantity'],
+                    'bill_id' => $request->bill_id,
+                    'branch_id' => $loggedUser->id,
+                    'status' => 'failed',
+                    'issue_date' => date('Y-m-d')
+                ]);
 
-            Item::create([
-                'cate' => 'plate',
-                'size' => $item['size'],
-                'quantity' => $item['quantity'],
-                'bill_id' => $request->bill_id,
-                'branch_id' => $loggedUser->id,
-                'status' => 'failed'
-            ]);
+                /*-- stock --*/
+                Stock::create([
+                    'cate' => 'plate',
+                    'type' => $bill->type,
+                    'instock' => 0,
+                    'size' => $item['size'],
+                    'quantity' => -$item['quantity'],
+                    'branch_id' => $loggedUser->id,
+                    'description' => 'print is failed',
+                    'note' => 'failed',
+                    'issue_date' => date('Y-m-d')
+                ]);
+            }
         }
 
         return back();
@@ -75,7 +96,7 @@ class ItemController extends Controller
     {
 
         $request->validate([
-            'payment_method'=>'required'
+            'payment_method' => 'required'
         ]);
         // return $request->all();
 
@@ -85,10 +106,10 @@ class ItemController extends Controller
 
         $description = 'fixing plate';
 
-        if($request->extra_option == 'frame_with_fixing_plate'){
+        if ($request->extra_option == 'frame_with_fixing_plate') {
 
             $price = 3;
-            
+
             $description = 'frame with fixing plate';
         }
 
@@ -99,11 +120,12 @@ class ItemController extends Controller
             'price' => $price,
             'bill_id' => $request->bill_id,
             'branch_id' => $loggedUser->id,
-            'status' => null
+            'status' => null,
+            'issue_date' => date('Y-m-d')
         ]);
 
-        Bill::where('id',$request->bill_id)->update([
-            'payment_method'=>$request->payment_method
+        Bill::where('id', $request->bill_id)->update([
+            'payment_method' => $request->payment_method
         ]);
 
         return back();

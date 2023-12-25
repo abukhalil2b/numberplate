@@ -32,6 +32,8 @@ return new class extends Migration
 
             $table->string('note',15)->default('received');//received - transferred - sold
 
+            $table->date('issue_date');
+            
             $table->timestamps();
         });
     }

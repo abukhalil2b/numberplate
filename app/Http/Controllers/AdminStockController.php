@@ -48,6 +48,8 @@ class AdminStockController extends Controller
 
             'branch_id' => $branch->id,
 
+            'issue_date' => date('Y-m-d'),
+
             'note' => 'received'
         ]);
 
@@ -55,7 +57,7 @@ class AdminStockController extends Controller
     }
 
 
-    public function transferCreate(User $fromBranch, $size)
+    public function transferCreate(User $fromBranch, $size,$type)
     {
         $branches = User::where('profile', 'branch')
             ->whereNot('id', $fromBranch->id)
@@ -64,7 +66,8 @@ class AdminStockController extends Controller
         $plateStock = Stock::where([
             'cate' => 'plate',
             'branch_id' => $fromBranch->id,
-            'size' => $size
+            'size' => $size,
+            'type' => $type,
         ])->selectRaw('sum(quantity) as quantity')->first();
 
         return view('admin.stock.transfer.create', compact('branches', 'fromBranch', 'size', 'plateStock'));
@@ -81,7 +84,7 @@ class AdminStockController extends Controller
         $request->validate([
             'fromBranch_id' => 'required',
             'toBranch_id' => 'required',
-            'quantity'=>'required|numeric|gt:0'
+            'quantity' => 'required|numeric|gt:0'
         ]);
 
         $fromBranch = User::where(['profile' => 'branch', 'id' => $request->fromBranch_id])->first();

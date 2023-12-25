@@ -31,6 +31,8 @@ return new class extends Migration
             
             $table->string('payment_method',10)->nullable();//null - cash - visa
             
+            $table->date('issue_date');
+
             $table->timestamps();
         });
     }

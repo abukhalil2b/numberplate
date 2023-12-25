@@ -13,6 +13,7 @@ class AdminBillController extends Controller
 
     public function plateIndex(Request $request, User $branch)
     {
+        // return $request->all();
 
         $type = $request->type ? $request->type : 'private';
 
@@ -25,7 +26,7 @@ class AdminBillController extends Controller
         $bills = Bill::where('branch_id', $branch->id)
             ->whereType($type)
             ->whereRequired($required)
-            ->whereBetween('created_at', [$date_from, $date_to])
+            ->whereBetween('created_at', [$date_from, $date_to])//[ ] in future change it to 'issue_date'
             ->latest('id')
             ->get();
 
@@ -46,7 +47,6 @@ class AdminBillController extends Controller
             ->select('description', DB::raw('SUM(price) as totalPrice'), DB::raw('COUNT(id) as quantity'))
             ->groupby('description')
             ->get();
-
 
         return view('admin.bill.extra.index', compact('branch', 'items', 'date_from', 'date_to'));
     }
