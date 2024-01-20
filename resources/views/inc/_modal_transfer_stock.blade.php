@@ -2,7 +2,7 @@
 
     <div x-data="" x-on:click.prevent="$dispatch('open-modal', 'transfer-stock{{ $branch->id }}')" class="card text-xs">
                     
-    {{ $branch->name }}
+    {{ $branch->en_name }} | {{ $branch->ar_name }}
 
     </div>
 
@@ -19,7 +19,7 @@
             </div>
 
             <div class="mt-4 w-full ">
-            {{ $branch->name }}
+            {{ app()->getLocale() == 'ar' ? $branch->ar_name :  $branch->ar_name }}
             <input type="hidden" name="branch_id" value="{{ $branch->id }}">
             </div>
 

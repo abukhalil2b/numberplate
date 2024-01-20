@@ -16,42 +16,34 @@
 
 <body class="min-h-screen bg-gray-50">
 
-    <div x-data="{ open: false }" class="flex">
-        <aside x-cloak class="bg-gray-600/[0.2] transition ease-in-out text-white" :class=" open ? 'block fixed w-full h-full' : 'w-0 hidden' ">
-            <div class="w-32 text-xs bg-white shadow-md h-full overflow-scroll">
-                <div class="py-10 px-2">
-                    <a href="/" class="flex justify-center">
-                        <x-application-logo class="block h-9 w-auto fill-current " />
-                    </a>
-                    @include('layouts.navigation')
-                </div>
-            </div>
-        </aside>
-        <main class="w-full">
-            <div class="h-10">
-                @include('layouts.humberger')
-            </div>
-            <div class="mt-3">
-                {{ $slot }}
-            </div>
+    <div class="w-full bg-white">
 
-            <div class="p-3 mt-3">
+        <div class="p-3 flex">
+            <svg class="w-4 h-5 flex-none " viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="black" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <a class="block w-32 text-center" href="{{ route('profile') }}">
+                <div class="text-red-900 text-xs">{{ app()->getLocale() == 'ar' ? Auth::user()->ar_name : Auth::user()->en_name}}</div>
+                <div class="text-[10px] text-gray-500">{{ Auth::user()->email }}</div>
+            </a>
 
-                @if($errors->any())
-                @foreach($errors->all() as $error)
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                                                this.closest('form').submit();" class="text-red-400 text-xs">
+                    تسجيل الخروج
+                </x-dropdown-link>
+            </form>
+        </div>
 
-                <div class="text-red-400">
-                    {{ $error}}
-                </div>
-
-                @endforeach
-                @endif
-            </div>
-
-        </main>
     </div>
 
+    <div class="mt-3">
+        {{ $slot }}
+    </div>
 
+    @include('layouts._display_error')
+    <footer class="p-5"></footer>
 </body>
 
 </html>

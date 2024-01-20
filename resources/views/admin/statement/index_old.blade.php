@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-{{ $branch->name }}
+{{ app()->getLocale() == 'ar' ? $branch->ar_name : $branch->en_name }}
 @endsection
 
 @section('content')

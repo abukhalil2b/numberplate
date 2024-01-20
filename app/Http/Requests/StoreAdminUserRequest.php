@@ -24,7 +24,8 @@ class StoreAdminUserRequest extends FormRequest
     {
         return [
             'role_title' => 'required',
-            'name' => 'required',
+            'ar_name' => 'required',
+            'en_name' => 'required',
             'email' => ['required','unique:' . User::class]
         ];
     }
@@ -33,7 +34,8 @@ class StoreAdminUserRequest extends FormRequest
     {
         return [
             'role_title.required' => 'profile is required',
-            'name.required' => 'name of user is  required',
+            'ar_name.required' => 'arabic name of user is  required',
+            'en_name.required' => 'english name of user is  required',
             'email.required' => 'The username required',
         ];
     }

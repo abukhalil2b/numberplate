@@ -29,7 +29,7 @@ class AdminStatementController extends Controller
             ->groupby('type', 'size', 'required')
             ->get();
 
-        $title = 'Month:' . $thisMonth . ' | Branch: ' . $branch->name . '';
+        $title = 'Month:' . $thisMonth . ' | Branch: ' . $branch->en_name . '';
 
         return view('admin.statement.index', compact('title', 'statements', 'branch', 'thisMonth', 'months'));
     }

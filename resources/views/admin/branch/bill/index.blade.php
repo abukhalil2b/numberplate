@@ -50,7 +50,8 @@
                                 {{ $bill->ref_num }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $bill->branch->name }}
+                            {{ app()->getLocale() == 'ar' ? $bill->branch->ar_name : $bill->branch->en_name }}
+                           
                             </td>
                         </tr>
                         @endforeach

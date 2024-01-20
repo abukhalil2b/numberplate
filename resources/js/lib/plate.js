@@ -10,14 +10,16 @@ export default function () {
         return this;
     };
 
-    return {
+/**  private: ['D','DD','DR','DW','DY','R','RR','RS','RM','RW','RY','S','SS','M','MM','MW','MY','W','WW','Y','YA','YY','A','AA','AB','AD','AR','AS','AM','AW','AY','B','BB','BH','BD','BR','BS','BW','BY','H','HH','HD','HR','HS','HY'],*/ 
+    
+return {
         plateType:'',
 
-        private: ['D','DD','DR','DW','DY','R','RR','RS','RM','RW','RY','S','SS','M','MM','MW','MY','W','WW','Y','YA','YY','A','AA','AB','AD','AR','AS','AM','AW','AY','B','BB','BH','BD','BR','BS','BW','BY','H','HH','HD','HR','HS','HY'],
+        private: [],
 
-        commercial: ['AK','BA','BK'],
+        commercial: [],
 
-        diplomatic: ['CD'],
+        diplomatic: [],
 
         temporary: [],
 
@@ -25,7 +27,7 @@ export default function () {
 
         specific: [],
 
-        learners: [],
+        learner: [],
 
         government: [],
 
@@ -91,12 +93,12 @@ export default function () {
             this.codes = this.export
         },
 
-        getLearnersCode() {
+        getLearnerCode() {
             this.resetValues();
 
-            this.plateType = 'learners';
+            this.plateType = 'learner';
 
-            this.codes = this.learners
+            this.codes = this.learner
         },
 
         getSpecificCode() {
@@ -368,5 +370,32 @@ export default function () {
                 this.plates = this.plates.removeByValue("bike");
             }
         },
+
+        /* start-- check for plate type is exist -- */
+        showLargeWithKhanjer(plateType){
+            
+            return ['government'].filter(item=>item == plateType).length > 0
+        },
+
+        showLarge(plateType){
+            
+            return ['government','specific','private','commercial','diplomatic'].filter(item=>item == plateType).length > 0
+        },
+
+        showMedium(plateType){
+            //this check no need to be applied
+            return ['government','specific','private','commercial','learner','diplomatic','temporary','export'].filter(item=>item == plateType).length > 0
+        },
+
+        showSmall(plateType){
+            
+            return ['private'].filter(item=>item == plateType).length > 0
+        },
+
+        showBike(plateType){
+            
+            return ['government','specific','private','commercial','learner','diplomatic','temporary'].filter(item=>item == plateType).length > 0
+        }
+        /* end-- check for plate type is exist -- */
     };
 }

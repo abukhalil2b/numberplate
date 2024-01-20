@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helper\Helperfunction;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\RedirectResponse;
@@ -17,9 +18,114 @@ class ProfileController extends Controller
      */
     public function show(Request $request): View
     {
-        return view('profile.show', [
-            'user' => $request->user(),
-        ]);
+        $user = $request->user();
+
+        if ($user->profile == 'admin') {
+            return view('profile.admin_show', compact('user'));
+        }
+
+        if ($user->profile == 'branch') {
+
+            /*-- private bike--*/
+            $bikePrivate =   Helperfunction::plateCount($user->id, 'bike', 'private');
+
+            /*-- private small--*/
+            $smallPrivate = Helperfunction::plateCount($user->id, 'small', 'private');
+
+            /*-- private medium--*/
+            $mediumPrivate = Helperfunction::plateCount($user->id, 'medium', 'private');
+
+            /*-- private large--*/
+            $largePrivate = Helperfunction::plateCount($user->id, 'large', 'private');
+
+            /*-- commercial bike --*/
+            $bikeCommercial =  Helperfunction::plateCount($user->id, 'bike', 'commercial');
+
+            /*-- commercial large --*/
+            $largeCommercial =  Helperfunction::plateCount($user->id, 'large', 'commercial');
+
+            /*-- commercial medium --*/
+            $mediumCommercial =  Helperfunction::plateCount($user->id, 'medium', 'commercial');
+
+            /*-- diplomatic bike --*/
+            $bikeDiplomatic = Helperfunction::plateCount($user->id, 'bike', 'diplomatic');
+
+            /*-- diplomatic large --*/
+            $largeDiplomatic = Helperfunction::plateCount($user->id, 'large', 'diplomatic');
+
+            /*-- diplomatic medium --*/
+            $mediumDiplomatic = Helperfunction::plateCount($user->id, 'medium', 'diplomatic');
+
+            /*-- temporary bike --*/
+            $bikeTemporary = Helperfunction::plateCount($user->id, 'bike', 'temporary');
+
+            /*-- temporary medium --*/
+            $mediumTemporary = Helperfunction::plateCount($user->id, 'medium', 'temporary');
+
+            /*-- export medium --*/
+            $mediumExport = Helperfunction::plateCount($user->id, 'medium', 'export');
+
+            /*-- specific bike --*/
+            $bikeSpecific = Helperfunction::plateCount($user->id, 'bike', 'specific');
+
+            /*-- specific medium --*/
+            $mediumSpecific = Helperfunction::plateCount($user->id, 'medium', 'specific');
+
+            /*-- specific large --*/
+            $largeSpecific = Helperfunction::plateCount($user->id, 'large', 'specific');
+
+            /*-- learner bike --*/
+            $bikeLearner = Helperfunction::plateCount($user->id, 'bike', 'learner');
+
+            /*-- learner medium --*/
+            $mediumLearner = Helperfunction::plateCount($user->id, 'medium', 'learner');
+
+            /*-- government bike --*/
+            $bikeGovernment = Helperfunction::plateCount($user->id, 'bike', 'government');
+
+            /*-- government medium --*/
+            $mediumGovernment =  Helperfunction::plateCount($user->id, 'medium', 'government');
+
+            /*-- government large --*/
+            $largeGovernment =  Helperfunction::plateCount($user->id, 'large', 'government');
+
+            /*-- government largeWithKhanjer --*/
+            $largeWithKhanjerGovernment = Helperfunction::plateCount($user->id, 'largeWithKhanjer', 'government');
+
+            $branch = $user;
+            return view('profile.branch_show', compact(
+                'branch',
+                'bikePrivate',
+                'smallPrivate',
+                'mediumPrivate',
+                'largePrivate',
+
+                'bikeCommercial',
+                'mediumCommercial',
+                'largeCommercial',
+
+                'bikeDiplomatic',
+                'mediumDiplomatic',
+                'largeDiplomatic',
+
+                'mediumTemporary',
+                'bikeTemporary',
+
+                'mediumExport',
+
+                'bikeSpecific',
+                'mediumSpecific',
+                'largeSpecific',
+
+                'bikeLearner',
+                'mediumLearner',
+
+                'bikeGovernment',
+                'mediumGovernment',
+                'largeGovernment',
+                'largeWithKhanjerGovernment'
+            ));
+        }
     }
 
     /**

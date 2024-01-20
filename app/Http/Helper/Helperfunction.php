@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Helper;
+use App\Models\Stock;
 
 class Helperfunction {
 
@@ -27,5 +28,17 @@ class Helperfunction {
         
         shuffle($password);
         return implode('', $password);
+    }
+
+    static public function plateCount($branchId,$size,$type){
+        return Stock::selectRaw('SUM(`quantity`) as total')
+            ->where([
+                'cate' => 'plate',
+                'branch_id' => $branchId,
+                'type' => $type,
+                'size' => $size,
+            ])
+            // ->groupby('size')
+            ->first();
     }
 }

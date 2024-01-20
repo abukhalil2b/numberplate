@@ -1,0 +1,52 @@
+.plate-box {
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0px 1px 3px #999;
+}
+
+.bg-private {
+    background-color: #fde047;
+    color: black;
+}
+
+.bg-commercial {
+    background-color: #fca5a5;
+    color: white;
+}
+
+.bg-diplomatic {
+    background-color: white;
+    color: black;
+}
+
+.bg-temporary {
+    background-color: lightgreen;
+    color: white;
+}
+
+.bg-export {
+    background-color: skyblue;
+    color: white;
+}
+
+.bg-specific {
+    background-color: black;
+    color: white;
+}
+
+.bg-learner {
+    background-color: white;
+    color: red;
+}
+
+.bg-government {
+    background-color: white;
+    color: red;
+}
+
+.bg-other {
+    background-color: white;
+    color: black;
+}
+

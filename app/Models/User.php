@@ -15,7 +15,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'profile',
-        'name',
+        'en_name',
+        'ar_name',
         'email',
         'password',
         'plain_password',
@@ -70,5 +71,32 @@ class User extends Authenticatable
             }
         }
         return true;
+    }
+
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'permission_user', 'user_id', 'permission_id');
+    }
+
+    public function hasRole($id)
+    {
+        return $this->roles()->where('user_role.role_id', $id)->count();
+    }
+
+    public function permission($permission)
+    {
+   
+        $userHasPermission = $this->permissions()->where('title', $permission)->count();
+
+        $userRolesHasPermission = $this->roles()->whereHas('permissions', function ($query) use ($permission) {
+            $query->where('permissions.title', $permission);
+        })->count();
+
+        if ($userHasPermission || $userRolesHasPermission || $this->id === 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

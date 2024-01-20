@@ -22,7 +22,8 @@ class BranchStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'branchname' => 'required',
+            'ar_branchname' => 'required',
+            'en_branchname' => 'required',
             'email' => 'required|unique:users',
         ];
     }
@@ -30,7 +31,8 @@ class BranchStoreRequest extends FormRequest
     public function messages()
     {
         return[
-            'branchname.required'=>' The branchname field is required. ',
+            'ar_branchname.required'=>' The arabic branchname field is required. ',
+            'en_branchname.required'=>' The english branchname field is required. ',
             'email.required'=>' The username field is required. ',
             'email.unique'=>' The username has already been taken. ',
         ];

@@ -8,7 +8,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">New Stock To {{ $branch->name }}</h4>
+                    <h4 class="modal-title">New Stock To {{ app()->getLocale() == 'ar' ? $branch->ar_name : $branch->en_name }}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -33,7 +33,7 @@
                                     <option value="temporary">{{ __('temporary') }}</option>
                                     <option value="export">{{ __('export') }}</option>
                                     <option value="specific">{{ __('specific') }}</option>
-                                    <option value="learners">{{ __('learners') }}</option>
+                                    <option value="learner">{{ __('learner') }}</option>
                                     <option value="government">{{ __('government') }}</option>
                                     <option value="other">{{ __('other') }}</option>
                                 </select>

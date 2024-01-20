@@ -1,4 +1,4 @@
-<x-layout.default>
+<x-layout.admin>
     <div>
         <div class="">
             <form action="{{ route('admin.bill.extra.search',$branch->id) }}" method="POST">
@@ -48,4 +48,4 @@
             </table>
         </div>
     </div>
-</x-layout.default>
+</x-layout.admin>

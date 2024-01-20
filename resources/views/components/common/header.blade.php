@@ -46,16 +46,18 @@
 
                 <div class="dropdown flex-shrink-0" x-data="dropdown" @click.outside="open = false">
                     <a href="javascript:;" class="relative group" @click="toggle()">
-                        <span><img class="w-9 h-9 rounded-full object-cover saturate-50 group-hover:saturate-100" src="/assets/images/user-profile.jpeg" alt="image" /></span>
+                        <span><img class="w-9 h-9 rounded-full object-cover saturate-50 group-hover:saturate-100" src="/img/avatar.png" alt="image" /></span>
                     </a>
                     <ul x-cloak x-show="open" x-transition x-transition.duration.300ms class="ltr:right-0 rtl:left-0 text-dark dark:text-white-dark top-11 !py-0 w-[230px] font-semibold dark:text-white-light/90">
                         <li>
                             <div class="flex items-center px-4 py-4">
                                 <div class="flex-none">
-                                    <img class="rounded-md w-10 h-10 object-cover" src="/assets/images/user-profile.jpeg" alt="image" />
+                                    <img class="rounded-md w-10 h-10 object-cover" src="/img/avatar.png" alt="image" />
                                 </div>
                                 <div class="ltr:pl-4 rtl:pr-4 truncate">
-                                    <h4 class="text-base">{{ Auth::user()->name }}
+                                    <h4 class="text-base">
+                                       
+                                        {{ app()->getLocale() == 'ar' ? Auth::user()->ar_name : Auth::user()->en_name }}
                                     </h4>
                                     <a class="text-black/60  hover:text-primary dark:text-dark-light/60 dark:hover:text-white" href="javascript:;">{{ Auth::user()->email }}</a>
                                 </div>

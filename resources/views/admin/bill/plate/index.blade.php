@@ -1,8 +1,8 @@
-<x-layout.default>
+<x-layout.admin>
     <div>
 
     <div class="p-5">
-        {{ $branch->name }}
+    {{ app()->getLocale() == 'ar' ? $branch->ar_name : $branch->en_name }}
     </div>
         <div>
             <form action="{{ route('admin.bill.plate.search',$branch->id) }}" method="POST">
@@ -16,7 +16,7 @@
                         <option @if($type=='temporary' ) selected @endif value="temporary">temporary</option>
                         <option @if($type=='export' ) selected @endif value="export">export</option>
                         <option @if($type=='specific' ) selected @endif value="specific">specific</option>
-                        <option @if($type=='learners' ) selected @endif value="learners">learners</option>
+                        <option @if($type=='learner' ) selected @endif value="learner">learner</option>
                         <option @if($type=='government' ) selected @endif value="government">government</option>
                         <option @if($type=='other' ) selected @endif value="other">other</option>
                     </select>
@@ -83,4 +83,4 @@
             </table>
         </div>
     </div>
-</x-layout.default>
+</x-layout.admin>

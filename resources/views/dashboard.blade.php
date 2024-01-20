@@ -4,39 +4,9 @@
 
         <div class="p-1 max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col items-center">
 
-            <!-- plate size -->
-            <div x-data="{ show:false }">
-                <div @click="show = ! show" class="border rounded p-1 cursor-pointer w-40 text-center text-xs" :class="show ? 'bg-blue-100' : '' "> {{ __('show stock balance') }}</div>
-                <div x-cloak x-show="show" class="p-1">
-                    <div>
-                        {{ __('small') }}:
-                        {{$smallPlate->total}}
-                    </div>
-                    <div>
-                        {{ __('medium') }}:
-                        {{$mediumPlate->total}}
-                    </div>
-                    <div>
-                        {{ __('large') }}:
-                        {{$largePlate->total}}
-                    </div>
-                    <div>
-                        {{ __('largeWithKhanjer') }}:
-                        {{$largeWithKhanjerPlate->total}}
-                    </div>
-                    <div>
-                        {{ __('bike') }}:
-                        {{$bikePlate->total}}
-                    </div>
-                </div>
-            </div>
 
-            <form method="post" action="{{ route('bill.store') }}">
+            <form method="post" action="{{ route('bill.plate.store') }}">
                 @csrf
-
-                <div class=" mt-5 w-full text-center">
-                    {{ __('select plate type') }}
-                </div>
 
                 <div class="mt-2 flex flex-wrap gap-1 justify-center">
                     <div class="private_plate" :class="plateType == 'private' ? 'private_plate_selected' : '' " @click="getPrivateCode">
@@ -53,29 +23,34 @@
                     </div>
                     @endif
 
+                    @if( auth()->user()->hasPermission('temporary') )
                     <div class="temporary_plate" :class="plateType == 'temporary' ? 'temporary_plate_selected' : '' " @click="getTemporaryCode">
                         {{ __('temporary') }}
                     </div>
+                    @endif
 
+                    @if( auth()->user()->hasPermission('export') )
                     <div class="export_plate" :class="plateType == 'export' ? 'export_plate_selected' : '' " @click="getExportCode">
                         {{ __('export') }}
                     </div>
+                    @endif
 
                     <div class="specific_plate" :class="plateType == 'specific' ? 'specific_plate_selected' : '' " @click="getSpecificCode">
                         {{ __('specific use') }}
                     </div>
 
-                    <div class="learners_plate" :class="plateType == 'learners' ? 'learners_plate_selected' : '' " @click="getLearnersCode">
-                        {{ __('learners') }}
+                    @if( auth()->user()->hasPermission('learner') )
+                    <div class="learner_plate" :class="plateType == 'learner' ? 'learner_plate_selected' : '' " @click="getLearnerCode">
+                        {{ __('learner') }}
                     </div>
+                    @endif
 
+                    @if( auth()->user()->hasPermission('government') )
                     <div class="government_plate" :class="plateType == 'government' ? 'government_plate_selected' : '' " @click="getGovernmentCode">
                         {{ __('government') }}
                     </div>
+                    @endif
 
-                    <div class="other_plate " :class="plateType == 'other' ? 'other_plate_selected' : '' " @click="getOtherCode">
-                        {{ __('other') }}
-                    </div>
                 </div>
 
                 <input type="hidden" x-model="plateType" name="type">
@@ -119,7 +94,8 @@
                     </div>
 
                     @include('inc._plate_size')
-                    <div>for statement: <span x-text='sizeForStatement'></span></div>
+
+                    <!-- sizeForStatement -->
                     <input type="hidden" name="sizeForStatement" x-model="sizeForStatement">
                 </div>
 
@@ -173,4 +149,5 @@
         </div>
 
     </div>
+    <footer class="p-5"></footer>
 </x-app-layout>

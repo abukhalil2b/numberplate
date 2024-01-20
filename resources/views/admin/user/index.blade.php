@@ -1,4 +1,4 @@
-<x-layout.default>
+<x-layout.admin>
     <div>
         <!-- form -->
         <form method="post" action="{{ route('admin.user.store') }}" class="p-2">
@@ -13,9 +13,14 @@
                 </select>
             </div>
 
-            <div class="mt-5 {{ $errors->get('name') ? 'has-error':'' }} ">
-                <label for="inputName"> name | اسم صاحب الحساب </label>
-                <input id="inputName" name="name" type="text" placeholder="name" class="form-input" required />
+            <div class="mt-5 {{ $errors->get('ar_name') ? 'has-error':'' }} ">
+                <label for="inputName"> اسم صاحب الحساب </label>
+                <input id="inputName" name="ar_name" type="text" placeholder="arabic name" class="form-input" required />
+            </div>
+
+            <div class="mt-5 {{ $errors->get('en_name') ? 'has-error':'' }} ">
+                <label for="inputName"> Acount Name </label>
+                <input id="inputName" name="en_name" type="text" placeholder="english name" class="form-input" required />
             </div>
 
             <div class="mt-5 {{ $errors->get('email') ? 'has-error':'' }} ">
@@ -52,7 +57,9 @@
                         @foreach($users as $user)
                         <tr>
                             <td class="whitespace-nowrap">
-                                <div>{{ $user->name }}</div>
+                                <div>
+                                    {{ app()->getLocale() == 'ar' ? $user->ar_name : $user->en_name }}
+                                </div>
                                 <div>
                                     @foreach($user->roles as $role)
                                     <span class="mx-2 text-gray-400 text-xs">{{ __($role->title) }}</span>

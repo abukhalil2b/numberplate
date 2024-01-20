@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->string('required',10)->nullable();//single - pair
             
-            $table->string('type',20)->default('private');//private - commercial - diplomatic - temporary - export - specific - learners - government - other
+            $table->string('type',20)->default('private');//private - commercial - diplomatic - temporary - export - specific - learner - government - other
            
             $table->string('plate_num',20)->nullable();
             
@@ -31,7 +31,7 @@ return new class extends Migration
             
             $table->string('payment_method',10)->nullable();//null - cash - visa
             
-            $table->date('issue_date');
+            $table->date('issue_date')->nullable();
 
             $table->timestamps();
         });

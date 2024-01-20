@@ -92,7 +92,7 @@
                     </div>
                     <div class="info">
                         <a href="{{ route('profile') }}" class="d-block">
-                            <div class="text-xs">{{ Auth::user()->name }}</div>
+                            <div class="text-xs">{{ app()->getLocale() == 'ar' ? Auth::user()->ar_name :  Auth::user()->en_name }}</div>
                         </a>
                     </div>
                 </div>

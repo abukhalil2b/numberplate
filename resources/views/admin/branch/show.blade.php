@@ -1,5 +1,8 @@
-<x-layout.default>
+<x-layout.admin>
     <div>
+        <div class="text-center text-3xl">
+            {{ $branch->ar_name }} | {{ $branch->en_name }}
+        </div>
         <div class="grid grid-cols-1 gap-6 pt-5 md:grid-cols-2 lg:grid-cols-4">
             <!-- Plate -->
             <div class="min-w-60 border border-gray-500/20 rounded-md shadow-[rgb(31_45_61_/_10%)_0px_2px_10px_1px] dark:shadow-[0_2px_11px_0_rgb(6_8_24_/_39%)] p-6">
@@ -77,7 +80,7 @@
                 </div>
                 <h5 class="text-lg font-semibold mb-3.5 dark:text-white-light">Stock</h5>
                 <p class="text-white-dark text-[15px]  mb-3.5">latest</p>
-                <a href="{{ route('admin.branch.stock.index',$branch->id) }}" class="text-primary font-semibold hover:underline group flex justify-center items-center">
+                <a href="{{ route('admin.stock.index',$branch->id) }}" class="text-primary font-semibold hover:underline group flex justify-center items-center">
                     show
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -85,7 +88,7 @@
                 </a>
             </div>
         </div>
-        
+
         <!-- Today Sales -->
         <div class="mt-4 panel">
             <div class="flex items-center justify-between mb-5">
@@ -117,7 +120,9 @@
                             @foreach($latestBills as $latestBill)
                             <tr class="bg-white border-b ">
                                 <td>
-                                    {{ $latestBill->branch->name }}
+
+                                    {{ app()->getLocale() == 'ar' ? $latestBill->branch->ar_name : $latestBill->branch->en_name }}
+
                                 </td>
                                 <td class="px-6 py-4">
                                     <div>{{ $latestBill->type }}</div>
@@ -165,4 +170,4 @@
 
         </div>
     </div>
-</x-layout.default>
+</x-layout.admin>

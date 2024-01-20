@@ -30,9 +30,9 @@ return new class extends Migration
 
             $table->text('description')->nullable();//
 
-            $table->string('note',15)->default('received');//received - transferred - sold
+            $table->string('note',15)->default('received');//received - transferred - sold - failed
 
-            $table->date('issue_date');
+            $table->date('issue_date')->nullable();
             
             $table->timestamps();
         });

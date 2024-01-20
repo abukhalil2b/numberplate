@@ -48,7 +48,8 @@ class UserController extends Controller
 
         $user = User::create([
             'profile' => 'admin',
-            'name' => $request->name,
+            'ar_name' => $request->ar_name,
+            'en_name' => $request->en_name,
             'email' => $request->email,
             'password' => Hash::make($password),
             'plain_password' => $password,
@@ -97,7 +98,8 @@ class UserController extends Controller
 
         $request->validate([
             'role_title' => 'required',
-            'name' => 'required',
+            'en_name' => 'required',
+            'ar_name' => 'required',
         ]);
 
         // return $request->all();
@@ -143,10 +145,18 @@ class UserController extends Controller
                 ]);
         }
 
-        //if name has changed
-        if ($request->name) {
+        //if ar_name has changed
+        if ($request->ar_name) {
 
-            $user->name = $request->name;
+            $user->ar_name = $request->ar_name;
+
+            $user->save();
+        }
+
+        //if en_name has changed
+        if ($request->en_name) {
+
+            $user->en_name = $request->en_name;
 
             $user->save();
         }

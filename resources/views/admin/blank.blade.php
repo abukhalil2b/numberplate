@@ -1,5 +1,5 @@
-<x-layout.default>
+<x-layout.admin>
     <div>
         <h1>starter page</h1>
     </div>
-</x-layout.default>
+</x-layout.admin>

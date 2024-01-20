@@ -90,21 +90,4 @@ class HomeController extends Controller
         ));
     }
 
-    /**-- create branch --*/
-    public function createBranch()
-    {
-        return view('admin.branch.create');
-    }
-
-    /**-- store branch --*/
-    public function storeBranch(Request $request)
-    {
-
-        $user = User::create([
-            'profile' => 'branch',
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-    }
 }

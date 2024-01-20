@@ -5,24 +5,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>برنامج طباعة أرقام المركبات</title>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
 
 <body>
-    <div class="p-5 min-h-screen bg-gray-100 text-xl">
+    <div class="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
 
-        <div class="flex justify-center text-2xl text-red-900">
+        <img src="{{ asset('img/logo.png') }}" />
 
-            برنامج تتبع تسجيل أرقام المركبات
-
-        </div>
-
-        <div class="mt-10 py-10 flex justify-center text-purple-800">
-            ( النسخة التجريبية الثالثة )
-        </div>
 
         <div class="mt-5 flex justify-center">
             @auth

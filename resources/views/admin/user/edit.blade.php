@@ -1,4 +1,4 @@
-<x-layout.default>
+<x-layout.admin>
     <div>
         <!-- form -->
         <form method="post" action="{{ route('admin.user.update') }}" class="p-2">
@@ -16,8 +16,13 @@
             </div>
 
             <div class="mt-5 {{ $errors->get('name') ? 'has-error':'' }} ">
-                <label for="inputName"> name | اسم صاحب الحساب </label>
-                <input id="inputName" name="name" type="text" placeholder="name" class="form-input" value="{{ $user->name }}" required />
+                <label for="inputName"> English Name</label>
+                <input id="inputName" name="en_name" type="text" placeholder="name" class="form-input" value="{{ $user->en_name }}" required />
+            </div>
+
+            <div class="mt-5 {{ $errors->get('name') ? 'has-error':'' }} ">
+                <label for="inputName">اسم صاحب الحساب </label>
+                <input id="inputName" name="ar_name" type="text" placeholder="name" class="form-input" value="{{ $user->ar_name }}" required />
             </div>
 
             <input type="hidden" name="user_id" value="{{ $user->id }}">
@@ -45,4 +50,4 @@
 
 
     </div>
-</x-layout.default>
+</x-layout.admin>

@@ -1,10 +1,10 @@
-<x-layout.default>
+<x-layout.admin>
     <div>
         <form action="{{ route('admin.branch.permission.update',$branch->id) }}" method="POST">
             @csrf
             <div class="mb-5">
                 <div class="mt-3 p-3 text-xl text-red-800">
-                Permissions {{ $branch->name}}
+                Permissions: {{ app()->getLocale() == 'ar' ? $branch->ar_name : $branch->en_name }}
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered">
@@ -37,4 +37,4 @@
             </div>
         </form> <!-- / form -->
     </div>
-</x-layout.default>
+</x-layout.admin>

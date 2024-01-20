@@ -1,4 +1,4 @@
-<x-layout.default>
+<x-layout.admin>
     <div>
         <h1 class="p-5 text-xl">{{ __('today sales') }}</h1>
         <table class="table table-bordered">
@@ -25,7 +25,7 @@
                 @foreach($latestBills as $latestBill)
                 <tr class="bg-white border-b ">
                     <td>
-                        {{ $latestBill->branch->name }}
+                        {{ app()->getLocale() == 'ar' ? $latestBill->branch->ar_name : $latestBill->branch->en_name }}
                     </td>
                     <td class="px-6 py-4">
                         <div>{{ $latestBill->type }}</div>
@@ -50,4 +50,4 @@
             </tbody>
         </table>
     </div>
-</x-layout.default>
+</x-layout.admin>

@@ -7,11 +7,21 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AdminPermissionController extends Controller
+class AdminBranchPermissionController extends Controller
 {
 
-    public function branchPermissionIndex(User $branch)
+    // public function __construct() {
+     
+		
+	// }
+
+    public function permissionIndex(User $branch)
     {
+        //-- only allow superadmin
+        if( auth()->user()->id != 1 )
+        abort(403);
+
+        //-- Permission
         $Permission = Permission::all();
 
         $userPermissions = DB::table('permission_user')
@@ -33,7 +43,7 @@ class AdminPermissionController extends Controller
     }
 
 
-    public function branchPermissionUpdate(Request $request, User $branch)
+    public function permissionUpdate(Request $request, User $branch)
     {
 
         if ($request->permissionIds) {
