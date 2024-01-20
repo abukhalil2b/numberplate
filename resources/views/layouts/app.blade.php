@@ -18,14 +18,17 @@
 
     <div class="w-full bg-white">
 
-        <div class="p-3 flex">
-            <svg class="w-4 h-5 flex-none " viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="black" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-            <a class="block w-32 text-center" href="{{ route('profile') }}">
-                <div class="text-red-900 text-xs">{{ app()->getLocale() == 'ar' ? Auth::user()->ar_name : Auth::user()->en_name}}</div>
-                <div class="text-[10px] text-gray-500">{{ Auth::user()->email }}</div>
+        <div class="p-3 flex gap-4">
+            <a href="/branch/dashboard">
+                <img src="/img/logo.png" width="100" />
             </a>
+            <div class="flex items-center">
+                <x-svgicon.person />
+                <a class="block text-center" href="{{ route('profile') }}">
+                    <div class="text-red-900 text-xs">{{ app()->getLocale() == 'ar' ? Auth::user()->ar_name : Auth::user()->en_name}}</div>
+                    <div class="text-[10px] text-gray-500">{{ Auth::user()->email }}</div>
+                </a>
+            </div>
 
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

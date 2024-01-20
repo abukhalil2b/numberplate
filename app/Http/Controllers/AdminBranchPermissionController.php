@@ -11,18 +11,18 @@ class AdminBranchPermissionController extends Controller
 {
 
     // public function __construct() {
-     
-		
-	// }
+
+
+    // }
 
     public function permissionIndex(User $branch)
     {
         //-- only allow superadmin
-        if( auth()->user()->id != 1 )
-        abort(403);
+        if (auth()->user()->id != 1)
+            abort(403);
 
         //-- Permission
-        $Permission = Permission::all();
+        $Permission = Permission::whereIn('cate',['plate.size','plate.type'])->get();
 
         $userPermissions = DB::table('permission_user')
             ->where(['user_id' => $branch->id])

@@ -24,6 +24,9 @@ return new class extends Migration
            
             $table->mediumInteger('quantity')->default(1);
  
+            $table->unsignedBigInteger('bill_id')->nullable(); // can be null in case bought purfume 
+            $table->foreign('bill_id')->references('id')->on('bills')->cascadeOnDelete();
+            
             $table->unsignedBigInteger('branch_id');
             
             $table->foreign('branch_id')->references('id')->on('users')->cascadeOnDelete();

@@ -58,7 +58,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="mt-1" x-data="plate">
+            <div class="mt-1">
                 @include('inc._model_failedprint')
             </div>
 

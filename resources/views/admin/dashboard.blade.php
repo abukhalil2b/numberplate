@@ -4,19 +4,19 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-2 py-1">
                         branch name
                     </th>
 
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-2 py-1">
                         plate
                     </th>
 
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-2 py-1">
                         single/pair
                     </th>
 
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-2 py-1">
                         رصد
                     </th>
                 </tr>
@@ -27,13 +27,13 @@
                     <td>
                         {{ app()->getLocale() == 'ar' ? $latestBill->branch->ar_name : $latestBill->branch->en_name }}
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-2 py-1">
                         <div>{{ $latestBill->type }}</div>
                         <span>{{ $latestBill->plate_num }}</span>
                         <span>{{ $latestBill->plate_code }}</span>
                     </td>
 
-                    <td class="px-6 py-4">
+                    <td class="px-2 py-1">
                         <div> {{ $latestBill->required }}</div>
                         <div class="text-xs">
                             @foreach($latestBill->items as $item)
@@ -42,7 +42,7 @@
                         </div>
                     </td>
 
-                    <td class="px-6 py-4">
+                    <td class="px-2 py-1">
                         {{ $latestBill->ref_num }}
                     </td>
                 </tr>

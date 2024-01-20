@@ -12,7 +12,7 @@ class AdminPermissionRoleController extends Controller
 
     public function index(Role $role)
     {
-        $permissions = Permission::all();
+        $permissions = Permission::whereNotIn('cate',['plate.size','plate.type'])->get();
 
         $rolePermissionIds = DB::table('permission_role')
             ->where('role_id', $role->id)

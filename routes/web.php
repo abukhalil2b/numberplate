@@ -120,7 +120,7 @@ Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 | admin role
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth','adminProfile']], function () {
 
     Route::get('admin/role/index', [AdminRoleController::class, 'index'])
         ->middleware('permission:admin.role.index')
@@ -132,7 +132,7 @@ Route::group(['middleware' => ['auth']], function () {
 | admin - permission role
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth','adminProfile']], function () {
 
     Route::get('admin/permission_role/index/{role}', [AdminPermissionRoleController::class, 'index'])
         ->middleware('permission:admin.permission_role.index')
@@ -150,7 +150,7 @@ Route::group(['middleware' => ['auth']], function () {
 | admin - bill - plate
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','adminProfile']], function () {
 
     Route::get('admin/bill/plate/index/{branch}', [AdminBillController::class, 'plateIndex'])
         ->middleware('permission:admin.bill.plate.index')
@@ -167,7 +167,7 @@ Route::group(['middleware' => 'auth'], function () {
 | admin - bill - extra
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','adminProfile']], function () {
 
     Route::get('admin/bill/extra/index/{branch}', [AdminBillController::class, 'extraIndex'])
         ->middleware('permission:admin.bill.extra.index')
@@ -178,35 +178,12 @@ Route::group(['middleware' => 'auth'], function () {
         ->name('admin.bill.extra.search');
 });
 
-
 /*
 |--------------------------------------------------------------------------
-| Bill
+| admin statement
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => 'auth'], function () {
-
-    Route::post('bill/plate/store', [BillController::class, 'store'])
-        ->middleware('permission:bill.plate.store')
-        ->name('bill.plate.store');
-});
-
-
-/*
-|--------------------------------------------------------------------------
-| localization
-|--------------------------------------------------------------------------
-*/
-Route::get('localization/store/{local}', [ProfileController::class, 'localizationStore'])
-    ->name('localization.store');
-
-
-/*
-|--------------------------------------------------------------------------
-| statement
-|--------------------------------------------------------------------------
-*/
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','adminProfile']], function () {
 
     Route::get('admin/statement/index/{branch}', [AdminStatementController::class, 'index'])
         ->middleware('permission:admin.statement.index')
@@ -220,30 +197,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 /*
 |--------------------------------------------------------------------------
-| items
-|--------------------------------------------------------------------------
-*/
-Route::group(['middleware' => ['auth', 'localization']], function () {
-
-    Route::get('item/index/{bill}', [ItemController::class, 'index'])
-        ->middleware('permission:item.index')
-        ->name('item.index');
-
-    Route::post('item/failedprint/store', [ItemController::class, 'failedprintStore'])
-        ->middleware('permission:item.failedprint.store')
-        ->name('item.failedprint.store');
-
-    Route::post('item/extra/store', [ItemController::class, 'extraStore'])
-        ->middleware('permission:item.extra.store')
-        ->name('item.extra.store');
-});
-
-/*
-|--------------------------------------------------------------------------
 | admin stock
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','adminProfile']], function () {
 
 
     Route::get('admin/stock/index/{branch}', [AdminStockController::class, 'stockIndex'])
@@ -298,6 +255,37 @@ Route::group(['middleware' => 'auth'], function () {
 
 /*
 |--------------------------------------------------------------------------
+| Bill
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth','branchProfile']], function () {
+
+    Route::post('bill/plate/store', [BillController::class, 'store'])
+        ->name('bill.plate.store');
+});
+
+
+
+/*
+|--------------------------------------------------------------------------
+| items
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth','branchProfile', 'localization']], function () {
+
+    Route::get('item/index/{bill}', [ItemController::class, 'index'])
+        ->name('item.index');
+
+    Route::post('item/failedprint/store', [ItemController::class, 'failedprintStore'])
+        ->name('item.failedprint.store');
+
+    Route::post('item/extra/store', [ItemController::class, 'extraStore'])
+        ->name('item.extra.store');
+});
+
+
+/*
+|--------------------------------------------------------------------------
 | drink stock
 |--------------------------------------------------------------------------
 */
@@ -313,5 +301,14 @@ Route::group(['middleware' => ['auth', 'localization', 'drinkStockPermission']],
 
     Route::post('drink_stock/update/{drinkStock}', [DrinkStockController::class, 'update'])->name('drink_stock.update');
 });
+
+/*
+|--------------------------------------------------------------------------
+| localization
+|--------------------------------------------------------------------------
+*/
+Route::get('localization/store/{local}', [ProfileController::class, 'localizationStore'])
+    ->name('localization.store');
+
 
 require __DIR__ . '/auth.php';

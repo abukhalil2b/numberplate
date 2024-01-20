@@ -30,7 +30,6 @@ class AdminBillController extends Controller
             ->latest('id')
             ->get();
 
-
         return view('admin.bill.plate.index', compact('branch', 'bills', 'type', 'required', 'date_from', 'date_to'));
     }
 

@@ -18,4 +18,10 @@ class Bill extends Model
     {
         return $this->hasMany(Item::class);
     }
+
+    public function successPlateItems()
+    {
+        return $this->hasMany(Item::class)->where(['cate'=>'plate','status'=>'success']);
+    }
+    
 }

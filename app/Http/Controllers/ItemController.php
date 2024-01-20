@@ -25,46 +25,65 @@ class ItemController extends Controller
     {
         // return $request->all();
 
-        $bill = Bill::find($request->bill_id);
+        $bill = Bill::findOrFail($request->bill_id);
 
         $loggedUser = auth()->user();
 
-        $items = [];
+        /*-- single plate --*/
+        if ($request->plate_failed == 'single' || $request->plate_failed == 'pair_same_size') {
 
-        if ($request->small > 0) {
+            $item = Item::find($request->itemId);
 
-            array_push($items, ['size' => 'small', 'quantity' => $request->small]);
+            if (!$item) {
+                abort(404);
+            }
+
+            /*-- item --*/
+            Item::create([
+                'cate' => 'plate',
+                'type' => $bill->type,
+                'size' => $item->size,
+                'quantity' => 1,
+                'bill_id' => $bill->id,
+                'branch_id' => $loggedUser->id,
+                'status' => 'failed',
+                'issue_date' => date('Y-m-d')
+            ]);
+
+            /*-- stock --*/
+            Stock::create([
+                'cate' => 'plate',
+                'instock' => 0,
+                'type' => $bill->type,
+                'size' => $item->size,
+                'quantity' => -1,
+                'bill_id' => $request->bill_id,
+                'branch_id' => $loggedUser->id,
+                'description' => 'print is failed',
+                'note' => 'failed',
+                'issue_date' => date('Y-m-d')
+            ]);
         }
 
-        if ($request->medium > 0) {
+        /*-- pair plate in different size--*/
+        if ($request->plate_failed == 'pair_in_different_size') {
 
-            array_push($items, ['size' => 'medium', 'quantity' => $request->medium]);
-        }
-
-        if ($request->large > 0) {
-
-            array_push($items, ['size' => 'large', 'quantity' => $request->large]);
-        }
-
-        if ($request->largeWithKhanjer > 0) {
-
-            array_push($items, ['size' => 'largeWithKhanjer', 'quantity' => $request->largeWithKhanjer]);
-        }
-
-        if ($request->bike > 0) {
-
-            array_push($items, ['size' => 'bike', 'quantity' => $request->bike]);
-        }
-
-        if (count($items)) {
+            $items = Item::whereIn('id', $request->itemIds)
+                ->where(['cate' => 'plate', 'status' => 'success'])
+                ->get();
+            // return $items;
+            if (count($items) == 0) {
+                abort(404);
+            }
 
             foreach ($items as $item) {
-                /*-- stock --*/
+
+                /*-- item --*/
                 Item::create([
                     'cate' => 'plate',
                     'type' => $bill->type,
-                    'size' => $item['size'],
-                    'quantity' => $item['quantity'],
+                    'size' => $item->size,
+                    'quantity' => 1,
                     'bill_id' => $request->bill_id,
                     'branch_id' => $loggedUser->id,
                     'status' => 'failed',
@@ -74,10 +93,10 @@ class ItemController extends Controller
                 /*-- stock --*/
                 Stock::create([
                     'cate' => 'plate',
-                    'type' => $bill->type,
                     'instock' => 0,
-                    'size' => $item['size'],
-                    'quantity' => -$item['quantity'],
+                    'type' => $bill->type,
+                    'size' => $item->size,
+                    'quantity' => -1,
                     'branch_id' => $loggedUser->id,
                     'description' => 'print is failed',
                     'note' => 'failed',
