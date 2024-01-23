@@ -18,6 +18,7 @@ class AdminBranchController extends Controller
     public function branchShow(User $branch)
     {
         $latestBills = Bill::whereDate('created_at', date('Y-m-d'))
+            ->where('branch_id', $branch->id)
             ->with('branch')
             ->latest('id')
             ->get();

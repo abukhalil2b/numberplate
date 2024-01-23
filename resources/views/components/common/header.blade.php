@@ -15,7 +15,7 @@
                     </svg>
                 </a>
             </div>
-            
+
             <div x-data="header" class="sm:flex-1 ltr:sm:ml-0 ltr:ml-auto sm:rtl:mr-0 rtl:mr-auto flex items-center space-x-1.5 lg:space-x-2 rtl:space-x-reverse dark:text-[#d0d2d6]">
                 <div class="sm:ltr:mr-auto sm:rtl:ml-auto" x-data="{ search: false }" @click.outside="search = false">
                     <form class="sm:relative absolute inset-x-0 sm:top-0 top-1/2 sm:translate-y-0 -translate-y-1/2 sm:mx-0 mx-4 z-10 sm:block hidden" :class="{ '!block': search }" @submit.prevent="search = false">
@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="ltr:pl-4 rtl:pr-4 truncate">
                                     <h4 class="text-base">
-                                       
+
                                         {{ app()->getLocale() == 'ar' ? Auth::user()->ar_name : Auth::user()->en_name }}
                                     </h4>
                                     <a class="text-black/60  hover:text-primary dark:text-dark-light/60 dark:hover:text-white" href="javascript:;">{{ Auth::user()->email }}</a>
@@ -71,7 +71,16 @@
                                 </svg>
                                 Profile</a>
                         </li>
-                        
+                        <li>
+                            <div class="flex gap-2 mt-3 p-3">
+                                <button type="button" class="btn flex-auto text-xs" :class="[$store.app.rtlClass === 'ltr' ? 'btn-primary' : 'btn-outline-primary']" @click="$store.app.toggleRTL('ltr')">
+                                    LTR
+                                </button>
+                                <button type="button" class="btn flex-auto text-xs" :class="[$store.app.rtlClass === 'rtl' ? 'btn-primary' : 'btn-outline-primary']" @click="$store.app.toggleRTL('rtl')">
+                                    RTL
+                                </button>
+                            </div>
+                        </li>
                         <form method="POST" action="{{ route('logout') }}" class="none">
                             <li class="border-t border-white-light dark:border-white-light/10">
                                 @csrf

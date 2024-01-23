@@ -68,6 +68,10 @@ class ItemController extends Controller
         /*-- pair plate in different size--*/
         if ($request->plate_failed == 'pair_in_different_size') {
 
+            if (!$request->itemIds) {
+                abort(404);
+            }
+            
             $items = Item::whereIn('id', $request->itemIds)
                 ->where(['cate' => 'plate', 'status' => 'success'])
                 ->get();
