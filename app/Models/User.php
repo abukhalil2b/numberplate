@@ -19,6 +19,8 @@ class User extends Authenticatable
         'ar_name',
         'email',
         'password',
+        'child_email',
+        'imei',
         'plain_password',
     ];
 

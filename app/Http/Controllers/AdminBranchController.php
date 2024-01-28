@@ -50,6 +50,8 @@ class AdminBranchController extends Controller
             'ar_name' => $request->ar_branchname,
             'en_name' => $request->en_branchname,
             'email' => $request->email,
+            'child_email' => $request->child_email,
+            'imei' => $request->imei,
             'password' => Hash::make($password),
             'plain_password' => $password,
         ]);
@@ -74,6 +76,8 @@ class AdminBranchController extends Controller
         $branch->update([
             'ar_name' => $request->ar_branchname,
             'en_name' => $request->en_branchname,
+            'child_email' => $request->child_email,
+            'imei' => $request->imei
         ]);
 
         if ($request->update_password == 'on') {
