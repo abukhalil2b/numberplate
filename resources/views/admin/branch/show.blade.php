@@ -114,6 +114,9 @@
                                 <th scope="col" class="px-6 py-3">
                                     رصد
                                 </th>
+                                <th scope="col" class="px-6 py-3">
+                                    الوقت
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -142,6 +145,9 @@
                                 <td class="px-6 py-4">
                                     {{ $latestBill->ref_num }}
                                 </td>
+                                <td class="px-6 py-4">
+                                    {{ $latestBill->created_at->format('H:i') }}
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -161,6 +167,9 @@
 
                                 <th scope="col" class="px-6 py-3">
                                     رصد
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    الوقت
                                 </th>
                             </tr>
                         </tfoot>

@@ -44,7 +44,7 @@
                     </button>
                     <ul x-cloak x-show="activeDropdown === 'users'" x-collapse class="sub-menu text-gray-500">
                         <li>
-                            <a href="{{ route('admin.user.index') }}">+ {{ __('New') }}</a>
+                            <a href="{{ route('admin.user.index') }}">{{ __('index') }}</a>
                         </li>
                     </ul>
                 </li>
@@ -68,7 +68,7 @@
                     </button>
                     <ul x-cloak x-show="activeDropdown === 'branches'" x-collapse class="sub-menu text-gray-500">
                         <li>
-                            <a href="{{ route('admin.branch.index') }}">+ {{ __('New') }}</a>
+                            <a href="{{ route('admin.branch.index') }}">{{ __('index') }}</a>
                         </li>
                         @foreach(App\Models\User::where('profile','branch')->get() as $branch)
                         <li>

@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Hash;
 class AdminBranchController extends Controller
 {
 
+    public function branchPrint()
+    {
+        $branchs = User::where('profile', 'branch')
+            ->get();
+        return view('admin.branch.print', compact('branchs'));
+    }
 
     public function branchShow(User $branch)
     {
@@ -71,6 +77,7 @@ class AdminBranchController extends Controller
         $request->validate([
             'ar_branchname' => 'required',
             'en_branchname' => 'required',
+            'imei' => 'required|numeric',
         ]);
 
         $branch->update([
