@@ -18,7 +18,8 @@ class Bill extends Model
     {
         return $this->hasMany(Item::class);
     }
-
+    
+// will has two plate if size of plate is diffrent
     public function successPlateItems()
     {
         return $this->hasMany(Item::class)->where(['cate'=>'plate','status'=>'success']);

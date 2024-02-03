@@ -14,9 +14,11 @@ class ItemController extends Controller
      */
     public function index(Bill $bill)
     {
-        $plateItems = Item::where(['bill_id' => $bill->id, 'cate' => 'plate'])->get();
+        $plateItems = Item::where(['bill_id' => $bill->id, 'cate' => 'plate'])
+            ->get();
 
-        $extraItems = Item::where(['bill_id' => $bill->id, 'cate' => 'extra'])->get();
+        $extraItems = Item::where(['bill_id' => $bill->id, 'cate' => 'extra'])
+            ->get();
 
         return view('item.index', compact('plateItems', 'extraItems', 'bill'));
     }
@@ -71,7 +73,7 @@ class ItemController extends Controller
             if (!$request->itemIds) {
                 abort(404);
             }
-            
+
             $items = Item::whereIn('id', $request->itemIds)
                 ->where(['cate' => 'plate', 'status' => 'success'])
                 ->get();
@@ -123,17 +125,44 @@ class ItemController extends Controller
         ]);
         // return $request->all();
 
+        $bill = Bill::find($request->bill_id);
+
         $loggedUser = auth()->user();
 
-        $price = 1;
+        $description = '';
 
-        $description = 'fixing plate';
+        $buyFramPrice = 0;
+        $fixPlate = 0;
+        foreach ($request->extra_option as $option) {
 
-        if ($request->extra_option == 'frame_with_fixing_plate') {
+            if ($option == 'buy frame') {
 
-            $price = 3;
+                if ($bill->required == 'single') {
+                    $description .= 'buy single frame ';
 
-            $description = 'frame with fixing plate';
+                    $buyFramPrice = 3;
+                } else {
+                    $description .= 'buy pair frame ';
+
+                    $buyFramPrice = 6;
+                }
+            }
+
+
+            if ($option == 'fix plate') {
+
+                if ($bill->required == 'single') {
+                    $description .= 'fix single plate ';
+
+                    $fixPlate = 0.5;
+                } else {
+                    $description .= 'fix pair plate ';
+
+                    $fixPlate = 1;
+                }
+            }
+
+            $price = $buyFramPrice + $fixPlate;
         }
 
         Item::create([
@@ -157,9 +186,11 @@ class ItemController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Item $item)
+    public function extraDelete(Item $item)
     {
-        //
+        $item->delete();
+
+        return back();
     }
 
     /**

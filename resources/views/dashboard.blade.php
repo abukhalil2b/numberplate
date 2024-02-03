@@ -61,8 +61,8 @@
                     </template>
                 </div>
 
-
-                <div class="mt-5 flex gap-1 justify-center">
+ 
+                <div class="mt-5 flex gap-1 justify-center" x-cloak x-show="plateType != '' ">
                     <div class="text-center w-32">
                         {{ __('code') }}
                         <x-text-input type="text" name="plate_code" x-model="selectedCode" class="w-full mt-1 block" />
@@ -73,7 +73,7 @@
                     </div>
                 </div>
 
-                <div class="mt-5 w-full flex justify-center">
+                <div class="mt-5 w-full flex justify-center" x-cloak x-show="plateType != '' ">
                     <div>
                         رصد
                         <x-text-input type="number" name="ref_num" class="w-64 mt-1 block" />
@@ -82,7 +82,7 @@
 
                 <div class="flex flex-col items-center">
 
-                    <div class="mt-4 w-64 flex gap-1">
+                    <div class="mt-4 w-64 flex gap-1" x-cloak x-show="plateType != '' ">
                         <div @click="selectPairPlate" class="plate" :class="required == 'pair' ? 'plate_selected' : '' ">
                             {{ __('pair') }}
                         </div>
@@ -99,24 +99,25 @@
                     <input type="hidden" name="sizeForStatement" x-model="sizeForStatement">
                 </div>
 
-                <div class="p-1 mt-6 flex flex-col justify-center items-center" x-data="{ extra_option:'no'}">
+                <div class="p-1 mt-6 flex flex-col justify-center items-center" x-data="{ extra_option:[]}">
                     <p class="mt-3">{{ __('Extra') }}:</p>
+
+
                     <label class="mt-2 border w-64 flex gap-1 items-center bg-white cursor-pointer">
-                        <input type="radio" id="no" name="extra_option" value="no" x-model="extra_option">
-                        {{ __('NO') }}
+                        <input class="rounded" type="checkbox" name="extra_option[]" value="fix plate" x-model="extra_option">
+                        {{ __('fixing plate') }}:
+                        <span class="text-red-700" x-cloak x-show="required == 'pair' ">1 R.O</span>
+                        <span class="text-red-700" x-cloak x-show="required == 'single' ">0.5 R.O</span>
                     </label>
 
                     <label class="mt-2 border w-64 flex gap-1 items-center bg-white cursor-pointer">
-                        <input type="radio" id="fixing_plate" name="extra_option" value="fixing_plate" x-model="extra_option">
-                        {{ __('fixing plate') }}: 1 R.O
+                        <input class="rounded" type="checkbox" name="extra_option[]" value="buy frame" x-model="extra_option">
+                        {{ __('buy frame') }}:
+                        <span class="text-red-700" x-cloak x-show="required == 'pair' ">6 R.O</span>
+                        <span class="text-red-700" x-cloak x-show="required == 'single' ">3 R.O</span>
                     </label>
 
-                    <label class="mt-2 border w-64 flex gap-1 items-center bg-white cursor-pointer">
-                        <input type="radio" id="frame_with_fixing_plate" name="extra_option" value="frame_with_fixing_plate" x-model="extra_option">
-                        {{ __('frame with fixing plate') }}: 3 R.O
-                    </label>
-
-                    <div x-cloak x-show="extra_option != 'no' ">
+                    <div x-cloak x-show="extra_option.length > 0">
 
                         <p class="mt-3 text-center">{{ __('Payment Method') }}:</p>
                         <label class="mt-2 border w-64 flex gap-1 items-center bg-white cursor-pointer">
@@ -129,6 +130,7 @@
                         </label>
 
                     </div>
+
                 </div>
 
 
@@ -150,4 +152,5 @@
 
     </div>
     <footer class="p-5"></footer>
+
 </x-app-layout>

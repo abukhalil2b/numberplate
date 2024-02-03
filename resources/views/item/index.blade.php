@@ -1,12 +1,12 @@
 <x-app-layout>
-    <x-slot name="header">
 
-    </x-slot>
+    @include('item._bill_delete')
 
     <div class="py-12">
         <div class="p-1 max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            <div class="w-full bg-white p-3 border rounded shadow">
+            <div class="w-full bg-white p-3 border rounded text-xl">
+                <div>{{ __($bill->plate_sold_size) }}</div>
                 <div> {{ __($bill->type) }}</div>
                 <span>{{ $bill->plate_num }}</span>
                 <span>{{ $bill->plate_code }}</span>
@@ -14,7 +14,7 @@
 
             <div class="mt-5 overflow-x-auto">
                 <table class="w-full text-sm text-center text-gray-500">
-                    <thead class="text-xs text-gray-50 bg-gray-600 ">
+                    <thead class="text-xs bg-gray-600 ">
                         <tr>
                             <th scope="col" class="px-6 py-3">
                                 {{ __('size') }}
@@ -86,6 +86,10 @@
                             <td class="px-6 py-4">
                                 {{ $extraItem->price }}
                             </td>
+                            <td>
+
+                                @include('item._extra_item_delete')
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -99,4 +103,5 @@
 
         </div>
     </div>
+
 </x-app-layout>

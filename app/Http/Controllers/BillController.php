@@ -15,9 +15,22 @@ class BillController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function delete(Bill $bill)
     {
-        //
+        $loggedUser = auth()->user();
+
+        if ($loggedUser->id == $bill->branch_id) {
+            Stock::where('bill_id', $bill->id)->delete();
+
+            Statement::where('bill_id', $bill->id)->delete();
+
+            Item::where('bill_id', $bill->id)->delete();
+
+            $bill->delete();
+        }
+
+
+        return redirect()->route('branch.dashboard');
     }
 
     public function create()
@@ -28,6 +41,7 @@ class BillController extends Controller
 
     public function store(Request $request)
     {
+
         // return $request->all();
 
         if (Str::upper($request->required) == 'ROP') {
@@ -70,11 +84,23 @@ class BillController extends Controller
             array_push($items, ['size' => 'bike', 'quantity' => $request->bike]);
         }
 
+
+
         // dd($items);
         // return $request->all();
         //--ignore if there is no items--
         if (count($items)) {
 
+            /**-- validate required */
+            if ($request->required == 'pair') {
+                if (count($items) == 1) {
+                    if ($items[0]['quantity'] == 1) {
+                        return back();
+                    }
+                }
+            }
+
+            /**-- store bill */
             $bill = Bill::create([
                 'using' => 'rop',
                 'required' => $request->required,
@@ -84,11 +110,14 @@ class BillController extends Controller
                 'plate_code' => Str::upper($request->plate_code),
                 'payment_method' => $request->payment_method,
                 'branch_id' => $loggedUser->id,
-                'issue_date'=> date('Y-m-d')
+                'issue_date' => date('Y-m-d'),
+                'plate_sold_size' => 'plate is single'
             ]);
 
+
+            /**-- items */
             foreach ($items as $item) {
-                
+
                 // store plate 
                 Item::create([
                     'cate' => 'plate',
@@ -99,7 +128,7 @@ class BillController extends Controller
                     'bill_id' => $bill->id,
                     'branch_id' => $loggedUser->id,
                     'status' => 'success',
-                    'issue_date'=> date('Y-m-d')
+                    'issue_date' => date('Y-m-d')
                 ]);
 
                 Stock::create([
@@ -108,13 +137,15 @@ class BillController extends Controller
                     'type' => $request->type,
                     'size' => $item['size'],
                     'quantity' => -$item['quantity'],
+                    'bill_id' => $bill->id,
                     'branch_id' => $loggedUser->id,
                     'note' => 'sold',
-                    'issue_date'=> date('Y-m-d')
+                    'issue_date' => date('Y-m-d')
                 ]);
             }
 
             Statement::create([
+                'bill_id' => $bill->id,
                 'using' => 'rop',
                 'type' => $request->type,
                 'size' => $request->sizeForStatement,
@@ -123,17 +154,43 @@ class BillController extends Controller
                 'plate_code' => Str::upper($request->plate_code),
                 'ref_num' => $request->ref_num,
                 'branch_id' => $loggedUser->id,
-                'issue_date'=> date('Y-m-d')
+                'issue_date' => date('Y-m-d')
             ]);
 
-            if ($request->extra_option != 'no') {
-                if ($request->extra_option == 'fixing_plate') {
-                    $description = 'fixing plate';
-                    $price = 1;
-                } else {
-                    $description = 'frame with fixing plate';
-                    $price = 3;
+
+            $description = '';
+            if ($request->extra_option) {
+                $buyFramPrice = 0;
+                $fixPlate = 0;
+                foreach ($request->extra_option as $option) {
+
+
+                    if ($option == 'buy frame') {
+
+                        if ($request->required == 'single') {
+                            $description .= 'buy single frame ';
+                            $buyFramPrice = 3;
+                        } else {
+                            $description .= 'buy pair frame ';
+                            $buyFramPrice = 6;
+                        }
+                    }
+
+
+                    if ($option == 'fix plate') {
+                        if ($request->required == 'single') {
+                            $description .= 'fix single plate ';
+                            $fixPlate = 0.5;
+                        } else {
+                            $description .= 'fix pair plate ';
+                            $fixPlate = 1;
+                        }
+                    }
+
+                    $price = $buyFramPrice + $fixPlate;
                 }
+
+
                 // store extra 
                 Item::create([
                     'cate' => 'extra',
@@ -142,8 +199,20 @@ class BillController extends Controller
                     'branch_id' => $loggedUser->id,
                     'description' => $description,
                     'price' => $price,
-                    'issue_date'=> date('Y-m-d')
+                    'issue_date' => date('Y-m-d')
                 ]);
+            }
+
+            /**-- plate_sold_size */
+            $successPlateItemsCount = $bill->successPlateItems()->count();
+
+            if ($bill->required == 'pair') {
+                if ($successPlateItemsCount > 1) {
+                    $plateSoldSize = 'plate is pair in different size';
+                } else {
+                    $plateSoldSize = 'plate is pair both are same size';
+                }
+                $bill->update(['plate_sold_size' => $plateSoldSize]);
             }
         }
 

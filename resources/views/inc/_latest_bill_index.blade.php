@@ -1,7 +1,11 @@
 <div class="overflow-x-auto">
 
+<div class="text-xl text-red-800">
+    {{ __('Today Sale') }}
+</div>
+
     <table class="w-full text-sm text-center text-gray-500">
-        <thead class="text-xs text-gray-50 bg-gray-600 ">
+        <thead class="text-xs bg-gray-600 ">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     {{ __('plate') }}
@@ -22,16 +26,16 @@
         </thead>
         <tbody>
             @foreach($latestBills as $latestBill)
-            <tr class="bg-white border-b ">
+            <tr class="bg-white border-b border-black">
 
                 <td class="px-6 py-4">
-                    <div>{{ $latestBill->type }}</div>
+                    <div>{{ __($latestBill->type) }}</div>
                     <span>{{ $latestBill->plate_num }}</span>
                     <span>{{ $latestBill->plate_code }}</span>
                 </td>
                
                 <td class="px-6 py-4">
-                    {{ $latestBill->required }}
+                    {{ __($latestBill->required) }}
                 </td>
 
                 <td class="px-6 py-4">

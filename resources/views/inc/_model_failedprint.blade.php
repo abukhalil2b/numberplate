@@ -17,7 +17,7 @@
             <label class="p-3 flex gap-2 items-center bg-gray-400 w-full ">
                 <input type="checkbox" checked name="itemId" value="{{ $plateItems[0]->id }}">
                 <div>
-                    {{ $plateItems[0]->type  }} {{ $plateItems[0]->size  }}
+                    {{ __($plateItems[0]->type)  }} {{ __($plateItems[0]->size)  }}
                 </div>
             </label>
             <input type="hidden" name="plate_failed" value="single">
@@ -29,7 +29,7 @@
             <div class="mt-1 flex gap-2 items-center">
                 <input type="checkbox" checked name="itemId" value="{{ $plateItems[0]->id }}">
                 <div>
-                    {{ $plateItems[0]->type  }} {{ $plateItems[0]->size  }}
+                    {{ __($plateItems[0]->type)  }} {{ __($plateItems[0]->size)  }}
                 </div>
             </div>
             <input type="hidden" name="plate_failed" value="pair_same_size">
@@ -41,14 +41,14 @@
                 <label class="p-3 flex gap-2 items-center bg-gray-400 w-full ">
                     <input type="checkbox" name="itemIds[]" value="{{ $plateItems[0]->id }}">
                     <div>
-                        {{ $plateItems[0]->type  }} {{ $plateItems[0]->size  }}
+                        {{ __($plateItems[0]->type)  }} {{ __($plateItems[0]->size)  }}
                     </div>
                 </label>
 
                 <label class="p-3 flex gap-2 items-center bg-gray-400 w-full ">
                     <input type="checkbox" name="itemIds[]" value="{{ $plateItems[1]->id }}">
                     <div>
-                        {{ $plateItems[1]->type  }} {{ $plateItems[1]->size  }}
+                        {{ __($plateItems[1]->type)  }} {{ __($plateItems[1]->size)  }}
                     </div>
                 </label>
             </div>
@@ -61,7 +61,7 @@
             <div class="mt-2 w-full flex gap-2">
 
                 <x-primary-button type="submit" class="w-full flex justify-center">
-                    save
+                    {{ __('save') }}
                 </x-primary-button>
 
                 <x-secondary-button x-on:click.prevent="show = false" class="w-full flex justify-center">

@@ -265,6 +265,9 @@ Route::group(['middleware' => ['auth','branchProfile']], function () {
 
     Route::post('bill/plate/store', [BillController::class, 'store'])
         ->name('bill.plate.store');
+
+        Route::get('bill/plate/delete/{bill}', [BillController::class, 'delete'])
+        ->name('bill.plate.delete');
 });
 
 
@@ -284,6 +287,9 @@ Route::group(['middleware' => ['auth','branchProfile', 'localization']], functio
 
     Route::post('item/extra/store', [ItemController::class, 'extraStore'])
         ->name('item.extra.store');
+
+        Route::get('item/extra/delete/{item}', [ItemController::class, 'extraDelete'])
+        ->name('item.extra.delete');
 });
 
 
