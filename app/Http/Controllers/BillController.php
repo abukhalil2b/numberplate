@@ -110,8 +110,7 @@ class BillController extends Controller
                 'plate_code' => Str::upper($request->plate_code),
                 'payment_method' => $request->payment_method,
                 'branch_id' => $loggedUser->id,
-                'issue_date' => date('Y-m-d'),
-                'plate_sold_size' => 'plate is single'
+                'issue_date' => date('Y-m-d')
             ]);
 
 

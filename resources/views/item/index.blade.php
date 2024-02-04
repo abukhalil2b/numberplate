@@ -9,7 +9,6 @@
         <div class="p-1 max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             <div class="w-full bg-white p-3 border rounded text-xl">
-                <div>{{ __($bill->plate_sold_size) }}</div>
                 <div> {{ __($bill->type) }}</div>
                 <span>{{ $bill->plate_num }}</span>
                 <span>{{ $bill->plate_code }}</span>

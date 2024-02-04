@@ -33,8 +33,6 @@ return new class extends Migration
             
             $table->date('issue_date')->nullable();
 
-            $table->string('plate_sold_size',40);
-            
             $table->timestamps();
         });
     }
