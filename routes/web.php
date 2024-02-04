@@ -268,6 +268,9 @@ Route::group(['middleware' => ['auth','branchProfile']], function () {
 
         Route::get('bill/plate/delete/{bill}', [BillController::class, 'delete'])
         ->name('bill.plate.delete');
+
+        Route::post('bill/plate/update/{bill}', [BillController::class, 'update'])
+        ->name('bill.plate.update');
 });
 
 

@@ -157,63 +157,56 @@ class BillController extends Controller
                 'issue_date' => date('Y-m-d')
             ]);
 
+            //------ store extra ------//
+            if ($request->requiredFixingPlate == 'pair') {
 
-            $description = '';
-            if ($request->extra_option) {
-                $buyFramPrice = 0;
-                $fixPlate = 0;
-                foreach ($request->extra_option as $option) {
-
-
-                    if ($option == 'buy frame') {
-
-                        if ($request->required == 'single') {
-                            $description .= 'buy single frame ';
-                            $buyFramPrice = 3;
-                        } else {
-                            $description .= 'buy pair frame ';
-                            $buyFramPrice = 6;
-                        }
-                    }
-
-
-                    if ($option == 'fix plate') {
-                        if ($request->required == 'single') {
-                            $description .= 'fix single plate ';
-                            $fixPlate = 0.5;
-                        } else {
-                            $description .= 'fix pair plate ';
-                            $fixPlate = 1;
-                        }
-                    }
-
-                    $price = $buyFramPrice + $fixPlate;
-                }
-
-
-                // store extra 
                 Item::create([
                     'cate' => 'extra',
                     'type' => $request->type,
                     'bill_id' => $bill->id,
                     'branch_id' => $loggedUser->id,
-                    'description' => $description,
-                    'price' => $price,
+                    'description' => 'fix pair plate',
+                    'price' => '1.000',
                     'issue_date' => date('Y-m-d')
                 ]);
             }
 
-            /**-- plate_sold_size */
-            $successPlateItemsCount = $bill->successPlateItems()->count();
-
-            if ($bill->required == 'pair') {
-                if ($successPlateItemsCount > 1) {
-                    $plateSoldSize = 'plate is pair in different size';
-                } else {
-                    $plateSoldSize = 'plate is pair both are same size';
-                }
-                $bill->update(['plate_sold_size' => $plateSoldSize]);
+            if ($request->requiredFixingPlate == 'single') {
+                Item::create([
+                    'cate' => 'extra',
+                    'type' => $request->type,
+                    'bill_id' => $bill->id,
+                    'branch_id' => $loggedUser->id,
+                    'description' => 'fix single plate',
+                    'price' => '0.500',
+                    'issue_date' => date('Y-m-d')
+                ]);
             }
+
+            if ($request->requiredBuyFrame == 'pair') {
+                Item::create([
+                    'cate' => 'extra',
+                    'type' => $request->type,
+                    'bill_id' => $bill->id,
+                    'branch_id' => $loggedUser->id,
+                    'description' => 'buy pair frame',
+                    'price' => '6.000',
+                    'issue_date' => date('Y-m-d')
+                ]);
+            }
+
+            if ($request->requiredBuyFrame == 'single') {
+                Item::create([
+                    'cate' => 'extra',
+                    'type' => $request->type,
+                    'bill_id' => $bill->id,
+                    'branch_id' => $loggedUser->id,
+                    'description' => 'buy single frame',
+                    'price' => '3.000',
+                    'issue_date' => date('Y-m-d')
+                ]);
+            }
+            //------ store extra ------//
         }
 
         return back();
@@ -235,7 +228,26 @@ class BillController extends Controller
      */
     public function update(Request $request, Bill $bill)
     {
-        //
+        $request->validate([
+            'plate_code' => 'required',
+            'plate_num' => 'required',
+            'ref_num' => 'required',
+        ]);
+
+        Statement::where('bill_id', $bill->id)
+            ->update([
+                'plate_code' => $request->plate_code,
+                'plate_num' => $request->plate_num,
+                'ref_num' => $request->ref_num,
+            ]);
+
+        $bill->update([
+            'plate_code' => $request->plate_code,
+            'plate_num' => $request->plate_num,
+            'ref_num' => $request->ref_num,
+        ]);
+
+        return redirect()->route('branch.dashboard');
     }
 
     /**

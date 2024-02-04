@@ -20,11 +20,11 @@ class Helperfunction {
         $specialCharsArray =  explode(',', $specialChars); //turn string into array
 
         array_push($password, $smallLettersArray[rand(0, 25)]);
-        array_push($password, $capitalLettersArray[rand(0, 25)]);
         array_push($password, $smallLettersArray[rand(0, 25)]);
-        array_push($password, $numbersArray[rand(0, 9)]);
-        array_push($password, $specialCharsArray[rand(0, 8)]);
         array_push($password, $capitalLettersArray[rand(0, 25)]);
+        array_push($password, $capitalLettersArray[rand(0, 25)]);
+        array_push($password, $numbersArray[rand(0, 9)]);
+        array_push($password, $numbersArray[rand(0, 9)]);
         
         shuffle($password);
         return implode('', $password);

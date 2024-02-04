@@ -1,6 +1,9 @@
 <x-app-layout>
 
-    @include('item._bill_delete')
+    <div class="flex gap-4 justify-center items-center">
+        @include('item._bill_delete')
+        @include('item._bill_edit')
+    </div>
 
     <div class="py-12">
         <div class="p-1 max-w-7xl mx-auto sm:px-6 lg:px-8">

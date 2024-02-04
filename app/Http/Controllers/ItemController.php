@@ -129,52 +129,56 @@ class ItemController extends Controller
 
         $loggedUser = auth()->user();
 
-        $description = '';
+        //------ store extra ------//
+        if ($request->requiredFixingPlate == 'pair') {
 
-        $buyFramPrice = 0;
-        $fixPlate = 0;
-        foreach ($request->extra_option as $option) {
-
-            if ($option == 'buy frame') {
-
-                if ($bill->required == 'single') {
-                    $description .= 'buy single frame ';
-
-                    $buyFramPrice = 3;
-                } else {
-                    $description .= 'buy pair frame ';
-
-                    $buyFramPrice = 6;
-                }
-            }
-
-
-            if ($option == 'fix plate') {
-
-                if ($bill->required == 'single') {
-                    $description .= 'fix single plate ';
-
-                    $fixPlate = 0.5;
-                } else {
-                    $description .= 'fix pair plate ';
-
-                    $fixPlate = 1;
-                }
-            }
-
-            $price = $buyFramPrice + $fixPlate;
+            Item::create([
+                'cate' => 'extra',
+                'type' => $request->type,
+                'bill_id' => $bill->id,
+                'branch_id' => $loggedUser->id,
+                'description' => 'fix pair plate',
+                'price' => '1.000',
+                'issue_date' => date('Y-m-d')
+            ]);
         }
 
-        Item::create([
-            'cate' => 'extra',
-            'size' => null,
-            'description' => $description,
-            'price' => $price,
-            'bill_id' => $request->bill_id,
-            'branch_id' => $loggedUser->id,
-            'status' => null,
-            'issue_date' => date('Y-m-d')
-        ]);
+        if ($request->requiredFixingPlate == 'single') {
+            Item::create([
+                'cate' => 'extra',
+                'type' => $request->type,
+                'bill_id' => $bill->id,
+                'branch_id' => $loggedUser->id,
+                'description' => 'fix single plate',
+                'price' => '0.500',
+                'issue_date' => date('Y-m-d')
+            ]);
+        }
+
+        if ($request->requiredBuyFrame == 'pair') {
+            Item::create([
+                'cate' => 'extra',
+                'type' => $request->type,
+                'bill_id' => $bill->id,
+                'branch_id' => $loggedUser->id,
+                'description' => 'buy pair frame',
+                'price' => '6.000',
+                'issue_date' => date('Y-m-d')
+            ]);
+        }
+
+        if ($request->requiredBuyFrame == 'single') {
+            Item::create([
+                'cate' => 'extra',
+                'type' => $request->type,
+                'bill_id' => $bill->id,
+                'branch_id' => $loggedUser->id,
+                'description' => 'buy single frame',
+                'price' => '3.000',
+                'issue_date' => date('Y-m-d')
+            ]);
+        }
+        //------ store extra ------//
 
         Bill::where('id', $request->bill_id)->update([
             'payment_method' => $request->payment_method
