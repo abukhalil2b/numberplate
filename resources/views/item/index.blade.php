@@ -89,7 +89,6 @@
                                 {{ $extraItem->price }}
                             </td>
                             <td>
-
                                 @include('item._extra_item_delete')
                             </td>
                         </tr>

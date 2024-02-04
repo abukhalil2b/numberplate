@@ -16,7 +16,7 @@ class AdminProfile
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->user()->profile != 'admin') {
-            abort(403);
+            abort(401);
         }
         return $next($request);
     }

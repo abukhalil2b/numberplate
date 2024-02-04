@@ -1,6 +1,9 @@
 <x-layout.admin>
-    <div>
-        <h1 class="p-5 text-xl">{{ __('today sales') }}</h1>
+    <div class="w-40 btn btn-success my-4">{{ __('today sales') }}
+        <span class="badge my-0 bg-white-light text-black ltr:ml-4 rtl:mr-4">{{ count($latestBills) }}</span>
+    </div>
+    <div class="table-responsive">
+
         <table class="table table-bordered">
             <thead>
                 <tr>

@@ -26,7 +26,7 @@
                         </div>
                         <div class="text-center w-full">
                             {{ __('number') }}
-                            <input class="form-input" name="plate_num" value="{{ $bill->plate_code }}">
+                            <input class="form-input" name="plate_num" value="{{ $bill->plate_num }}">
                         </div>
 
                         <div class="text-center w-full">

@@ -1,12 +1,16 @@
 <div class="overflow-x-auto">
 
 <div class="text-xl text-red-800">
-    {{ __('Today Sale') }}
+    {{ __('Today Sale') }} <span class="badge bg-red-800"> {{ count($latestBills) }}</span>
 </div>
 
     <table class="w-full text-sm text-center text-gray-500">
         <thead class="text-xs bg-gray-600 ">
             <tr>
+                <th scope="col" class="px-6 py-3">
+                    {{ __('time') }}
+                </th>
+
                 <th scope="col" class="px-6 py-3">
                     {{ __('plate') }}
                 </th>
@@ -27,6 +31,10 @@
         <tbody>
             @foreach($latestBills as $latestBill)
             <tr class="bg-white border-b border-black">
+
+            <td class="px-6 py-4 text-xs">
+                    {{ $latestBill->created_at->format('H:i') }}
+                </td>
 
                 <td class="px-6 py-4">
                     <div>{{ __($latestBill->type) }}</div>

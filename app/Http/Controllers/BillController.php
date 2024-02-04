@@ -235,17 +235,17 @@ class BillController extends Controller
 
         Statement::where('bill_id', $bill->id)
             ->update([
-                'plate_code' => $request->plate_code,
+                'plate_code' => Str::upper($request->plate_code),
                 'plate_num' => $request->plate_num,
                 'ref_num' => $request->ref_num,
             ]);
 
         $bill->update([
-            'plate_code' => $request->plate_code,
+            'plate_code' => Str::upper($request->plate_code),
             'plate_num' => $request->plate_num,
             'ref_num' => $request->ref_num,
         ]);
-
+ 
         return redirect()->route('branch.dashboard');
     }
 

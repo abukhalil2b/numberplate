@@ -92,7 +92,11 @@
         <!-- Today Sales -->
         <div class="mt-4 panel">
             <div class="flex items-center justify-between mb-5">
-                <h5 class="font-semibold text-lg dark:text-white-light">{{ __('today sales') }}</h5>
+                <div class="w-40 btn btn-success my-4">{{ __('today sales') }}
+                    <span class="badge my-0 bg-white-light text-black ltr:ml-4 rtl:mr-4">{{ count($latestBills) }}</span>
+                </div>
+
+
             </div>
             <div class="mb-5">
                 <div class="table-responsive">
