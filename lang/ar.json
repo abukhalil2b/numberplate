@@ -26,6 +26,7 @@
     "save": "حفظ",
     "cancel": "إلغاء",
     "No": "لا",
+    "Yes": "نعم",
     "Extra": "إضافات",
     "visa": "فيزا",
     "cash": "نقداً",
@@ -40,10 +41,11 @@
     "temporary": "فحص",
     "export": "تصدير",
     "specific": "محدود الإستخدام",
+    "specific use": "محدود الإستخدام",
     "learner": "تعليم",
     "government": "حكومي",
     "other": "آخر",
-
+    "ROP Bill Number":"رقم الرصد",
     "show stock balance": "مشاهدة المتبقي قي المخزن",
     "select plate type": "اختر نوع اللوحة",
 
@@ -62,6 +64,7 @@
     "type": "النوع",
     "price": "السعر",
     "extra": "إضافات",
+    "Price for Plate":"سعر اللوحات",
 
     "Today Sale": "مبيعات اليوم",
     "plate": "اللوحة",

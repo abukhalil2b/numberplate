@@ -372,6 +372,11 @@ return {
             }
         },
 
+        /*-- show price for plate  input -- */
+        showPriceInput(plateType){  
+            return [].filter(item=>item == plateType).length > 0
+        },
+
         /* start-- check for plate type is exist -- */
         showLargeWithKhanjer(plateType){
             
