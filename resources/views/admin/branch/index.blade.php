@@ -10,18 +10,29 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Username</th>
-                            <th>Password</th>
-                            <th class="text-center">Action </th>
+                            <th>{{ __('Name') }}</th>
+                            <th>{{ __('Phone') }}</th>
+                            <th>{{ __('Username') }}</th>
+                            <th>{{ __('Password') }}</th>
+                            <th class="text-center">{{ __('Action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($branchs as $branch)
                         <tr>
                             <td class="whitespace-nowrap">
-                                <div>
+                                <div class="{{ $branch->branch_id == 0 ? 'w-32 badge bg-warning' : '' }}">
                                     {{ app()->getLocale() == 'ar' ? $branch->ar_name : $branch->en_name }}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {{ $branch->phone }}
+                                    @if($branch->phone)
+                                    <a href="https://wa.me/{{ $branch->phone }}">
+                                        <x-svgicon.whatsapp />
+                                    </a>
+                                    @endif
                                 </div>
                             </td>
                             <td>

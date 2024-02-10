@@ -75,6 +75,7 @@ class AdminBranchPermissionController extends Controller
     {
         $branches = User::where('profile', 'branch')
             ->where('id', '<>', $user->id)
+            ->where('branch_id', 0)
             ->get();
 
         $branches = $branches->map(function ($b) use ($user) {

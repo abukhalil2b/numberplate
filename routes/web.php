@@ -77,7 +77,7 @@ Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 | admin - branch
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth', 'adminProfile']], function () {
+Route::group(['middleware' => ['auth', 'adminProfile','localization']], function () {
     Route::get('admin/branch/print', [AdminBranchController::class, 'branchPrint'])
         ->middleware('permission:admin.branch.show')
         ->name('admin.branch.print');

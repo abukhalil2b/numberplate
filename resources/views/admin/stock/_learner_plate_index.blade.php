@@ -24,6 +24,5 @@
     <!-- control -->
     <div class="mt-1 flex gap-1">
         <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.stock.create',['branch'=>$branch->id,'type'=>'learner']) }}">+ new plate</a>
-        <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.stock.transfer.create',['fromBranch'=>$branch->id,'type'=>'learner']) }}">transfer</a>
     </div>
 </div>
