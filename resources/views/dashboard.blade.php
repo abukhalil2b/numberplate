@@ -158,9 +158,9 @@
 
 
 
-                <div class="mt-6 flex justify-center">
+                <div class="mt-6 flex justify-center" onclick="document.getElementById('btn-save').style.display = 'none' ">
 
-                    <x-primary-button>
+                    <x-primary-button id="btn-save">
                         {{ __('Save') }}
                     </x-primary-button>
 

@@ -8,36 +8,79 @@
 
     <title>{{ config('app.name', 'طباعة أرقام المركبات') }}</title>
     <style>
-        table{
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        table {
+            border: 1px solid #ddd;
+            margin: 5px;
+        }
+
+        table tr {
+            width: 30%;
             border: 1px solid #ddd;
         }
-        table tr{
-            width: 25%;
-            border: 1px solid #ddd;
-        }
+
         table td {
-            width: 25%;
+            font-size: 12px;
+            padding: 6px 3px;
+            width: 30%;
             border: 1px solid #ddd;
+        }
+
+        @media print {
+
+            .hidebutton {
+                display: none !important;
+            }
+        }
+
+        button {
+            background-color: #04AA6D;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 5px 2px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
         }
     </style>
 </head>
 
 <body>
-<h2>
-    {{ $date }}
-</h2>
+    <h2>
+        {{ $date }}
+    </h2>
+    <button class="hidebutton button" onclick="printDocument();">print | طباعة</button>
     <table>
+        <tr>
+            <td>date</td>
+            <td>pair/single</td>
+            <td>type</td>
+            <td>size</td>
+            <td>quantity</td>
+        </tr>
         @foreach($items as $item)
         <tr>
+            <td>{{ $item->created_at }}</td>
             <td>{{ $item->required }}</td>
             <td>{{ $item->type }}</td>
             <td>{{ $item->size }}</td>
             <td>{{ $item->quantity }}</td>
-            <td>{{ $item->price }}</td>
         </tr>
         @endforeach
     </table>
-
+    <script>
+        function printDocument() {
+            window.print();
+        }
+    </script>
 </body>
 
 </html>

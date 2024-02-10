@@ -84,7 +84,9 @@ class AdminBranchController extends Controller
             'ar_name' => $request->ar_branchname,
             'en_name' => $request->en_branchname,
             'child_email' => $request->child_email,
-            'imei' => $request->imei
+            'imei' => $request->imei,
+            'phone' => $request->phone,
+            'description'=>$request->description
         ]);
 
         if ($request->update_password == 'on') {

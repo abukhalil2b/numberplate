@@ -187,7 +187,7 @@ class ProfileController extends Controller
     {
         $loggedUser = auth()->user();
 
-        $items = Item::select('required', 'type', 'size', 'quantity', 'price')
+        $items = Item::select('created_at', 'required', 'type', 'size', 'quantity', 'price')
             ->where([
                 'branch_id' => $loggedUser->id,
                 'cate' => 'plate',

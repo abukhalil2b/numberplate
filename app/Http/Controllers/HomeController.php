@@ -22,7 +22,7 @@ class HomeController extends Controller
     {
         // $loggedUser = auth()->user();
         $latestBills = Bill::whereDate('created_at', date('Y-m-d'))
-        ->with(['branch','items'])
+        ->with(['branch','plateItems'])
             ->latest('id')
             ->get();
 
@@ -34,59 +34,13 @@ class HomeController extends Controller
     {
         $loggedUser = auth()->user();
 
-        //small plate instock
-        $smallPlate = Stock::where([
-            'cate' => 'plate',
-            'branch_id' => $loggedUser->id,
-            'size' => 'small'
-        ])->selectRaw('sum(quantity) as total')
-            ->first();
-        //medium plate instock
-        $mediumPlate = Stock::where([
-            'cate' => 'plate',
-            'branch_id' => $loggedUser->id,
-            'size' => 'medium'
-        ])->selectRaw('sum(quantity) as total')
-            ->first();
-
-        //large plate instock
-        $largePlate = Stock::where([
-            'cate' => 'plate',
-            'branch_id' => $loggedUser->id,
-            'size' => 'large'
-        ])->selectRaw('sum(quantity) as total')
-            ->first();
-
-        //largeWithKhanjer plate instock
-        $largeWithKhanjerPlate = Stock::where([
-            'cate' => 'plate',
-            'branch_id' => $loggedUser->id,
-            'size' => 'largeWithKhanjer'
-        ])->selectRaw('sum(quantity) as total')
-            ->first();
-
-        //bike plate instock
-        $bikePlate = Stock::where([
-            'cate' => 'plate',
-            'branch_id' => $loggedUser->id,
-            'size' => 'bike'
-        ])->selectRaw('sum(quantity) as total')
-            ->first();
-
-        // return $smallPlate;
-
         $latestBills = Bill::whereDate('created_at', date('Y-m-d'))
             ->where('branch_id', $loggedUser->id)
             ->latest('id')
             ->get();
 
         return view('dashboard', compact(
-            'latestBills',
-            'smallPlate',
-            'mediumPlate',
-            'largePlate',
-            'largeWithKhanjerPlate',
-            'bikePlate'
+            'latestBills'
         ));
     }
 

@@ -54,7 +54,25 @@
                 <input lang="en-GB" name="imei" type="number" placeholder="IMEI" value="{{ $branch->imei }}" class="form-input ltr:pl-10 rtl:pr-10" />
             </div>
 
-            <x-form.radio-switch name="update_password" lable="update password" />
+            {{ __('Phone') }}
+            <div class="mb-4 flex">
+                <div class="flex items-center justify-center border px-3 font-semibold ltr:rounded-l-md ltr:border-r-0 rtl:rounded-r-md rtl:border-l-0 dark:border-[#17263c] dark:bg-[#1b2e4b]">
+                <x-svgicon.phone />
+                </div>
+                <div class="flex items-center justify-center rounded-none border border-[#e0e6ed] bg-[#eee] px-3 font-semibold ltr:border-r-0 rtl:border-l-0 dark:border-[#17263c] dark:bg-[#1b2e4b]">
+                    +968
+                </div>
+                <input name="phone" type="number" placeholder="phone" value="{{ $branch->phone }}" class="form-input flex-1 ltr:rounded-l-none rtl:rounded-r-none">
+            </div>
+
+            <div class="mb-4">
+                <label for="description">{{ __('Description') }}</label>
+                <textarea name="description" id="description" rows="3" class="form-textarea" placeholder="description">{{ $branch->description }}</textarea>
+            </div>
+
+            <div class="mb-4">
+                <x-form.radio-switch name="update_password" lable="update password" />
+            </div>
 
             <button type="submit" class="btn btn-primary w-full">{{ __('Update') }}</button>
         </form>

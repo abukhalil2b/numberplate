@@ -24,10 +24,7 @@ use Illuminate\Support\Facades\Route;
 | welcome
 |--------------------------------------------------------------------------
 */
-
-
 Route::get('/', [HomeController::class, 'welcome']);
-
 
 Route::group(['middleware' => ['auth', 'localization']], function () {
 

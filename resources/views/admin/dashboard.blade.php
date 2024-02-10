@@ -8,11 +8,11 @@
             <thead>
                 <tr>
                     <th scope="col" class="px-2 py-1">
-                        branch name
+                        {{ __('Branch Name') }}
                     </th>
 
                     <th scope="col" class="px-2 py-1">
-                        plate
+                        {{ __('Plate') }}
                     </th>
 
                     <th scope="col" class="px-2 py-1">
@@ -29,6 +29,8 @@
                 <tr class="bg-white border-b ">
                     <td>
                         {{ app()->getLocale() == 'ar' ? $latestBill->branch->ar_name : $latestBill->branch->en_name }}
+                        <div class="text-[8px]">{{ $latestBill->created_at }}</div>
+                        <div class="text-[8px]">{{ $latestBill->issue_date }}</div>
                     </td>
                     <td class="px-2 py-1">
                         <div>{{ $latestBill->type }}</div>
@@ -38,9 +40,9 @@
 
                     <td class="px-2 py-1">
                         <div> {{ $latestBill->required }}</div>
-                        <div class="text-xs">
-                            @foreach($latestBill->items as $item)
-                            <div class="badge badge-secondary">{{ $item->size }}</div>
+                        <div class="text-[8px] flex gap-1">
+                            @foreach($latestBill->plateItems as $item)
+                            <div class="text-red-800 border rounded p-1 w-12 text-center">{{ $item->size }}</div>
                             @endforeach
                         </div>
                     </td>

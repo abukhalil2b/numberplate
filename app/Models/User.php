@@ -19,6 +19,7 @@ class User extends Authenticatable
         'ar_name',
         'email',
         'phone',
+        'description',
         'password',
         'child_email',
         'imei',
