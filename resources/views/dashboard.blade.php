@@ -75,7 +75,7 @@
 
                 <div class="mt-5 w-full flex justify-center" x-cloak x-show="plateType != '' ">
                     <div>
-                    {{ __('ROP Bill Number') }}
+                        {{ __('ROP Bill Number') }}
                         <x-text-input type="number" name="ref_num" class="w-64 mt-1 block" />
                     </div>
                 </div>
@@ -140,14 +140,16 @@
                     <div x-cloak x-show="requiredFixingPlate !='' || requiredBuyFrame !='' ">
 
                         <p class="mt-3 text-center">{{ __('Payment Method') }}:</p>
-                        <label class="mt-2 border w-64 flex gap-1 items-center bg-white cursor-pointer">
-                            <input type="radio" id="cash" name="payment_method" value="cash">
-                            {{ __('cash') }}
-                        </label>
-                        <label class="mt-2 border w-64 flex gap-1 items-center bg-white cursor-pointer">
-                            <input type="radio" id="visa" name="payment_method" value="visa">
-                            {{ __('visa') }}
-                        </label>
+                        <div class="mt-3 w-80 flex gap-3">
+                            <label class="py-3 px-1 border rounded w-full flex gap-1 items-center bg-white cursor-pointer">
+                                <input type="radio" id="cash" name="payment_method" value="cash">
+                                {{ __('cash') }}
+                            </label>
+                            <label class="py-3 px-1 border rounded w-full flex gap-1 items-center bg-white cursor-pointer">
+                                <input type="radio" id="visa" name="payment_method" value="visa">
+                                {{ __('visa') }}
+                            </label>
+                        </div>
 
                     </div>
 
@@ -159,7 +161,7 @@
                 <div class="mt-6 flex justify-center">
 
                     <x-primary-button>
-                        {{ __('save') }}
+                        {{ __('Save') }}
                     </x-primary-button>
 
                 </div>

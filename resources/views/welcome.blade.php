@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="/img/favicon.png" />
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
     <title>برنامج طباعة أرقام المركبات</title>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -14,7 +14,7 @@
 <body>
     <div class="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
 
-        <img src="{{ asset('img/logo.png') }}" />
+        <img src="/assets/images/logo.png" alt="logo" />
 
 
         <div class="mt-5 flex justify-center">

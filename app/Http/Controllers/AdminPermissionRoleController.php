@@ -12,7 +12,7 @@ class AdminPermissionRoleController extends Controller
 
     public function index(Role $role)
     {
-        $permissions = Permission::whereNotIn('cate',['plate.size','plate.type'])->get();
+        $permissions = Permission::whereNotIn('cate', ['plate.size', 'plate.type', 'stock'])->get();
 
         $rolePermissionIds = DB::table('permission_role')
             ->where('role_id', $role->id)
@@ -20,9 +20,9 @@ class AdminPermissionRoleController extends Controller
             ->toArray();
 
         $rolePermissions = $permissions->map(function ($p) use ($rolePermissionIds) {
-
             $permissionObj['id'] = $p->id;
             $permissionObj['title'] = $p->title;
+            $permissionObj['description'] = $p->description;
             $permissionObj['selected'] = in_array($p->id, $rolePermissionIds);
             return (object) $permissionObj;
         });
@@ -37,7 +37,7 @@ class AdminPermissionRoleController extends Controller
         DB::table('permission_role')
             ->where('role_id', $role->id)
             ->delete();
-            
+
         if ($request->permissionIds) {
 
             foreach ($request->permissionIds as $id) {

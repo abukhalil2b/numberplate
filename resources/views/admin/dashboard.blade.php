@@ -1,6 +1,6 @@
 <x-layout.admin>
-    <div class="w-44 btn btn-success my-4">{{ __('today sales') }}
-        <span class="badge my-0 bg-white-light text-black ltr:ml-4 rtl:mr-4">{{ count($latestBills) }}</span>
+    <div class="w-44 btn btn-success my-4 text-xs">{{ __('today sales') }}
+        <span class="badge my-0 bg-white-light text-black ltr:ml-4 rtl:mr-4 text-xs">{{ count($latestBills) }}</span>
     </div>
     <div class="table-responsive">
 
@@ -20,7 +20,7 @@
                     </th>
 
                     <th scope="col" class="px-2 py-1">
-                        رصد
+                        {{ __('ROP Bill Number') }}
                     </th>
                 </tr>
             </thead>

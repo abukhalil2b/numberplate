@@ -23,6 +23,22 @@ class ItemController extends Controller
         return view('item.index', compact('plateItems', 'extraItems', 'bill'));
     }
 
+    public function priceUpdate(Item $item, Request $request)
+    {
+        $loggedUser = auth()->user();
+
+        $exist = Item::where(['branch_id' => $loggedUser->id, 'id' => $item->id])->first();
+
+        if (!$exist) {
+            abort(401);
+        }
+        $item->update([
+            'price' => $request->price
+        ]);
+
+        return back();
+    }
+
     public function failedprintStore(Request $request)
     {
         // return $request->all();

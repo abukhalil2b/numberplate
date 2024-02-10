@@ -22,7 +22,7 @@ class AdminBranchPermissionController extends Controller
             abort(403);
 
         //-- Permission
-        $Permission = Permission::whereIn('cate',['plate.size','plate.type'])->get();
+        $Permission = Permission::whereIn('cate', ['plate.size', 'plate.type', 'stock'])->get();
 
         $userPermissions = DB::table('permission_user')
             ->where(['user_id' => $branch->id])
@@ -33,6 +33,8 @@ class AdminBranchPermissionController extends Controller
             $permissionObj['id'] = $permission->id;
 
             $permissionObj['title'] = $permission->title;
+
+            $permissionObj['description'] = $permission->description;
 
             $permissionObj['has_permission'] = in_array($permission->id, $userPermissions);
 
@@ -63,6 +65,35 @@ class AdminBranchPermissionController extends Controller
             DB::table('permission_user')
                 ->where(['user_id' => $branch->id])
                 ->delete();
+        }
+
+        return back();
+    }
+
+
+    public function manageBranchesIndex(User $user)
+    {
+        $branches = User::where('profile', 'branch')
+            ->where('id', '<>', $user->id)
+            ->get();
+
+        $branches = $branches->map(function ($b) use ($user) {
+            $obj['id'] = $b->id;
+            $obj['ar_name'] = $b->ar_name;
+            $obj['en_name'] = $b->en_name;
+            $obj['selected'] = $b->branch_id == $user->id;
+            return (object) $obj;
+        });
+
+        return view('admin.branch.manage_permission.index', compact('user', 'branches'));
+    }
+
+    public function manageBranchesUpdate(Request $request, User $user)
+    {
+        if ($request->branchIds) {
+            User::whereIn('id', $request->branchIds)->update([
+                'branch_id' => $user->id
+            ]);
         }
 
         return back();

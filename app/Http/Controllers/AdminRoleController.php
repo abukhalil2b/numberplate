@@ -13,7 +13,7 @@ class AdminRoleController extends Controller
 
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::where('title','<>','superadmin')->get();
         
         return view('admin.role.index', compact('roles'));
     }

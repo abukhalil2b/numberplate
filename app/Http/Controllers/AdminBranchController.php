@@ -33,9 +33,9 @@ class AdminBranchController extends Controller
 
     public function branchIndex()
     {
+
         $branchs = User::where('profile', 'branch')
             ->get();
-
         // return $users;
 
         return view('admin.branch.index', compact('branchs'));

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('title',100);
             $table->string('cate',20);
+            $table->text('description',)->nullable();
         });
 
         
@@ -44,6 +45,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Role::class);
         });
+    
     }
 
     /**
@@ -56,5 +58,6 @@ return new class extends Migration
         Schema::dropIfExists('permission_role');
         Schema::dropIfExists('roles');
         Schema::dropIfExists('permissions');
+        Schema::dropIfExists('user_branch_permssion');
     }
 };

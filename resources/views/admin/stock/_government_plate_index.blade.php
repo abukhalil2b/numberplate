@@ -25,13 +25,16 @@
                 </div>
                 <div class="badge bg-dark w-16">{{ $largeGovernment->total ?? 0 }}</div>
             </div>
-
+            
+            @if(auth()->user()->permission('large with khanjer'))
             <div class="p-1 flex justify-between">
                 <div>
                     large with khanjer
                 </div>
                 <div class="badge bg-dark w-16">{{ $largeWithKhanjerGovernment->total ?? 0 }}</div>
             </div>
+            @endif
+
         </div>
     </div>
     <!-- control -->

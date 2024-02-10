@@ -18,6 +18,7 @@ class User extends Authenticatable
         'en_name',
         'ar_name',
         'email',
+        'phone',
         'password',
         'child_email',
         'imei',

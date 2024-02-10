@@ -30,19 +30,21 @@
                             <th scope="col" class="px-6 py-3">
                                 {{ __('printing status') }}
                             </th>
+                          
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($plateItems as $plateItem)
                         <tr class="bg-white border-b ">
                             <td class="px-6 py-4">
-
                                 <div>
                                     {{ __($plateItem->size) }}
                                 </div>
+                                <div class="text-[9px]">
+                                    {{ $plateItem->created_at }}
+                                </div>
                             </td>
                             <td class="px-6 py-4">
-
                                 <div>
                                     {{ __($plateItem->type) }}
                                 </div>
@@ -83,6 +85,9 @@
                             <td class="px-6 py-4">
                                 <div>
                                     {{ __($extraItem->description) }}
+                                </div>
+                                <div class="text-[9px]">
+                                    {{ $extraItem->created_at }}
                                 </div>
                             </td>
                             <td class="px-6 py-4">

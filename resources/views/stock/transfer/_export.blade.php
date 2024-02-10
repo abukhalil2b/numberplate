@@ -1,13 +1,13 @@
-<div class="text-center text-2xl">export</div>
+<div class="text-center text-2xl">{{ __('export') }}</div>
 
-<form action="{{ route('admin.stock.transfer.export_store') }}" method="post">
+<form action="{{ route('stock.transfer.export_store') }}" method="post">
     @csrf
 
     <div class="bg-export p-3">
         <div class="flex gap-1">
-            <span class="bg-white">From Branch: {{ app()->getLocale() == 'ar' ? $fromBranch->ar_name : $fromBranch->en_name}} To Branch:</span>
+            <span class="bg-white w-64">{{ __('From Branch') }}: {{ app()->getLocale() == 'ar' ? $fromBranch->ar_name : $fromBranch->en_name}} {{ __('To Branch') }}:</span>
             <select class="form-select text-white-dark" name="toBranch_id">
-                @foreach($branches as $branch)
+                @foreach($userBranches as $branch)
                 <option value="{{ $branch->id }}">
 
                     {{ app()->getLocale() == 'ar' ? $branch->ar_name : $branch->en_name }}
@@ -17,13 +17,17 @@
             </select>
         </div>
 
+        @if($mediumPlateStock->quantity > 0)
         <div class="mt-4">
-            <label for="exampleInpuQuantity"> medium quantity maximam is: <span class="text-orange-400"> {{ $mediumPlateStock->quantity ?? 0 }} </span></label>
+            <label for="exampleInpuQuantity"> {{ __('medium quantity maximam is') }}: <span class="text-orange-400"> {{ $mediumPlateStock->quantity ?? 0 }} </span></label>
             <input name="mediumSizeQuantity" type="number" value="{{ $mediumPlateStock->quantity ?? 0 }}" class="form-input" id="exampleInpuQuantity" placeholder="medium quantity">
         </div>
+        @endif
 
         <input type="hidden" name="fromBranch_id" value="{{ $fromBranch->id }}">
     </div>
-    <button class="mt-4 btn btn-outline-primary">transfer</button>
+    <button class="mt-4 btn btn-outline-primary">
+    {{ __('Transfer') }}
+    </button>
 
 </form>

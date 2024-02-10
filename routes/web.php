@@ -5,11 +5,13 @@ use App\Http\Controllers\Drink\DrinkStockController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AdminBranchPermissionController;
+use App\Http\Controllers\AdminUserPermissionController;
 use App\Http\Controllers\AdminPermissionRoleController;
 use App\Http\Controllers\AdminStatementController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\AdminStockController;
 use App\Http\Controllers\AdminBranchController;
 use App\Http\Controllers\AdminBillController;
@@ -38,6 +40,8 @@ Route::group(['middleware' => ['auth', 'localization']], function () {
         ->name('branch.dashboard');
 
     Route::get('profile', [ProfileController::class, 'show'])->name('profile');
+
+    Route::get('sale_history/{date}',[ProfileController::class,'saleHistory'])->name('sale_history');
 });
 
 
@@ -77,7 +81,7 @@ Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => ['auth', 'adminProfile']], function () {
-Route::get('admin/branch/print', [AdminBranchController::class, 'branchPrint'])
+    Route::get('admin/branch/print', [AdminBranchController::class, 'branchPrint'])
         ->middleware('permission:admin.branch.show')
         ->name('admin.branch.print');
 
@@ -107,7 +111,7 @@ Route::get('admin/branch/print', [AdminBranchController::class, 'branchPrint'])
 | admin - branch permission
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth', 'adminProfile']], function () {
+Route::group(['middleware' => ['auth', 'adminProfile','localization']], function () {
     Route::get('admin/branch/permission/index/{branch}', [AdminBranchPermissionController::class, 'permissionIndex'])
         ->middleware('permission:admin.branch.permission.index')
         ->name('admin.branch.permission.index');
@@ -115,6 +119,25 @@ Route::group(['middleware' => ['auth', 'adminProfile']], function () {
     Route::post('admin/branch/permission/update/{branch}', [AdminBranchPermissionController::class, 'permissionUpdate'])
         ->middleware('permission:admin.branch.permission.index')
         ->name('admin.branch.permission.update');
+
+    Route::get('admin/branch/manage_permission/index/{user}', [AdminBranchPermissionController::class, 'manageBranchesIndex'])
+        ->middleware('permission:admin.branch.manage_permission.index')
+        ->name('admin.branch.manage_permission.index');
+
+        Route::post('admin/branch/manage_permission/update/{user}', [AdminBranchPermissionController::class, 'manageBranchesUpdate'])
+        ->middleware('permission:admin.branch.manage_permission.update')
+        ->name('admin.branch.manage_permission.update');
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| admin - user permission
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth', 'adminProfile']], function () {
+    Route::get('admin/user/role_with_permissions/index/{user}', [AdminUserPermissionController::class, 'roleWithPermissions'])
+        ->name('admin.user.role_with_permissions.index');
 });
 
 
@@ -123,7 +146,7 @@ Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 | admin role
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth','adminProfile']], function () {
+Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 
     Route::get('admin/role/index', [AdminRoleController::class, 'index'])
         ->middleware('permission:admin.role.index')
@@ -135,7 +158,7 @@ Route::group(['middleware' => ['auth','adminProfile']], function () {
 | admin - permission role
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth','adminProfile']], function () {
+Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 
     Route::get('admin/permission_role/index/{role}', [AdminPermissionRoleController::class, 'index'])
         ->middleware('permission:admin.permission_role.index')
@@ -153,7 +176,7 @@ Route::group(['middleware' => ['auth','adminProfile']], function () {
 | admin - bill - plate
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth','adminProfile']], function () {
+Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 
     Route::get('admin/bill/plate/index/{branch}', [AdminBillController::class, 'plateIndex'])
         ->middleware('permission:admin.bill.plate.index')
@@ -170,7 +193,7 @@ Route::group(['middleware' => ['auth','adminProfile']], function () {
 | admin - bill - extra
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth','adminProfile']], function () {
+Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 
     Route::get('admin/bill/extra/index/{branch}', [AdminBillController::class, 'extraIndex'])
         ->middleware('permission:admin.bill.extra.index')
@@ -186,7 +209,7 @@ Route::group(['middleware' => ['auth','adminProfile']], function () {
 | admin statement
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth','adminProfile']], function () {
+Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 
     Route::get('admin/statement/index/{branch}', [AdminStatementController::class, 'index'])
         ->middleware('permission:admin.statement.index')
@@ -203,7 +226,7 @@ Route::group(['middleware' => ['auth','adminProfile']], function () {
 | admin stock
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth','adminProfile']], function () {
+Route::group(['middleware' => ['auth', 'adminProfile','localization']], function () {
 
 
     Route::get('admin/stock/index/{branch}', [AdminStockController::class, 'stockIndex'])
@@ -218,58 +241,65 @@ Route::group(['middleware' => ['auth','adminProfile']], function () {
         ->middleware('permission:admin.stock.store')
         ->name('admin.stock.store');
 
-    Route::get('admin/stock/transfer/create/{fromBranch}/{type}', [AdminStockController::class, 'transferCreate'])
-        ->middleware('permission:admin.stock.transfer')
-        ->name('admin.stock.transfer.create');
-
-    Route::post('admin/stock/transfer/private_store', [AdminStockController::class, 'transferPrivateStore'])
-        ->middleware('permission:admin.stock.transfer')
-        ->name('admin.stock.transfer.private_store');
-
-    Route::post('admin/stock/transfer/commercial_store', [AdminStockController::class, 'transferCommercialStore'])
-        ->middleware('permission:admin.stock.transfer')
-        ->name('admin.stock.transfer.commercial_store');
-
-    Route::post('admin/stock/transfer/diplomatic_store', [AdminStockController::class, 'transferDiplomaticStore'])
-        ->middleware('permission:admin.stock.transfer')
-        ->name('admin.stock.transfer.diplomatic_store');
-
-    Route::post('admin/stock/transfer/temporary_store', [AdminStockController::class, 'transferTemporaryStore'])
-        ->middleware('permission:admin.stock.transfer')
-        ->name('admin.stock.transfer.temporary_store');
-
-    Route::post('admin/stock/transfer/export_store', [AdminStockController::class, 'transferExportStore'])
-        ->middleware('permission:admin.stock.transfer')
-        ->name('admin.stock.transfer.export_store');
-
-    Route::post('admin/stock/transfer/specific_store', [AdminStockController::class, 'transferSpecificStore'])
-        ->middleware('permission:admin.stock.transfer')
-        ->name('admin.stock.transfer.specific_store');
-
-    Route::post('admin/stock/transfer/learner_store', [AdminStockController::class, 'transferLearnerStore'])
-        ->middleware('permission:admin.stock.transfer')
-        ->name('admin.stock.transfer.learner_store');
-
-    Route::post('admin/stock/transfer/government_store', [AdminStockController::class, 'transferGovernmentStore'])
-        ->middleware('permission:admin.stock.transfer')
-        ->name('admin.stock.transfer.government_store');
 });
 
+/*
+|--------------------------------------------------------------------------
+| plate stock
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth', 'branchProfile','localization']], function () {
+    Route::get('stock/transfer/create/{fromBranch}/{type}', [StockController::class, 'transferCreate'])
+        ->middleware('permission:stock.transfer')
+        ->name('stock.transfer.create');
+
+    Route::post('stock/transfer/private_store', [StockController::class, 'transferPrivateStore'])
+        ->middleware('permission:stock.transfer')
+        ->name('stock.transfer.private_store');
+
+    Route::post('stock/transfer/commercial_store', [StockController::class, 'transferCommercialStore'])
+        ->middleware('permission:stock.transfer')
+        ->name('stock.transfer.commercial_store');
+
+    Route::post('stock/transfer/diplomatic_store', [StockController::class, 'transferDiplomaticStore'])
+        ->middleware('permission:stock.transfer')
+        ->name('stock.transfer.diplomatic_store');
+
+    Route::post('stock/transfer/temporary_store', [StockController::class, 'transferTemporaryStore'])
+        ->middleware('permission:stock.transfer')
+        ->name('stock.transfer.temporary_store');
+
+    Route::post('stock/transfer/export_store', [StockController::class, 'transferExportStore'])
+        ->middleware('permission:stock.transfer')
+        ->name('stock.transfer.export_store');
+
+    Route::post('stock/transfer/specific_store', [StockController::class, 'transferSpecificStore'])
+        ->middleware('permission:stock.transfer')
+        ->name('stock.transfer.specific_store');
+
+    Route::post('stock/transfer/learner_store', [StockController::class, 'transferLearnerStore'])
+        ->middleware('permission:stock.transfer')
+        ->name('stock.transfer.learner_store');
+
+    Route::post('stock/transfer/government_store', [StockController::class, 'transferGovernmentStore'])
+        ->middleware('permission:stock.transfer')
+        ->name('stock.transfer.government_store');
+});
 
 /*
 |--------------------------------------------------------------------------
 | Bill
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth','branchProfile']], function () {
+Route::group(['middleware' => ['auth', 'branchProfile']], function () {
 
     Route::post('bill/plate/store', [BillController::class, 'store'])
         ->name('bill.plate.store');
 
-        Route::get('bill/plate/delete/{bill}', [BillController::class, 'delete'])
+    Route::get('bill/plate/delete/{bill}', [BillController::class, 'delete'])
         ->name('bill.plate.delete');
 
-        Route::post('bill/plate/update/{bill}', [BillController::class, 'update'])
+    Route::post('bill/plate/update/{bill}', [BillController::class, 'update'])
         ->name('bill.plate.update');
 });
 
@@ -280,10 +310,13 @@ Route::group(['middleware' => ['auth','branchProfile']], function () {
 | items
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth','branchProfile', 'localization']], function () {
+Route::group(['middleware' => ['auth', 'branchProfile', 'localization']], function () {
 
     Route::get('item/index/{bill}', [ItemController::class, 'index'])
         ->name('item.index');
+
+        Route::post('item/price_update/{item}', [ItemController::class, 'priceUpdate'])
+        ->name('item.price_update');
 
     Route::post('item/failedprint/store', [ItemController::class, 'failedprintStore'])
         ->name('item.failedprint.store');
@@ -291,7 +324,7 @@ Route::group(['middleware' => ['auth','branchProfile', 'localization']], functio
     Route::post('item/extra/store', [ItemController::class, 'extraStore'])
         ->name('item.extra.store');
 
-        Route::get('item/extra/delete/{item}', [ItemController::class, 'extraDelete'])
+    Route::get('item/extra/delete/{item}', [ItemController::class, 'extraDelete'])
         ->name('item.extra.delete');
 });
 

@@ -7,26 +7,26 @@
 
         <!-- email  -->
         <div>
-            <x-input-label for="email" :value=" 'المستخدم' " />
-            <x-text-input id="email" class="block mt-1 w-full" type="text" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-input-label for="ur_email" :value=" 'المستخدم' " />
+            <x-text-input id="ur_email" class="block mt-1 w-full" type="text" name="ur_email" :value="old('ur_email')" required autofocus />
+            <x-input-error :messages="$errors->get('ur_email')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4 relative" x-data="login">
             <div class="absolute left-3 top-10 cursor-pointer text-xs" @click="toggleInput">
-                <span x-show="show">
+                <span x-show=" ! show">
                     <x-svgicon.open_eye />
                 </span>
-                <span x-show=" ! show">
+                <span x-show=" show">
                     <x-svgicon.close_eye />
                 </span>
             </div>
-            <x-input-label for="password" :value=" 'كلمة المرور' " />
+            <x-input-label for="ur_password" :value=" 'كلمة المرور' " />
 
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+            <x-text-input id="ur_password" class="block mt-1 w-full" type="text" name="ur_password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-input-error :messages="$errors->get('ur_password')" class="mt-2" />
         </div>
 
         <!-- Remember Me -->
@@ -57,14 +57,14 @@
                 toggleInput() {
                     this.show = !this.show
 
-                    var input = document.getElementById('password');
+                    var input = document.getElementById('ur_password');
 
                     if (input.type == 'text') {
                         input.type = 'password'
                     } else if (input.type == 'password') {
                         input.type = 'text'
                     }
-                }
+                },
 
             }));
 

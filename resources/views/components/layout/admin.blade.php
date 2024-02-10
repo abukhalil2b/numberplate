@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 
 <head>
     <meta charset='utf-8' />
@@ -7,7 +7,7 @@
     <title>{{ $title ?? 'Dashboard ' }}</title>
 
     <meta name='viewport' content='width=device-width, initial-scale=1' />
-    <link rel="icon" type="image/svg" href="{{ asset('assets/images/favicon.svg') }}" />
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon.png') }}" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

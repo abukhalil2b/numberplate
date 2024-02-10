@@ -20,7 +20,7 @@
                 </th>
                
                 <th scope="col" class="px-6 py-3">
-                    رصد
+                    {{ __('ROP Bill Number') }}
                 </th>
 
                 <th scope="col" class="px-6 py-3">

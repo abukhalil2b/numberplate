@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+<html lang="en" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 
 <head>
     <meta charset="utf-8">
@@ -18,16 +18,16 @@
 
     <div class="w-full bg-white">
 
-        <div class="p-3 flex gap-4">
+        <div class="p-3 flex gap-4 justify-between">
             <a href="/branch/dashboard">
-                <img src="/img/logo.png" width="100" />
+                <img src="/assets/images/logo.png" width="100" />
             </a>
-            <div class="flex items-center">
+            <div class="border rounded px-4 flex justify-center items-center">
+                <a class="flex items-center" href="{{ route('profile') }}">
                 <x-svgicon.person />
-                <a class="block text-center" href="{{ route('profile') }}">
-                    <div class="text-red-900 text-xs">{{ app()->getLocale() == 'ar' ? Auth::user()->ar_name : Auth::user()->en_name}}</div>
-                    <div class="text-[10px] text-gray-500">{{ Auth::user()->email }}</div>
+                    <div class="text-red-900">{{ app()->getLocale() == 'ar' ? Auth::user()->ar_name : Auth::user()->en_name}}</div>
                 </a>
+                
             </div>
 
             <form method="POST" action="{{ route('logout') }}">

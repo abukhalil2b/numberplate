@@ -29,10 +29,10 @@ return new class extends Migration
             //[ ] Special PHP Packages For Money
 
             $table->unsignedBigInteger('bill_id')->nullable(); // can be null in case bought purfume 
-            $table->foreign('bill_id')->references('id')->on('bills')->cascadeOnDelete();
+            // $table->foreign('bill_id')->references('id')->on('bills')->cascadeOnDelete();
 
             $table->unsignedBigInteger('branch_id')->nullable();
-            $table->foreign('branch_id')->references('id')->on('users')->cascadeOnDelete();
+            // $table->foreign('branch_id')->references('id')->on('users')->cascadeOnDelete();
 
             $table->string('status', 20)->nullable(); //success - failed
 
