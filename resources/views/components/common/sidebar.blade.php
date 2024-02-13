@@ -70,7 +70,7 @@
                         <li>
                             <a href="{{ route('admin.branch.index') }}">{{ __('index') }}</a>
                         </li>
-                        @foreach(App\Models\User::where('profile','branch')->get() as $branch)
+                        @foreach(App\Models\User::where('profile','branch')->orderby('main_branch','desc')->get() as $branch)
                         <li>
                             <a href="{{ route('admin.branch.show',$branch->id) }}">
 

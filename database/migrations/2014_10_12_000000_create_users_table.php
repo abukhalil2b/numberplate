@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone',10)->nullable();
             $table->text('description')->nullable();
+            $table->boolean('main_branch')->default(0);//is this moderator branch?
             $table->tinyInteger('branch_id')->default(0);//user moderate branches
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

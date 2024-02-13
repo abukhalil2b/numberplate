@@ -19,6 +19,7 @@ class User extends Authenticatable
         'ar_name',
         'email',
         'phone',
+        'main_branch',
         'description',
         'password',
         'child_email',

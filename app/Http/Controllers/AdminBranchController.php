@@ -35,6 +35,7 @@ class AdminBranchController extends Controller
     {
 
         $branchs = User::where('profile', 'branch')
+            ->orderby('main_branch', 'desc')
             ->get();
         // return $users;
 
@@ -80,13 +81,16 @@ class AdminBranchController extends Controller
             'imei' => 'required|numeric',
         ]);
 
+        $main_branch_value = $request->main_branch == 'on' ? 1 : 0;
+
         $branch->update([
             'ar_name' => $request->ar_branchname,
             'en_name' => $request->en_branchname,
             'child_email' => $request->child_email,
             'imei' => $request->imei,
             'phone' => $request->phone,
-            'description'=>$request->description
+            'main_branch' => $main_branch_value,
+            'description' => $request->description
         ]);
 
         if ($request->update_password == 'on') {

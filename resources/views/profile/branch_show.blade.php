@@ -129,13 +129,19 @@
 
     <div class="mt-5 px-5 flex flex-wrap gap-3">
         @foreach($issueDates as $issueDate)
-        <div class="card">
 
-            <a href="{{ route('sale_history',$issueDate->issue_date) }}">
-                {{ $issueDate->issue_date }}
-            </a>
-
+        <div class="p-3 border rounded bg-slate-100 flex-col flex items-center gap-2 border-slate-400">
+            {{ $issueDate->issue_date }}
+            <div class="flex gap-3">
+                <a class="btn btn-sm btn-outline-primary" href="{{ route('plate.sale_history',$issueDate->issue_date) }}">
+                    {{ __('plate') }}
+                </a>
+                <a class="btn btn-sm btn-outline-primary" href="{{ route('extra.sale_history',$issueDate->issue_date) }}">
+                    {{ __('extra') }}
+                </a>
+            </div>
         </div>
+
         @endforeach
     </div>
 

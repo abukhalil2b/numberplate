@@ -74,8 +74,9 @@ class AdminBranchPermissionController extends Controller
     public function manageBranchesIndex(User $user)
     {
         $branches = User::where('profile', 'branch')
-            ->where('id', '<>', $user->id)
-            ->where('branch_id', 0)
+            ->where('main_branch', false)
+            ->where(fn($q)=>$q->where('branch_id', 0)->orWhere('branch_id', $user->id))
+            ->orderby('branch_id', 'asc')
             ->get();
 
         $branches = $branches->map(function ($b) use ($user) {
@@ -92,6 +93,9 @@ class AdminBranchPermissionController extends Controller
     public function manageBranchesUpdate(Request $request, User $user)
     {
         if ($request->branchIds) {
+            User::where('branch_id', $user->id)->update([
+                'branch_id' => 0
+            ]);
             User::whereIn('id', $request->branchIds)->update([
                 'branch_id' => $user->id
             ]);

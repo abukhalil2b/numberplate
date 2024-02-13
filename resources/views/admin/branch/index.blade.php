@@ -21,8 +21,12 @@
                         @foreach($branchs as $branch)
                         <tr>
                             <td class="whitespace-nowrap">
-                                <div class="{{ $branch->branch_id == 0 ? 'w-32 badge bg-warning' : '' }}">
+                                <div class="">
+                                   
                                     {{ app()->getLocale() == 'ar' ? $branch->ar_name : $branch->en_name }}
+                                    @if($branch->main_branch == 1)
+                                    <div class="text-gray-400 text-[10px]">moderator</div>
+                                    @endif
                                 </div>
                             </td>
                             <td>

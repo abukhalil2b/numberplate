@@ -21,14 +21,14 @@
         }
 
         table tr {
-            width: 30%;
+            width: 25%;
             border: 1px solid #ddd;
         }
 
         table td {
             font-size: 12px;
             padding: 6px 3px;
-            width: 30%;
+            width: 25%;
             border: 1px solid #ddd;
         }
 
@@ -60,17 +60,21 @@
     <button class="hidebutton button" onclick="printDocument();">print | طباعة</button>
     <table>
         <tr>
-            <td>date</td>
+            <td>date and time</td>
+            <td>info</td>
             <td>pair/single</td>
-            <td>type</td>
             <td>size</td>
             <td>quantity</td>
         </tr>
         @foreach($items as $item)
         <tr>
             <td>{{ $item->created_at }}</td>
+            <td>
+                <div style="font-size:10px">{{ $item->type }}</div>
+                <div style="font-size:10px">{{ $item->plate_num }} {{ $item->plate_code }}</div>
+                <div style="color:orange;font-size:10px">{{ $item->note }}</div>
+            </td>
             <td>{{ $item->required }}</td>
-            <td>{{ $item->type }}</td>
             <td>{{ $item->size }}</td>
             <td>{{ $item->quantity }}</td>
         </tr>

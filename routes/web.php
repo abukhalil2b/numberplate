@@ -38,7 +38,8 @@ Route::group(['middleware' => ['auth', 'localization']], function () {
 
     Route::get('profile', [ProfileController::class, 'show'])->name('profile');
 
-    Route::get('sale_history/{date}',[ProfileController::class,'saleHistory'])->name('sale_history');
+    Route::get('plate/sale_history/{date}',[ProfileController::class,'plateSaleHistory'])->name('plate.sale_history');
+    Route::get('extra/sale_history/{date}',[ProfileController::class,'extraSaleHistory'])->name('extra.sale_history');
 });
 
 

@@ -6,6 +6,14 @@
         <form method="POST" action="{{ route('admin.branch.update',$branch->id) }}">
             @csrf
 
+            Is This Moderator Branch?
+            <div class="relative mb-4">
+                <label class="flex cursor-pointer items-center">
+                    <input name="main_branch" type="checkbox" class="form-checkbox" @if($branch->main_branch == 1) checked @endif>
+                    <span class="text-white-dark">Moderator</span>
+                </label>
+            </div>
+
             Branch Arabic Name
             <div class="relative mb-4">
                 <span class="absolute ltr:left-3 rtl:right-3 top-1/2 -translate-y-1/2 dark:text-white-dark">
@@ -57,7 +65,7 @@
             {{ __('Phone') }}
             <div class="mb-4 flex">
                 <div class="flex items-center justify-center border px-3 font-semibold ltr:rounded-l-md ltr:border-r-0 rtl:rounded-r-md rtl:border-l-0 dark:border-[#17263c] dark:bg-[#1b2e4b]">
-                <x-svgicon.phone />
+                    <x-svgicon.phone />
                 </div>
                 <div class="flex items-center justify-center rounded-none border border-[#e0e6ed] bg-[#eee] px-3 font-semibold ltr:border-r-0 rtl:border-l-0 dark:border-[#17263c] dark:bg-[#1b2e4b]">
                     +968

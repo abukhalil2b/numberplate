@@ -97,13 +97,13 @@ class ProfileController extends Controller
 
             $month = date('m');
 
-            $items = Item::select('description', 'type', DB::raw('sum(price) as totalPrice'), DB::raw('count(id) as count'))
+            $items = Item::select('type', 'description', DB::raw('sum(price) as totalPrice'), DB::raw('count(id) as count'))
                 ->where([
                     'branch_id' => $user->id,
                     'cate' => 'extra',
                 ])
                 ->whereMonth('issue_date', $month)
-                ->groupby('description', 'type')
+                ->groupby('type', 'description')
                 ->get();
             // return $items;
             $branch = $user;
@@ -183,22 +183,57 @@ class ProfileController extends Controller
         }
     }
 
-    public function saleHistory($date)
+    public function plateSaleHistory($date)
     {
         $loggedUser = auth()->user();
 
-        $items = Item::select('created_at', 'required', 'type', 'size', 'quantity', 'price')
+        $items = Item::select('bills.plate_num', 'bills.plate_code', 'items.created_at', 'items.required', 'items.type', 'items.size', 'items.quantity', 'items.price')
+            ->join('bills', 'items.bill_id', 'bills.id')
             ->where([
-                'branch_id' => $loggedUser->id,
-                'cate' => 'plate',
-                'status' => 'success'
+                'items.branch_id' => $loggedUser->id,
+                'items.cate' => 'plate',
+                'items.status' => 'success'
             ])
-            ->whereDate('issue_date', $date)
-            ->orderby('required', 'asc')
-            ->orderby('type', 'asc')
-            ->orderby('size', 'asc')
+            ->whereDate('items.issue_date', $date)
+            ->orderby('items.id', 'desc')
             ->get();
 
-        return view('profile.sale_history', compact('items', 'date'));
+        $items = $items->map(function ($q) {
+            $itemObj['plate_num'] = $q->plate_num;
+            $itemObj['plate_code'] = $q->plate_code;
+            $itemObj['created_at'] = $q->created_at;
+            $itemObj['required'] = $q->required;
+            $itemObj['type'] = $q->type;
+            $itemObj['size'] = $q->size;
+            $itemObj['quantity'] = $q->quantity;
+            $itemObj['price'] = $q->price;
+
+            if ($q->required == 'pair' && $q->quantity == 1) {
+                $itemObj['note'] = 'diffrent size';
+            } else {
+                $itemObj['note'] = '';
+            }
+
+            return (object) $itemObj;
+        });
+
+        return view('profile.plate_sale_history', compact('items', 'date'));
+    }
+
+    public function extraSaleHistory($date)
+    {
+        $loggedUser = auth()->user();
+
+        $items = Item::select('items.created_at', 'bills.plate_num', 'bills.plate_code', 'items.type', 'items.description', 'items.price')
+            ->join('bills', 'items.bill_id', 'bills.id')
+            ->where([
+                'items.branch_id' => $loggedUser->id,
+                'items.cate' => 'extra'
+            ])
+            ->whereDate('items.issue_date', $date)
+            ->orderby('items.id', 'desc')
+            ->get();
+
+        return view('profile.extra_sale_history', compact('items', 'date'));
     }
 }
