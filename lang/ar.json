@@ -3,6 +3,7 @@
     "plate sold": "لوحات تم بيعها",
     "plate transferred": "لوحات تم نقلها",
     "plate is single": "لوحة واحدة",
+    "Wrong: one plate was selected":"خطا. لقد اخترت لوحة واحدة فقط",
     "fix single plate buy single frame ":"تركيب لوحة وشراء فريم",
     "plate is pair both are same size": "لوحتين بنفس الحجم",
     "plate is pair in different size": "لوحتين بأحجام مختلفة",
@@ -108,5 +109,7 @@
     "accountant": "المحاسب",
     "branch_manager": "مدير الفرع",
     "store_keeper": "مسؤل المخزن",
-    "project_manager": "مدير المشروع"
+    "project_manager": "مدير المشروع",
+
+    "Login as":"تسجيل الدخول بحساب"
 }

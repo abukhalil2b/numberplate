@@ -180,6 +180,7 @@ return [
     */
 
     'attributes' => [
+        'type'=>'نوع اللوحة',
         'payment_method'=>'طريقة الدفع',
         'ref_num' => 'رصد',
         'branch_id' => 'الفرع',

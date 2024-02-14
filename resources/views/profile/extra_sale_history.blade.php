@@ -8,6 +8,12 @@
 
     <title>{{ config('app.name', 'طباعة أرقام المركبات') }}</title>
     <style>
+        .footer {
+            display: block;
+            height: 50px;
+            padding: 50px;
+        }
+
         body {
             height: 100vh;
             display: flex;
@@ -65,6 +71,9 @@
             <td>description</td>
             <td>price</td>
         </tr>
+        @php
+        $extraTotal = 0;
+        @endphp
         @foreach($items as $item)
         <tr>
             <td>{{ $item->created_at }}</td>
@@ -75,8 +84,17 @@
             <td>{{ $item->description }}</td>
             <td>{{ $item->price }}</td>
         </tr>
+        @php
+        $extraTotal = $extraTotal + $item->price;
+        @endphp
         @endforeach
+        <tr>
+            <td colspan="4">
+                <h2 style="text-align:center"> {{ $extraTotal }}</h2>
+            </td>
+        </tr>
     </table>
+    <div class="footer"></div>
     <script>
         function printDocument() {
             window.print();

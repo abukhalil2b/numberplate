@@ -68,14 +68,13 @@
 
             @php
             $allPlateTotal = 0;
+           
             @endphp
 
             @foreach($items as $item)
 
             @php
-
             $style = '';
-
             if($item->description == "fix single plate"){
             $style = 'bg-orange-500';
             }

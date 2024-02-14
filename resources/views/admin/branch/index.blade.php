@@ -22,7 +22,7 @@
                         <tr>
                             <td class="whitespace-nowrap">
                                 <div class="">
-                                   
+
                                     {{ app()->getLocale() == 'ar' ? $branch->ar_name : $branch->en_name }}
                                     @if($branch->main_branch == 1)
                                     <div class="text-gray-400 text-[10px]">moderator</div>
@@ -30,13 +30,14 @@
                                 </div>
                             </td>
                             <td>
-                                <div>
-                                    {{ $branch->phone }}
+                                <div class="flex gap-3 items-center text-xs">
+
                                     @if($branch->phone)
-                                    <a href="https://wa.me/{{ $branch->phone }}">
+                                    <a target="_blank" href="https://wa.me/{{ $branch->phone }}">
                                         <x-svgicon.whatsapp />
                                     </a>
                                     @endif
+                                    {{ $branch->phone }}
                                 </div>
                             </td>
                             <td>
@@ -57,15 +58,18 @@
                                     </button>
                                     <ul @click="toggle" x-show="open" x-transition="" x-transition.duration.300ms="" class="whitespace-nowrap ltr:right-0 rtl:left-0" style="display: none;">
                                         <li>
-                                            <a href="{{ route('admin.branch.edit',$branch->id) }}" class="flex items-center">
+                                        @if(auth()->user()->permission('admin.branch.edit'))
+                                            <a href="{{ route('admin.branch.edit',$branch->id) }}" class="dark:hover:text-white">
+                                                <x-svgicon.pen />
                                                 {{ __('Edit') }}
-
                                             </a>
+                                            @endif
                                         </li>
                                         <li>
                                             <!-- only allow superadmin -->
                                             @if(auth()->user()->id == 1)
-                                            <a href="{{ route('admin.branch.permission.index',$branch->id) }}" class="flex items-center">
+                                            <a href="{{ route('admin.branch.permission.index',$branch->id) }}" class="dark:hover:text-white">
+                                                <x-svgicon.key />
                                                 {{ __('permission') }}
                                             </a>
                                             @endif
@@ -73,8 +77,17 @@
                                         <li>
                                             <!-- only allow superadmin -->
                                             @if(auth()->user()->id == 1)
-                                            <a href="{{ route('admin.branch.manage_permission.index',$branch->id) }}" class="flex items-center">
+                                            <a href="{{ route('admin.branch.manage_permission.index',$branch->id) }}" class="dark:hover:text-white">
+                                                <x-svgicon.chain />
                                                 {{ __('Manage Branches') }}
+                                            </a>
+                                            @endif
+                                        </li>
+                                        <li>
+                                            @if(auth()->user()->permission('admin.impersonate'))
+                                            <a href="{{ route('admin.impersonate.enable',$branch->id) }}" class="dark:hover:text-white">
+                                                <x-svgicon.person_behind />
+                                                {{ __('login as') }}
                                             </a>
                                             @endif
                                         </li>

@@ -95,9 +95,15 @@ class BillController extends Controller
             if ($request->required == 'pair') {
                 if (count($items) == 1) {
                     if ($items[0]['quantity'] == 1) {
-                        return back();
+                        return back()->with(['message'=>'Wrong: one plate was selected']);
                     }
                 }
+            }
+
+            if($request->requiredFixingPlate || $request->requiredBuyFrame ){
+                $request->validate([
+                    'payment_method' => 'required'
+                ]);
             }
 
             /**-- store bill */

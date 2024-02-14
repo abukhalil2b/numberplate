@@ -16,6 +16,8 @@ use App\Http\Controllers\AdminStockController;
 use App\Http\Controllers\AdminBranchController;
 use App\Http\Controllers\AdminBillController;
 use App\Http\Controllers\AdminRoleController;
+use App\Http\Controllers\AdminImpersonateController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -24,9 +26,10 @@ use Illuminate\Support\Facades\Route;
 | welcome
 |--------------------------------------------------------------------------
 */
+
 Route::get('/', [HomeController::class, 'welcome']);
 
-Route::group(['middleware' => ['auth', 'localization']], function () {
+Route::group(['middleware' => ['auth', 'impersonate', 'localization']], function () {
 
     Route::get('admin/dashboard', [HomeController::class, 'adminDashboard'])
         ->middleware('adminProfile')
@@ -36,10 +39,14 @@ Route::group(['middleware' => ['auth', 'localization']], function () {
         ->middleware('branchProfile')
         ->name('branch.dashboard');
 
-    Route::get('profile', [ProfileController::class, 'show'])->name('profile');
+    Route::get('profile', [ProfileController::class, 'show'])
+        ->name('profile');
 
-    Route::get('plate/sale_history/{date}',[ProfileController::class,'plateSaleHistory'])->name('plate.sale_history');
-    Route::get('extra/sale_history/{date}',[ProfileController::class,'extraSaleHistory'])->name('extra.sale_history');
+    Route::get('plate/sale_history/{date}', [ProfileController::class, 'plateSaleHistory'])
+        ->name('plate.sale_history');
+
+    Route::get('extra/sale_history/{date}', [ProfileController::class, 'extraSaleHistory'])
+        ->name('extra.sale_history');
 });
 
 
@@ -78,7 +85,7 @@ Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 | admin - branch
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth', 'adminProfile','localization']], function () {
+Route::group(['middleware' => ['auth', 'adminProfile', 'localization']], function () {
     Route::get('admin/branch/print', [AdminBranchController::class, 'branchPrint'])
         ->middleware('permission:admin.branch.show')
         ->name('admin.branch.print');
@@ -109,7 +116,7 @@ Route::group(['middleware' => ['auth', 'adminProfile','localization']], function
 | admin - branch permission
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth', 'adminProfile','localization']], function () {
+Route::group(['middleware' => ['auth', 'adminProfile', 'localization']], function () {
     Route::get('admin/branch/permission/index/{branch}', [AdminBranchPermissionController::class, 'permissionIndex'])
         ->middleware('permission:admin.branch.permission.index')
         ->name('admin.branch.permission.index');
@@ -122,7 +129,7 @@ Route::group(['middleware' => ['auth', 'adminProfile','localization']], function
         ->middleware('permission:admin.branch.manage_permission.index')
         ->name('admin.branch.manage_permission.index');
 
-        Route::post('admin/branch/manage_permission/update/{user}', [AdminBranchPermissionController::class, 'manageBranchesUpdate'])
+    Route::post('admin/branch/manage_permission/update/{user}', [AdminBranchPermissionController::class, 'manageBranchesUpdate'])
         ->middleware('permission:admin.branch.manage_permission.update')
         ->name('admin.branch.manage_permission.update');
 });
@@ -162,7 +169,7 @@ Route::group(['middleware' => ['auth', 'adminProfile']], function () {
         ->middleware('permission:admin.permission_role.index')
         ->name('admin.permission_role.index');
 
-    Route::get('admin/permission_role/update/{role}', [AdminPermissionRoleController::class, 'update'])
+    Route::post('admin/permission_role/update/{role}', [AdminPermissionRoleController::class, 'update'])
         ->middleware('permission:admin.permission_role.index')
         ->name('admin.permission_role.update');
 });
@@ -224,8 +231,7 @@ Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 | admin stock
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth', 'adminProfile','localization']], function () {
-
+Route::group(['middleware' => ['auth', 'adminProfile', 'localization']], function () {
 
     Route::get('admin/stock/index/{branch}', [AdminStockController::class, 'stockIndex'])
         ->middleware('permission:admin.stock.index')
@@ -238,7 +244,6 @@ Route::group(['middleware' => ['auth', 'adminProfile','localization']], function
     Route::post('admin/stock/store/{branch}/{type}', [AdminStockController::class, 'stockStore'])
         ->middleware('permission:admin.stock.store')
         ->name('admin.stock.store');
-
 });
 
 /*
@@ -246,7 +251,7 @@ Route::group(['middleware' => ['auth', 'adminProfile','localization']], function
 | plate stock
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth', 'branchProfile','localization']], function () {
+Route::group(['middleware' => ['auth', 'impersonate', 'branchProfile', 'localization']], function () {
     Route::get('stock/transfer/create/{fromBranch}/{type}', [StockController::class, 'transferCreate'])
         ->middleware('permission:stock.transfer')
         ->name('stock.transfer.create');
@@ -289,7 +294,7 @@ Route::group(['middleware' => ['auth', 'branchProfile','localization']], functio
 | Bill
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth', 'branchProfile']], function () {
+Route::group(['middleware' => ['auth', 'impersonate','branchProfile']], function () {
 
     Route::post('bill/plate/store', [BillController::class, 'store'])
         ->name('bill.plate.store');
@@ -308,12 +313,12 @@ Route::group(['middleware' => ['auth', 'branchProfile']], function () {
 | items
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth', 'branchProfile', 'localization']], function () {
+Route::group(['middleware' => ['auth', 'impersonate', 'branchProfile', 'localization']], function () {
 
     Route::get('item/index/{bill}', [ItemController::class, 'index'])
         ->name('item.index');
 
-        Route::post('item/price_update/{item}', [ItemController::class, 'priceUpdate'])
+    Route::post('item/price_update/{item}', [ItemController::class, 'priceUpdate'])
         ->name('item.price_update');
 
     Route::post('item/failedprint/store', [ItemController::class, 'failedprintStore'])
@@ -351,7 +356,22 @@ Route::group(['middleware' => ['auth', 'localization', 'drinkStockPermission']],
 |--------------------------------------------------------------------------
 */
 Route::get('localization/store/{local}', [ProfileController::class, 'localizationStore'])
+    ->middleware('impersonate')
     ->name('localization.store');
 
+/*
+|--------------------------------------------------------------------------
+| Impersonate
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'impersonate'])->group(function () {
+
+    Route::get('admin/impersonate/enable/{user}', [AdminImpersonateController::class, 'enableImpersonate'])
+        ->middleware('permission:admin.impersonate')
+        ->name('admin.impersonate.enable');
+
+    Route::get('admin/impersonate/disable', [AdminImpersonateController::class, 'disableImpersonate'])
+        ->name('admin.impersonate.disable');
+});
 
 require __DIR__ . '/auth.php';

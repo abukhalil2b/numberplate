@@ -24,10 +24,10 @@
             </a>
             <div class="border rounded px-4 flex justify-center items-center">
                 <a class="flex items-center" href="{{ route('profile') }}">
-                <x-svgicon.person />
+                    <x-svgicon.person />
                     <div class="text-red-900">{{ app()->getLocale() == 'ar' ? Auth::user()->ar_name : Auth::user()->en_name}}</div>
                 </a>
-                
+
             </div>
 
             <form method="POST" action="{{ route('logout') }}">
@@ -40,7 +40,13 @@
         </div>
 
     </div>
-
+    @if(auth()->user()->isImpersonating())
+    <div class="p-1 text-orange-500 text-center bg-red-100">
+        <a href="{{ route('admin.impersonate.disable') }}">
+            الخروج من الحساب
+        </a>
+    </div>
+    @endif
     <div class="mt-3">
         {{ $slot }}
     </div>

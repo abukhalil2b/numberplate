@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class User extends Authenticatable
 {
@@ -103,5 +104,26 @@ class User extends Authenticatable
         } else {
             return false;
         }
+    }
+
+    //-- impersonate --
+    public function setImpersonating($user)
+    {
+        Session::put('impersonate_user_id', $user->id);
+    }
+
+    public function stopImpersonating()
+    {
+        Session::forget('impersonate_user_id');
+    }
+
+    public function isImpersonating()
+    {
+        return Session::has('impersonate_user_id');
+    }
+
+    public function isAdministrator()
+    {
+        return $this->profile == 'admin' ? true : false;
     }
 }

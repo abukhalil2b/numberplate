@@ -4,6 +4,12 @@
 
         <div class="p-1 max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col items-center">
 
+            <!-- alert -->
+            @if(session('message'))
+            <div class="flex items-center rounded bg-danger-light p-3.5 text-danger dark:bg-danger-dark-light">
+                {{ __(session('message')) }}
+            </div>
+            @endif
 
             <form method="post" action="{{ route('bill.plate.store') }}">
                 @csrf

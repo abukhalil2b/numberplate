@@ -8,6 +8,12 @@
 
     <title>{{ config('app.name', 'طباعة أرقام المركبات') }}</title>
     <style>
+        .footer {
+            display: block;
+            height: 50px;
+            padding: 50px;
+        }
+
         body {
             height: 100vh;
             display: flex;
@@ -80,6 +86,7 @@
         </tr>
         @endforeach
     </table>
+    <div class="footer"></div>
     <script>
         function printDocument() {
             window.print();
