@@ -45,31 +45,28 @@
 
                 <div class="dropdown flex-shrink-0" x-data="dropdown" @click.outside="open = false">
                     <a href="javascript:;" class="relative group" @click="toggle()">
-                        <span><img class="w-9 h-9 rounded-full object-cover saturate-50 group-hover:saturate-100" src="/assets/images/avatar.png" alt="avatar" /></span>
+                        <div>
+                            <img class="w-9 h-9 rounded-full object-cover saturate-50 group-hover:saturate-100" src="/assets/images/avatar.png" alt="avatar" />
+                            {{ app()->getLocale() == 'ar' ? Auth::user()->ar_name : Auth::user()->en_name }}
+                        </div>
                     </a>
                     <ul x-cloak x-show="open" x-transition x-transition.duration.300ms class="ltr:right-0 rtl:left-0 text-dark dark:text-white-dark top-11 !py-0 w-[230px] font-semibold dark:text-white-light/90">
-                        <li>
-                            <div class="flex items-center px-4 py-4">
-                                <div class="flex-none">
-                                    <img class="rounded-md w-10 h-10 object-cover" src="/assets/images/avatar.png" alt="avatar" />
-                                </div>
-                                <div class="ltr:pl-4 rtl:pr-4 truncate">
-                                    <h4 class="text-base">
-
-                                        {{ app()->getLocale() == 'ar' ? Auth::user()->ar_name : Auth::user()->en_name }}
-                                    </h4>
-                                    <a class="text-black/60  hover:text-primary dark:text-dark-light/60 dark:hover:text-white" href="javascript:;">{{ Auth::user()->email }}</a>
-                                </div>
-                            </div>
-                        </li>
+                 
                         <li>
                             <a href="{{ route('profile') }}" class="dark:hover:text-white" @click="toggle">
                                 <svg class="w-4.5 h-4.5 ltr:mr-2 rtl:ml-2 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="12" cy="6" r="4" stroke="currentColor" stroke-width="1.5" />
                                     <path opacity="0.5" d="M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z" stroke="currentColor" stroke-width="1.5" />
                                 </svg>
-                                Profile</a>
+                                {{ __('Profile') }}
+                                </a>
                         </li>
+                        <li>
+                        <a class="h-20 dark:hover:text-white" href="{{ route('localization.store','en') }}">english</a>
+                    </li>
+                    <li>
+                        <a class="h-20 dark:hover:text-white" href="{{ route('localization.store','ar') }}">اللغة العربية</a>
+                    </li>
                         <li>
                             <div class="flex gap-2 mt-3 p-3">
                                 <button type="button" class="btn flex-auto text-xs" :class="[$store.app.rtlClass === 'ltr' ? 'btn-primary' : 'btn-outline-primary']" @click="$store.app.toggleRTL('ltr')">

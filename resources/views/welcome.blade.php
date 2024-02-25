@@ -16,7 +16,12 @@
 
         <img src="/assets/images/logo.png" alt="logo" />
 
-
+        @php
+        if(session()->has('impersonate_user_id'))
+        {
+        Auth::onceUsingId(session()->get('impersonate_user_id'));
+        }
+        @endphp
         <div class="mt-5 flex justify-center">
             @auth
             @if(auth()->user()->profile == 'admin')

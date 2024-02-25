@@ -16,8 +16,6 @@ return new class extends Migration
             
             $table->unsignedBigInteger('bill_id')->nullable(); // can be null in case bought purfume 
             $table->foreign('bill_id')->references('id')->on('bills')->cascadeOnDelete();
-            
-            $table->string('using',50)->default('ROP');//TRANSPORTATION - ROP
 
             $table->string('type',20)->default('private');//private - commercial - diplomatic - temporary - export - specific - government - other
             

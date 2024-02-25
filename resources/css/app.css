@@ -73,7 +73,7 @@ body {
 @layer components {
      /* card */
      .card {
-        @apply bg-white text-gray-700 rounded border border-black flex justify-center items-center text-center h-14 w-36 p-1;
+        @apply bg-white text-gray-700 rounded border border-black flex justify-center items-center text-center h-14 w-24 p-1;
     }
 
     .selectedCard {
@@ -91,7 +91,7 @@ body {
 
     /* plate  */
     .plate {
-        @apply bg-white text-black/20 border-black/20 cursor-pointer rounded border-2  flex justify-center items-center text-center h-14 w-36 p-1;
+        @apply bg-white text-black/20 border-black/20 cursor-pointer rounded border-2  flex justify-center items-center text-center h-14 w-24 p-1;
     }
 
     .plate_selected {
@@ -100,7 +100,7 @@ body {
 
     /* plate private */
     .private_plate {
-        @apply bg-yellow-300/20 text-black/50 cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-36 p-1;
+        @apply bg-yellow-300/20 text-black/50 cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-24 p-1;
     }
 
     .private_plate_selected {
@@ -109,7 +109,7 @@ body {
 
     /* plate commercial */
     .commercial_plate {
-        @apply bg-red-300/50 text-white cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-36 p-1;
+        @apply bg-red-300/50 text-white cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-24 p-1;
     }
 
     .commercial_plate_selected {
@@ -118,7 +118,7 @@ body {
 
     /* plate diplomatic */
     .diplomatic_plate {
-        @apply bg-white/20 text-black/50 cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-36 p-1;
+        @apply bg-white/20 text-black/50 cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-24 p-1;
     }
 
     .diplomatic_plate_selected {
@@ -127,7 +127,7 @@ body {
 
     /* plate temporary */
     .temporary_plate {
-        @apply bg-green-300/20 text-white cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-36 p-1;
+        @apply bg-green-300/20 text-white cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-24 p-1;
     }
 
     .temporary_plate_selected {
@@ -136,7 +136,7 @@ body {
 
     /* plate export */
     .export_plate {
-        @apply bg-blue-300/20 text-white cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-36 p-1;
+        @apply bg-blue-300/20 text-white cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-24 p-1;
     }
 
     .export_plate_selected {
@@ -145,7 +145,7 @@ body {
 
     /* plate specific */
     .specific_plate {
-        @apply bg-black/20 text-white cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-36 p-1;
+        @apply bg-black/20 text-white cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-24 p-1;
     }
 
     .specific_plate_selected {
@@ -154,7 +154,7 @@ body {
 
     /* plate learner */
     .learner_plate {
-        @apply bg-white/20 text-red-300/50 cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-36 p-1;
+        @apply bg-white/20 text-red-300/50 cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-24 p-1;
     }
 
     .learner_plate_selected {
@@ -163,21 +163,13 @@ body {
 
     /* plate government */
     .government_plate {
-        @apply bg-white/20 text-red-300/50 cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-36 p-1;
+        @apply bg-white/20 text-red-300/50 cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-24 p-1;
     }
 
     .government_plate_selected {
         @apply border-black bg-white text-red-300;
     }
 
-    /* plate other */
-    .other_plate {
-        @apply bg-white/20 text-black/50 cursor-pointer rounded border-2 border-black/20 flex justify-center items-center text-center h-14 w-36 p-1;
-    }
-
-    .other_plate_selected {
-        @apply border-black bg-white text-black;
-    }
 
     /* VRISTO */
     

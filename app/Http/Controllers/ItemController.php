@@ -6,21 +6,29 @@ use App\Models\Bill;
 use App\Models\Item;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ItemController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Bill $bill)
+    public function show(Bill $bill)
     {
+        $loggedUser = auth()->user();
+
+        //permission
+        if ($bill->branch_id != $loggedUser->id) {
+            abort(401);
+        }
+
         $plateItems = Item::where(['bill_id' => $bill->id, 'cate' => 'plate'])
             ->get();
 
         $extraItems = Item::where(['bill_id' => $bill->id, 'cate' => 'extra'])
             ->get();
 
-        return view('item.index', compact('plateItems', 'extraItems', 'bill'));
+        return view('item.show', compact('plateItems', 'extraItems', 'bill'));
     }
 
     public function priceUpdate(Item $item, Request $request)
@@ -47,14 +55,15 @@ class ItemController extends Controller
 
         $loggedUser = auth()->user();
 
+        //permission
+        if ($bill->branch_id != $loggedUser->id) {
+            abort(401);
+        }
+
         /*-- single plate --*/
         if ($request->plate_failed == 'single' || $request->plate_failed == 'pair_same_size') {
 
-            $item = Item::find($request->itemId);
-
-            if (!$item) {
-                abort(404);
-            }
+            $item = Item::findOrFail($request->itemId);
 
             /*-- item --*/
             Item::create([
@@ -141,9 +150,14 @@ class ItemController extends Controller
         ]);
         // return $request->all();
 
-        $bill = Bill::find($request->bill_id);
+        $bill = Bill::findOrFail($request->bill_id);
 
         $loggedUser = auth()->user();
+
+        //permission
+        if ($bill->branch_id != $loggedUser->id) {
+            abort(401);
+        }
 
         //------ store extra ------//
         if ($request->requiredFixingPlate == 'pair') {
@@ -196,6 +210,8 @@ class ItemController extends Controller
         }
         //------ store extra ------//
 
+
+
         Bill::where('id', $request->bill_id)->update([
             'payment_method' => $request->payment_method
         ]);
@@ -208,25 +224,91 @@ class ItemController extends Controller
      */
     public function extraDelete(Item $item)
     {
-        $item->delete();
+        $loggedUser = auth()->user();
+
+        Item::where([
+            'id' => $item->id,
+            'branch_id' => $loggedUser->id
+        ])->delete();
 
         return back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Item $item)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Item $item)
+    public function pritingStore(Request $request)
     {
-        //
+
+        return $request->all();
+        /*---------------------------//
+        
+        //--------------------------*/
+        $bill = Bill::findOrFail($request->bill_id);
+
+        $loggedUser = auth()->user();
+
+        //permission
+        if ($bill->branch_id != $loggedUser->id) {
+            abort(401);
+        }
+
+        //------ print plate ------//
+        if ($request->requiredPrintingPlate > 0) {
+
+            $description = '';
+
+            $price = '0';
+
+            if ($request->requiredPrintingPlate == '1') {
+                $description = 'print single bike plate';
+                $price = '1.000';
+                $required = 'single';
+            }
+
+            if ($request->requiredPrintingPlate == '2') {
+                $description = 'print pair bike plate';
+                $price = '2.000';
+                $required = 'pair';
+            }
+
+            if ($request->requiredPrintingPlate == '4') {
+                $description = 'print single medium plate';
+                $price = '4.000';
+                $required = 'single';
+            }
+
+            if ($request->requiredPrintingPlate == '8') {
+                $description = 'print pair medium plate';
+                $price = '8.000';
+                $required = 'pair';
+            }
+
+            if ($request->requiredPrintingPlate == '6') {
+                $description = 'print single large plate';
+                $price = '6.000';
+                $required = 'single';
+            }
+
+            if ($request->requiredPrintingPlate == '12') {
+                $description = 'print pair large plate';
+                $price = '12.000';
+                $required = 'pair';
+            }
+
+            if ($description != '' && $price != '0') {
+                Item::create([
+                    'cate' => 'plate',
+                    'required' => $required,
+                    'type' => $bill->type,
+                    'bill_id' => $bill->id,
+                    'branch_id' => $loggedUser->id,
+                    'description' => $description,
+                    'price' =>  $price,
+                    'issue_date' => date('Y-m-d')
+                ]);
+            }
+        }
+        //------ print plate ------//
+        return redirect()->route('item.show',$bill->id);
     }
 
     /**

@@ -179,6 +179,12 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'type' => 'plate type',
+        'payment_method' => 'payment method',
+        'ref_num' => 'ROP Bill Number',
+        'branch_id' => 'branch',
+        'quantity' => 'quantity'
+    ],
 
 ];

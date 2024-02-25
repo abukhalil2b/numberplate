@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Hash;
 class HomeController extends Controller
 {
 
+    /**-- testDashbord --*/
+    public function testDashbord(){
+        return view('test');
+    }
     /**-- welcome --*/
     public function welcome()
     {

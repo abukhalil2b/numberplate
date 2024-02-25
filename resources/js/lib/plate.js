@@ -54,76 +54,31 @@ return {
 
         sizeForStatement: "",
 
-        getPrivateCode() {
-            this.resetValues();
+        requiredFixingPlate:'',
 
-            this.plateType = 'private';
+        requiredBuyFrame:'',
 
-            this.codes = this.private
-        },
+        priceForPlate:0,
 
-        getCommercialCode() {
-            this.resetValues();
+        showROPBillNumber:false,
 
-            this.plateType = 'commercial';
+        showPrintingOption:false,
 
-            this.codes = this.commercial
-        },
+        showFixingBuySaveBtn:false,
 
-        getDiplomaticCode() {
-            this.resetValues();
-
-            this.plateType = 'diplomatic';
-
-            this.codes = this.diplomatic
-        },
-
-        getTemporaryCode() {
-            this.resetValues();
-
-            this.plateType = 'temporary';
-
-            this.codes = this.temporary
-        },
-
-        getExportCode() {
-            this.resetValues();
-
-            this.plateType = 'export';
-
-            this.codes = this.export
-        },
-
-        getLearnerCode() {
-            this.resetValues();
-
-            this.plateType = 'learner';
-
-            this.codes = this.learner
-        },
-
-        getSpecificCode() {
-            this.resetValues();
-
-            this.plateType = 'specific';
-
-            this.codes = this.specific
-        },
-
-        getGovernmentCode() {
-            this.resetValues();
-
-            this.plateType = 'government';
-
-            this.codes = this.government
-        },
-
-        getOtherCode() {
-            this.resetValues();
+        selectPlateType(type) {
             
-            this.plateType = 'other';
+            this.resetValues();
 
-            this.codes = this.other
+            this.plateType = type;
+
+            this.showFixingBuySaveBtn = true;
+
+            this.codes = this.private;
+
+            this.showROPBillNumber = ['private','commercial','specific','learner','government'].filter(t=>t == type).length > 0;
+
+            this.showPrintingOption = ['private','commercial','diplomatic','specific','learner','government'].filter(t=>t == type).length > 0;
         },
 
         selectPairPlate() {
@@ -206,6 +161,12 @@ return {
         },
 
         addSmall() {
+           
+            //do not mix with bike and largeWithKhanger
+            if( this.plates.filter(plate=>plate == 'bike' || plate == 'largeWithKhanjer').length > 0){
+                return;
+            }
+
             if (this.small == 0 || this.small == 1) {
                 switch (this.required) {
                     case "pair":
@@ -230,6 +191,12 @@ return {
         },
 
         addMedium() {
+
+            //do not mix with bike and largeWithKhanger
+            if( this.plates.filter(plate=>plate == 'bike' || plate == 'largeWithKhanjer').length > 0){
+                return;
+            }
+
             if (this.medium == 0 || this.medium == 1) {
                 switch (this.required) {
                     case "pair":
@@ -254,6 +221,12 @@ return {
         },
 
         addLarge() {
+
+            //do not mix with bike and largeWithKhanger
+            if( this.plates.filter(plate=>plate == 'bike' || plate == 'largeWithKhanjer').length > 0){
+                return;
+            }
+
             if (this.large == 0 || this.large == 1) {
                 switch (this.required) {
                     case "pair":
@@ -276,6 +249,12 @@ return {
         },
 
         addLargeWithKhanjer() {
+
+            //do not mix largeWithKhanger with others
+            if( this.plates.filter(plate=> ['small','medium','large','bike'].find(s=>s==plate) == plate).length > 0){
+                return;
+            }
+
             if (this.largeWithKhanjer == 0 || this.largeWithKhanjer == 1) {
                 switch (this.required) {
                     case "pair":
@@ -300,6 +279,12 @@ return {
         },
 
         addBike() {
+
+            //do not mix bike with others
+            if( this.plates.filter(plate=> ['small','medium','large','largeWithKhanjer'].find(s=>s==plate) == plate).length > 0){
+                return;
+            }
+
             if (this.bike == 0 || this.bike == 1) {
                 switch (this.required) {
                     case "pair":
@@ -403,5 +388,8 @@ return {
             return ['government','specific','private','commercial','learner','diplomatic','temporary'].filter(item=>item == plateType).length > 0
         }
         /* end-- check for plate type is exist -- */
+
+    
+  
     };
 }

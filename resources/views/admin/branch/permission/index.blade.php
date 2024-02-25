@@ -8,7 +8,21 @@
         @csrf
 
         @foreach($permissions as $permission)
-        <div class="p-2 mt-2 bg-white ">
+        @php
+
+        $bgColor = 'bg-white';
+
+        if($permission->cate == 'plate.size')
+        $bgColor = 'bg-green-100';
+
+        if($permission->cate == 'plate.type')
+        $bgColor = 'bg-blue-100';
+
+        if($permission->cate == 'stock')
+        $bgColor = 'bg-orange-100';
+        
+        @endphp
+        <div class="p-2 mt-2  {{ $bgColor }}">
             <label>
                 <input type="checkbox" name="permissionIds[]" value="{{ $permission->id }}" @if($permission->has_permission) checked @endif>
                 {{ $permission->title }}

@@ -14,11 +14,9 @@ return new class extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
             
-            $table->string('using',50)->default('ROP');//TRANSPORTATION - ROP
-
             $table->string('required',10)->nullable();//single - pair
             
-            $table->string('type',20)->default('private');//private - commercial - diplomatic - temporary - export - specific - learner - government - other
+            $table->string('type',20)->default('private');//private - commercial - diplomatic - temporary - export - specific - learner - government 
            
             $table->string('plate_num',20)->nullable();
             

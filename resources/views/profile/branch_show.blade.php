@@ -3,14 +3,6 @@
         {{ $branch->description }}
     </div>
 
-    <div class="p-3 mt-4 text-center">
-        <span class="pb-2 border-red-800 border-b-2 text-red-800 text-xl"> {{ __('Change Language') }}</span>
-    </div>
-    <div class="mt-4 flex items-center justify-center gap-2">
-        <a class="block bg-gray-100 border rounded p-1 w-24 text-xs text-center" href="{{ route('localization.store','en') }}">english</a>
-        <a class="block bg-gray-100 border rounded p-1 w-24 text-xs text-center" href="{{ route('localization.store','ar') }}">اللغة العربية</a>
-    </div>
-
     <div class="mt-5 text-xl flex justify-center items-center">
         <span class="pb-2 border-red-800 border-b-2 text-red-800 text-xl"> {{ __('Stock') }} </span>
     </div>
@@ -68,7 +60,7 @@
 
             @php
             $allPlateTotal = 0;
-           
+
             @endphp
 
             @foreach($items as $item)
@@ -91,11 +83,23 @@
             $style = 'bg-purple-500';
             }
 
+            if(
+            $item->description == "print pair large plate"
+            ||
+            $item->description == "print single large plate"
+            ||
+            $item->description == "print pair medium plate"
+            ||
+            $item->description == "print single medium plate"
+            ){
+            $style = 'bg-yellow-500';
+            }
+
             @endphp
 
             <tr>
                 <td>
-                    <div class="w-32 badge {{ $style }}">
+                    <div class="w-40 text-xs badge {{ $style }}">
                         {{ __($item->description) }}
                     </div>
                 </td>
@@ -121,25 +125,27 @@
         </table>
     </div>
 
-
     <div class="mt-5 text-xl flex justify-center items-center">
-        <span class="pb-2 border-red-800 border-b-2 text-red-800 text-xl"> {{ __('Sale History') }} </span>
+        <span class="pb-2 border-red-800 border-b-2 text-red-800 text-xl"> {{ __('Sales History') }} </span>
     </div>
 
     <div class="mt-5 px-5 flex flex-wrap gap-3">
         @foreach($issueDates as $issueDate)
 
+        @if($issueDate->issue_date)
         <div class="p-3 border rounded bg-slate-100 flex-col flex items-center gap-2 border-slate-400">
             {{ $issueDate->issue_date }}
             <div class="flex gap-3">
                 <a class="btn btn-sm btn-outline-primary" href="{{ route('plate.sale_history',$issueDate->issue_date) }}">
-                    {{ __('plate') }}
+                    {{ __('printing plate') }}
                 </a>
                 <a class="btn btn-sm btn-outline-primary" href="{{ route('extra.sale_history',$issueDate->issue_date) }}">
-                    {{ __('extra') }}
+                    {{ __('fixing plate') }}
+                    {{ __('buy frame') }}
                 </a>
             </div>
         </div>
+        @endif
 
         @endforeach
     </div>

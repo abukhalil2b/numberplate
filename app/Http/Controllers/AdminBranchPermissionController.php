@@ -22,13 +22,17 @@ class AdminBranchPermissionController extends Controller
             abort(403);
 
         //-- Permission
-        $Permission = Permission::whereIn('cate', ['plate.size', 'plate.type', 'stock'])->get();
+        $Permission = Permission::whereIn('cate', ['plate.size', 'plate.type', 'stock'])
+        ->orderby('cate','asc')
+        ->get();
 
         $userPermissions = DB::table('permission_user')
             ->where(['user_id' => $branch->id])
             ->pluck('permission_id')->toArray();
 
         $permissions = $Permission->map(function ($permission) use ($userPermissions) {
+
+            $permissionObj['cate'] = $permission->cate;
 
             $permissionObj['id'] = $permission->id;
 

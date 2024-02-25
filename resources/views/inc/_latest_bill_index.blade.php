@@ -51,7 +51,7 @@
                 </td>
 
                 <td class="px-6 py-4">
-                    <a href="{{ route('item.index',$latestBill->id) }}">
+                    <a href="{{ route('item.show',$latestBill->id) }}">
                          {{ __('show') }}
                     </a>
                 </td>

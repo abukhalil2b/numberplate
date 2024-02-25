@@ -108,7 +108,7 @@ class ProfileController extends Controller
             // return $items;
             $branch = $user;
 
-            $issueDates = DB::select("SELECT DISTINCT issue_date FROM `items` WHERE branch_id = ?; ", [$user->id]);
+            $issueDates = DB::select("SELECT DISTINCT issue_date FROM `items` WHERE branch_id = ? ORDER BY id DESC; ", [$user->id]);
 
             return view('profile.branch_show', compact(
                 'issueDates',
@@ -187,7 +187,7 @@ class ProfileController extends Controller
     {
         $loggedUser = auth()->user();
 
-        $items = Item::select('bills.plate_num', 'bills.plate_code', 'items.created_at', 'items.required', 'items.type', 'items.size', 'items.quantity', 'items.price')
+        $items = Item::select('bills.plate_num', 'bills.plate_code', 'bills.payment_method', 'items.bill_id', 'items.created_at', 'items.required', 'items.type', 'items.size', 'items.quantity', 'items.price')
             ->join('bills', 'items.bill_id', 'bills.id')
             ->where([
                 'items.branch_id' => $loggedUser->id,
@@ -201,6 +201,8 @@ class ProfileController extends Controller
         $items = $items->map(function ($q) {
             $itemObj['plate_num'] = $q->plate_num;
             $itemObj['plate_code'] = $q->plate_code;
+            $itemObj['payment_method'] = $q->payment_method;
+            $itemObj['bill_id'] = $q->bill_id;
             $itemObj['created_at'] = $q->created_at;
             $itemObj['required'] = $q->required;
             $itemObj['type'] = $q->type;
@@ -209,7 +211,7 @@ class ProfileController extends Controller
             $itemObj['price'] = $q->price;
 
             if ($q->required == 'pair' && $q->quantity == 1) {
-                $itemObj['note'] = 'diffrent size';
+                $itemObj['note'] = 'different size';
             } else {
                 $itemObj['note'] = '';
             }
@@ -224,7 +226,7 @@ class ProfileController extends Controller
     {
         $loggedUser = auth()->user();
 
-        $items = Item::select('items.created_at', 'bills.plate_num', 'bills.plate_code', 'items.type', 'items.description', 'items.price')
+        $items = Item::select('items.created_at', 'bills.issue_date', 'bills.plate_num', 'bills.plate_code', 'bills.payment_method', 'items.bill_id', 'items.id', 'items.type', 'items.description', 'items.price')
             ->join('bills', 'items.bill_id', 'bills.id')
             ->where([
                 'items.branch_id' => $loggedUser->id,
@@ -236,4 +238,5 @@ class ProfileController extends Controller
 
         return view('profile.extra_sale_history', compact('items', 'date'));
     }
+
 }

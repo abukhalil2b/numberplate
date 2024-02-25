@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminPermissionRoleController;
 use App\Http\Controllers\AdminStatementController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestBillController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\AdminStockController;
@@ -29,24 +30,29 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'welcome']);
 
-Route::group(['middleware' => ['auth', 'impersonate', 'localization']], function () {
+Route::group(['middleware' => ['auth', 'localization']], function () {
 
     Route::get('admin/dashboard', [HomeController::class, 'adminDashboard'])
-        ->middleware('adminProfile')
+        ->middleware(['impersonate', 'adminProfile'])
         ->name('admin.dashboard');
 
     Route::get('branch/dashboard', [HomeController::class, 'branchDashboard'])
-        ->middleware('branchProfile')
+        ->middleware(['impersonate', 'branchProfile'])
         ->name('branch.dashboard');
 
     Route::get('profile', [ProfileController::class, 'show'])
+        ->middleware('impersonate')
         ->name('profile');
 
     Route::get('plate/sale_history/{date}', [ProfileController::class, 'plateSaleHistory'])
+        ->middleware('impersonate')
         ->name('plate.sale_history');
 
     Route::get('extra/sale_history/{date}', [ProfileController::class, 'extraSaleHistory'])
+        ->middleware('impersonate')
         ->name('extra.sale_history');
+
+    Route::get('test', [HomeController::class, 'testDashbord'])->middleware(['impersonate', 'branchProfile']);
 });
 
 
@@ -294,7 +300,7 @@ Route::group(['middleware' => ['auth', 'impersonate', 'branchProfile', 'localiza
 | Bill
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['auth', 'impersonate','branchProfile']], function () {
+Route::group(['middleware' => ['auth', 'impersonate', 'branchProfile']], function () {
 
     Route::post('bill/plate/store', [BillController::class, 'store'])
         ->name('bill.plate.store');
@@ -306,7 +312,16 @@ Route::group(['middleware' => ['auth', 'impersonate','branchProfile']], function
         ->name('bill.plate.update');
 });
 
+/*
+|--------------------------------------------------------------------------
+| Bill
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth', 'impersonate', 'branchProfile']], function () {
 
+    Route::post('test/bill/plate/store', [TestBillController::class, 'storeBill'])
+        ->name('test.bill.plate.store');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -315,8 +330,8 @@ Route::group(['middleware' => ['auth', 'impersonate','branchProfile']], function
 */
 Route::group(['middleware' => ['auth', 'impersonate', 'branchProfile', 'localization']], function () {
 
-    Route::get('item/index/{bill}', [ItemController::class, 'index'])
-        ->name('item.index');
+    Route::get('item/show/{bill}', [ItemController::class, 'show'])
+        ->name('item.show');
 
     Route::post('item/price_update/{item}', [ItemController::class, 'priceUpdate'])
         ->name('item.price_update');
@@ -329,6 +344,9 @@ Route::group(['middleware' => ['auth', 'impersonate', 'branchProfile', 'localiza
 
     Route::get('item/extra/delete/{item}', [ItemController::class, 'extraDelete'])
         ->name('item.extra.delete');
+
+    Route::post('item/printing/store', [ItemController::class, 'pritingStore'])
+        ->name('item.printing.store');
 });
 
 

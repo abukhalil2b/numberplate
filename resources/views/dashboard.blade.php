@@ -14,45 +14,45 @@
             <form method="post" action="{{ route('bill.plate.store') }}">
                 @csrf
 
-                <div class="mt-2 flex flex-wrap gap-1 justify-center">
-                    <div class="private_plate" :class="plateType == 'private' ? 'private_plate_selected' : '' " @click="getPrivateCode">
+                <div class="mt-2 w-80 grid grid-cols-3 gap-1">
+                    <div class="private_plate" :class="plateType == 'private' ? 'private_plate_selected' : '' " @click="selectPlateType('private')">
                         {{ __('private') }}
                     </div>
 
-                    <div class="commercial_plate" :class="plateType == 'commercial' ? 'commercial_plate_selected' : '' " @click="getCommercialCode">
+                    <div class="commercial_plate" :class="plateType == 'commercial' ? 'commercial_plate_selected' : '' " @click="selectPlateType('commercial')">
                         {{ __('commercial') }}
                     </div>
 
                     @if( auth()->user()->hasPermission('diplomatic') )
-                    <div class="diplomatic_plate " :class="plateType == 'diplomatic' ? 'diplomatic_plate_selected' : '' " @click="getDiplomaticCode">
+                    <div class="diplomatic_plate " :class="plateType == 'diplomatic' ? 'diplomatic_plate_selected' : '' " @click="selectPlateType('diplomatic')">
                         {{ __('diplomatic') }}
                     </div>
                     @endif
 
                     @if( auth()->user()->hasPermission('temporary') )
-                    <div class="temporary_plate" :class="plateType == 'temporary' ? 'temporary_plate_selected' : '' " @click="getTemporaryCode">
+                    <div class="temporary_plate" :class="plateType == 'temporary' ? 'temporary_plate_selected' : '' " @click="selectPlateType('temporary')">
                         {{ __('temporary') }}
                     </div>
                     @endif
 
                     @if( auth()->user()->hasPermission('export') )
-                    <div class="export_plate" :class="plateType == 'export' ? 'export_plate_selected' : '' " @click="getExportCode">
+                    <div class="export_plate" :class="plateType == 'export' ? 'export_plate_selected' : '' " @click="selectPlateType('export')">
                         {{ __('export') }}
                     </div>
                     @endif
 
-                    <div class="specific_plate" :class="plateType == 'specific' ? 'specific_plate_selected' : '' " @click="getSpecificCode">
+                    <div class="specific_plate" :class="plateType == 'specific' ? 'specific_plate_selected' : '' " @click="selectPlateType('specific')">
                         {{ __('specific use') }}
                     </div>
 
                     @if( auth()->user()->hasPermission('learner') )
-                    <div class="learner_plate" :class="plateType == 'learner' ? 'learner_plate_selected' : '' " @click="getLearnerCode">
+                    <div class="learner_plate" :class="plateType == 'learner' ? 'learner_plate_selected' : '' " @click="selectPlateType('learner')">
                         {{ __('learner') }}
                     </div>
                     @endif
 
                     @if( auth()->user()->hasPermission('government') )
-                    <div class="government_plate" :class="plateType == 'government' ? 'government_plate_selected' : '' " @click="getGovernmentCode">
+                    <div class="government_plate" :class="plateType == 'government' ? 'government_plate_selected' : '' " @click="selectPlateType('government')">
                         {{ __('government') }}
                     </div>
                     @endif
@@ -68,31 +68,31 @@
                 </div>
 
 
-                <div class="mt-5 flex gap-1 justify-center" x-cloak x-show="plateType != '' ">
-                    <div class="text-center w-32">
+                <div class="mt-5 w-80 flex gap-1 justify-center" x-cloak x-show="plateType != '' ">
+                    <div class="text-center">
                         {{ __('code') }}
-                        <x-text-input type="text" name="plate_code" x-model="selectedCode" class="w-full mt-1 block" />
+                        <x-text-input type="text" name="plate_code" class="w-full mt-1 block" x-model="selectedCode"/>
                     </div>
-                    <div class="text-center w-32">
+                    <div class="text-center">
                         {{ __('number') }}
                         <x-text-input type="text" name="plate_num" class="w-full mt-1 block" />
                     </div>
                 </div>
 
-                <div class="mt-5 w-full flex justify-center" x-cloak x-show="plateType != '' ">
+                <div class="mt-5 w-full flex justify-center" x-cloak x-show="showROPBillNumber">
                     <div>
                         {{ __('ROP Bill Number') }}
-                        <x-text-input type="number" name="ref_num" class="w-64 mt-1 block" />
+                        <x-text-input type="number" name="ref_num" class="w-80 mt-1 block" />
                     </div>
                 </div>
 
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center" x-cloak x-show="showPrintingOption">
 
-                    <div class="mt-4 w-64 flex gap-1" x-cloak x-show="plateType != '' ">
-                        <div @click="selectPairPlate" class="plate" :class="required == 'pair' ? 'plate_selected' : '' ">
+                    <div class="mt-4 w-80 flex gap-1" x-cloak x-show="plateType != '' ">
+                        <div @click="selectPairPlate" class="plate w-full" :class="required == 'pair' ? 'plate_selected' : '' ">
                             {{ __('pair') }}
                         </div>
-                        <div @click="selectSinglePlate" class="plate" :class="required == 'single' ? 'plate_selected' : '' ">
+                        <div @click="selectSinglePlate" class="plate w-full" :class="required == 'single' ? 'plate_selected' : '' ">
                             {{ __('single') }}
                         </div>
 
@@ -105,7 +105,7 @@
                     <input type="hidden" name="sizeForStatement" x-model="sizeForStatement">
                 </div>
 
-                <div class="mt-6 flex flex-col items-center" x-data="{ requiredFixingPlate:'',requiredBuyFrame:'',priceForPlate:0 } ">
+                <div class="mt-6 flex flex-col items-center" x-cloak x-show="showFixingBuySaveBtn">
 
                     <div class="mt-2">{{ __('fixing plate') }}:</div>
                     <div class="w-80 flex gap-1 items-center">
@@ -139,7 +139,6 @@
                         <template x-if="priceForPlate == 1">
                             <x-text-input type="number" name="plate_price" class="w-full mt-1 block" step="any" />
                         </template>
-                        <input type="hidden" x-model="priceForPlate" name="is_plate_price_active">
                     </div>
                     <!-- / price for plate -->
 
@@ -159,16 +158,12 @@
 
                     </div>
 
+
+                <div class="mt-10 flex justify-center" onclick="document.getElementById('btn-save').style.display = 'none' ">
+
+                    <button id="btn-save" class="btn btn-outline-primary w-80 h-14"> {{ __('Save') }}</button>
+
                 </div>
-
-
-
-
-                <div class="mt-6 flex justify-center" onclick="document.getElementById('btn-save').style.display = 'none' ">
-
-                    <x-primary-button id="btn-save">
-                        {{ __('Save') }}
-                    </x-primary-button>
 
                 </div>
 

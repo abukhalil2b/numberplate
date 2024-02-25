@@ -1,6 +1,6 @@
 <div class="mt-6">
     <div class="mt-2 flex gap-2" x-cloak x-show="showBike(plateType)">
-        <div class="card w-64 h-14 justify-between">
+        <div class="card w-80 h-14 justify-between">
             {{ __('bike') }}
             <div class="flex gap-1">
                 <div class="w-8 text-red-800 font-bold text-2xl" x-text="bike"></div>
@@ -11,7 +11,7 @@
     </div>
 
     <div class="mt-2 flex gap-2" x-cloak x-show="showSmall(plateType)">
-        <div class="card w-64 h-14 justify-between">
+        <div class="card w-80 h-14 justify-between">
             {{ __('small') }}
             <div class="flex gap-1">
                 <div class="w-8 text-red-800 font-bold text-2xl" x-text="small"></div>
@@ -22,7 +22,7 @@
     </div>
 
     <div class="mt-2 flex gap-2" x-cloak x-show="showMedium(plateType)">
-        <div class="card w-64 h-14 justify-between">
+        <div class="card w-80 h-14 justify-between">
             {{ __('medium') }}
             <div class="flex gap-1">
                 <div class="w-8 text-red-800 font-bold text-2xl" x-text="medium"></div>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="mt-2 flex gap-2" x-cloak x-show="showLarge(plateType)">
-        <div class="card w-64 h-14 justify-between">
+        <div class="card w-80 h-14 justify-between">
             {{ __('large') }}
             <div class="flex gap-1">
                 <div class="w-8 text-red-800 font-bold text-2xl" x-text="large"></div>
@@ -45,7 +45,7 @@
 
     @if( auth()->user()->hasPermission('large with khanjer') )
     <div class="mt-2 flex gap-2" x-cloak x-show="showLargeWithKhanjer(plateType)">
-        <div class="card w-64 h-14 justify-between">
+        <div class="card w-80 h-14 justify-between">
             {{ __('large with khanjer') }}
             <div class="flex gap-1">
                 <div class="w-8 text-red-800 font-bold text-2xl" x-text="largeWithKhanjer"></div>
@@ -56,13 +56,10 @@
     </div>
     @endif
 
-
-
     <input type="hidden" name="small" x-model="small">
     <input type="hidden" name="medium" x-model="medium">
     <input type="hidden" name="large" x-model="large">
     <input type="hidden" name="largeWithKhanjer" x-model="largeWithKhanjer">
     <input type="hidden" name="bike" x-model="bike">
-
 
 </div>
