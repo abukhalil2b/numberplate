@@ -73,7 +73,7 @@
                         </td>
                         <td>
                             {{ $plateItem->price }}
-                            @if($plateItem->type == 'diplomatic')
+                            @if($plateItem->type == 'diplomatic' || $plateItem->size == 'largeWithKhanjer')
                             @include('inc._modal_update_item_price')
                             @endif
                         </td>

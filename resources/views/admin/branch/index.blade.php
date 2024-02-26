@@ -58,7 +58,7 @@
                                     </button>
                                     <ul @click="toggle" x-show="open" x-transition="" x-transition.duration.300ms="" class="whitespace-nowrap ltr:right-0 rtl:left-0" style="display: none;">
                                         <li>
-                                        @if(auth()->user()->permission('admin.branch.edit'))
+                                            @if(auth()->user()->permission('admin.branch.edit'))
                                             <a href="{{ route('admin.branch.edit',$branch->id) }}" class="dark:hover:text-white">
                                                 <x-svgicon.pen />
                                                 {{ __('Edit') }}

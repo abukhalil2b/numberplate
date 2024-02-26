@@ -380,7 +380,7 @@ return {
 
         showSmall(plateType){
             
-            return ['private'].filter(item=>item == plateType).length > 0
+            return ['private','specific'].filter(item=>item == plateType).length > 0
         },
 
         showBike(plateType){
