@@ -31,18 +31,6 @@ class AdminBranchController extends Controller
         return view('admin.branch.show', compact('branch', 'latestBills'));
     }
 
-    public function branchIndex()
-    {
-
-        $branchs = User::where('profile', 'branch')
-            ->orderby('main_branch', 'desc')
-            ->get();
-        // return $users;
-
-        return view('admin.branch.index', compact('branchs'));
-    }
-
-
     public function branchStore(BranchStoreRequest $request)
     {
 

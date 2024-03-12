@@ -44,7 +44,7 @@
                     </button>
                     <ul x-cloak x-show="activeDropdown === 'users'" x-collapse class="sub-menu text-gray-500">
                         <li>
-                            <a href="{{ route('admin.user.index') }}">{{ __('index') }}</a>
+                            <a href="{{ route('admin.user.index') }}">{{ __('Index') }}</a>
                         </li>
                     </ul>
                 </li>
@@ -67,9 +67,12 @@
                         </div>
                     </button>
                     <ul x-cloak x-show="activeDropdown === 'branches'" x-collapse class="sub-menu text-gray-500">
+                        @if(auth()->user()->permission('admin.branch.print'))
                         <li>
-                            <a href="{{ route('admin.branch.index') }}">{{ __('index') }}</a>
+                            <a href="{{ route('admin.branch.print') }}">{{ __('Print') }}</a>
                         </li>
+                        @endif
+
                         @foreach(App\Models\User::where('profile','branch')->orderby('main_branch','desc')->get() as $branch)
                         <li>
                             <a href="{{ route('admin.branch.show',$branch->id) }}">
@@ -111,6 +114,7 @@
         </div>
     </nav>
 </div>
+
 <script>
     document.addEventListener("alpine:init", () => {
         Alpine.data("sidebar", () => ({

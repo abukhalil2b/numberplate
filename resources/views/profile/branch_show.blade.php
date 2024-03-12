@@ -20,16 +20,6 @@
         @include('stock._diplomatic_plate_index')
         @endif
 
-        <!-- temporary -->
-        @if(auth()->user()->permission('temporary'))
-        @include('stock._temporary_plate_index')
-        @endif
-
-        <!-- export -->
-        @if(auth()->user()->permission('export'))
-        @include('stock._export_plate_index')
-        @endif
-
         <!-- specific -->
         @include('stock._specific_plate_index')
 

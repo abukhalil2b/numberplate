@@ -48,9 +48,9 @@
         </div>
 
         <div class="mt-4">
-            description if available
+            Description if available
         </div>
         <textarea name="description" class="border rounded w-full h-40"></textarea>
-        <button class="mt-4 btn btn-outline-primary">save</button>
+        <button class="mt-4 btn btn-outline-primary">Send</button>
     </div>
 </form>

@@ -1,4 +1,7 @@
 <x-layout.admin>
+<div class="p-3 text-2xl">
+    Send Plates From Main Stock To Main Branches
+</div>
 
     <!-- private -->
     @if($type == 'private')

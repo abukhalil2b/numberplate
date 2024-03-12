@@ -106,6 +106,13 @@ class AdminStockController extends Controller
         /*-- government largeWithKhanjer --*/
         $largeWithKhanjerGovernment = Helperfunction::plateCount($branch->id, 'largeWithKhanjer', 'government');
 
+         $logs = Stock::select('type', 'quantity', 'size', 'stocks.description', 'issue_date')
+            ->where([
+                'stocks.branch_id' => $branch->id,
+                'stocks.note' => 'received'
+            ])->join('users', 'stocks.branch_id', '=', 'users.id')
+            ->latest('stocks.id')
+            ->get();
 
         return view('admin.stock.index', compact(
             'bikePrivate',
@@ -137,7 +144,8 @@ class AdminStockController extends Controller
             'mediumGovernment',
             'largeGovernment',
             'largeWithKhanjerGovernment',
-            'branch'
+            'branch',
+            'logs'
         ));
     }
 
@@ -152,6 +160,12 @@ class AdminStockController extends Controller
         // if type not specified threw error.
         if (!in_array($type, ['private', 'commercial', 'diplomatic', 'temporary', 'export', 'specific', 'learner', 'government'])) {
             abort(403);
+        }
+
+        //store only to main branch
+
+        if ($branch->main_branch != 1) {
+            die('we cannot add, this is not main branch');
         }
 
         // return $request->all();
@@ -179,6 +193,8 @@ class AdminStockController extends Controller
 
                 'branch_id' => $branch->id,
 
+                'main_branch' => 1,
+
                 'issue_date' => date('Y-m-d'),
 
                 'note' => 'received'
@@ -202,6 +218,8 @@ class AdminStockController extends Controller
 
                 'branch_id' => $branch->id,
 
+                'main_branch' => 1,
+
                 'issue_date' => date('Y-m-d'),
 
                 'note' => 'received'
@@ -224,6 +242,8 @@ class AdminStockController extends Controller
                 'description' => $request->description,
 
                 'branch_id' => $branch->id,
+
+                'main_branch' => 1,
 
                 'issue_date' => date('Y-m-d'),
 
@@ -249,6 +269,8 @@ class AdminStockController extends Controller
 
                 'branch_id' => $branch->id,
 
+                'main_branch' => 1,
+
                 'issue_date' => date('Y-m-d'),
 
                 'note' => 'received'
@@ -272,6 +294,8 @@ class AdminStockController extends Controller
 
                 'branch_id' => $branch->id,
 
+                'main_branch' => 1,
+
                 'issue_date' => date('Y-m-d'),
 
                 'note' => 'received'
@@ -285,6 +309,4 @@ class AdminStockController extends Controller
     {
         return view('admin.stock.show', compact('stock'));
     }
-
-
 }

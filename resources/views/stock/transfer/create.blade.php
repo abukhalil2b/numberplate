@@ -13,14 +13,6 @@
     @include('stock.transfer._diplomatic')
     @endif
 
-    @if($type == 'temporary')
-    @include('stock.transfer._temporary')
-    @endif
-
-    @if($type == 'export')
-    @include('stock.transfer._export')
-    @endif
-
     @if($type == 'specific')
     @include('stock.transfer._specific')
     @endif

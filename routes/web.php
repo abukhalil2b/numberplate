@@ -93,16 +93,12 @@ Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 */
 Route::group(['middleware' => ['auth', 'adminProfile', 'localization']], function () {
     Route::get('admin/branch/print', [AdminBranchController::class, 'branchPrint'])
-        ->middleware('permission:admin.branch.show')
+        ->middleware('permission:admin.branch.print')
         ->name('admin.branch.print');
 
     Route::get('admin/branch/show/{branch}', [AdminBranchController::class, 'branchShow'])
         ->middleware('permission:admin.branch.show')
         ->name('admin.branch.show');
-
-    Route::get('admin/branch/index', [AdminBranchController::class, 'branchIndex'])
-        ->middleware('permission:admin.branch.index')
-        ->name('admin.branch.index');
 
     Route::post('admin/branch/store', [AdminBranchController::class, 'branchStore'])
         ->middleware('permission:admin.branch.store')
@@ -160,7 +156,7 @@ Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 
     Route::get('admin/role/index', [AdminRoleController::class, 'index'])
-        ->middleware('permission:admin.role.index')
+        ->middleware('permission:admin.role')
         ->name('admin.role.index');
 });
 
@@ -172,11 +168,11 @@ Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 
     Route::get('admin/permission_role/index/{role}', [AdminPermissionRoleController::class, 'index'])
-        ->middleware('permission:admin.permission_role.index')
+        ->middleware('permission:admin.role')
         ->name('admin.permission_role.index');
 
     Route::post('admin/permission_role/update/{role}', [AdminPermissionRoleController::class, 'update'])
-        ->middleware('permission:admin.permission_role.index')
+        ->middleware('permission:admin.role')
         ->name('admin.permission_role.update');
 });
 
