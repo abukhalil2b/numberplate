@@ -30,6 +30,6 @@
     </div>
     <!-- control -->
     <div class="mt-1 flex gap-1">
-        <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.stock.create',['branch'=>$branch->id,'type'=>'commercial']) }}">+ new plate</a>
+        <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.stock.create',['branch'=>$branch->id,'type'=>'commercial']) }}">{{ __('Transfer To Main Branch') }}</a>
     </div>
 </div>

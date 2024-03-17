@@ -1,6 +1,6 @@
 <x-layout.admin>
     <div class="text-center flex flex-wrap gap-1">
-    @include('inc._modal_create_branch')
+        @include('inc._modal_create_branch')
         @if(auth()->user()->permission('admin.branch.edit'))
         <a href="{{ route('admin.branch.edit',$branch->id) }}" class="btn btn-sm btn-outline-primary">
             <x-svgicon.pen />
@@ -52,9 +52,9 @@
         @endif
     </div>
 
-    <div class="grid grid-cols-1 gap-6 pt-5 md:grid-cols-2 lg:grid-cols-4">
+    <div class="grid grid-cols-1 gap-3 pt-5 md:grid-cols-2 lg:grid-cols-4">
         <!-- Plate -->
-        <div class="min-w-60 border border-gray-500/20 rounded-md shadow-[rgb(31_45_61_/_10%)_0px_2px_10px_1px] dark:shadow-[0_2px_11px_0_rgb(6_8_24_/_39%)] p-6">
+        <div class=" border border-gray-500/20 rounded-md shadow-[rgb(31_45_61_/_10%)_0px_2px_10px_1px] dark:shadow-[0_2px_11px_0_rgb(6_8_24_/_39%)] p-3">
             <div class="text-primary mb-5">
                 <svg width="45" height="45" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path opacity="0.5" d="M7.5 18C8.32843 18 9 18.6716 9 19.5C9 20.3284 8.32843 21 7.5 21C6.67157 21 6 20.3284 6 19.5C6 18.6716 6.67157 18 7.5 18Z" stroke="currentColor" stroke-width="1.5"></path>
@@ -75,7 +75,7 @@
         </div>
 
         <!-- Extra -->
-        <div class="min-w-60 border border-gray-500/20 rounded-md shadow-[rgb(31_45_61_/_10%)_0px_2px_10px_1px] dark:shadow-[0_2px_11px_0_rgb(6_8_24_/_39%)] p-6">
+        <div class=" border border-gray-500/20 rounded-md shadow-[rgb(31_45_61_/_10%)_0px_2px_10px_1px] dark:shadow-[0_2px_11px_0_rgb(6_8_24_/_39%)] p-3">
             <div class="text-primary mb-5">
                 <svg width="45" height="45" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M2 3L2.26491 3.0883C3.58495 3.52832 4.24497 3.74832 4.62248 4.2721C5 4.79587 5 5.49159 5 6.88304V9.5C5 12.3284 5 13.7426 5.87868 14.6213C6.75736 15.5 8.17157 15.5 11 15.5H19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
@@ -85,7 +85,7 @@
                     <path d="M5 6H16.4504C18.5054 6 19.5328 6 19.9775 6.67426C20.4221 7.34853 20.0173 8.29294 19.2078 10.1818L18.7792 11.1818C18.4013 12.0636 18.2123 12.5045 17.8366 12.7523C17.4609 13 16.9812 13 16.0218 13H5" stroke="currentColor" stroke-width="1.5"></path>
                 </svg>
             </div>
-            <h5 class="text-lg font-semibold mb-3.5 dark:text-white-light">Extra Sold</h5>
+            <h5 class="text-lg font-semibold mb-3.5 dark:text-white-light">Extra Job</h5>
             <p class="text-white-dark text-[15px]  mb-3.5">latest</p>
             <a href="{{ route('admin.bill.extra.index',$branch->id) }}" class="text-primary font-semibold hover:underline group flex justify-center items-center">
                 show
@@ -96,7 +96,7 @@
         </div>
 
         <!-- Statement -->
-        <div class="min-w-60 border border-gray-500/20 rounded-md shadow-[rgb(31_45_61_/_10%)_0px_2px_10px_1px] dark:shadow-[0_2px_11px_0_rgb(6_8_24_/_39%)] p-6">
+        <div class=" border border-gray-500/20 rounded-md shadow-[rgb(31_45_61_/_10%)_0px_2px_10px_1px] dark:shadow-[0_2px_11px_0_rgb(6_8_24_/_39%)] p-3">
             <div class="text-primary mb-5">
                 <svg width="45" height="45" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path opacity="0.5" d="M20 15.5524C18.8263 19.2893 15.3351 22 11.2108 22C6.12383 22 2 17.8762 2 12.7892C2 8.66488 4.71065 5.1737 8.44759 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
@@ -114,7 +114,7 @@
         </div>
 
         <!-- Stock -->
-        <div class="min-w-60 border border-gray-500/20 rounded-md shadow-[rgb(31_45_61_/_10%)_0px_2px_10px_1px] dark:shadow-[0_2px_11px_0_rgb(6_8_24_/_39%)] p-6">
+        <div class=" border border-gray-500/20 rounded-md shadow-[rgb(31_45_61_/_10%)_0px_2px_10px_1px] dark:shadow-[0_2px_11px_0_rgb(6_8_24_/_39%)] p-3">
             <div class="text-primary mb-5">
                 <svg width="45" height="45" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M21 12C21 16.714 21 19.0711 19.682 20.5355C18.364 22 16.2426 22 12 22C7.75736 22 5.63604 22 4.31802 20.5355C3 19.0711 3 16.714 3 12C3 7.28595 3 4.92893 4.31802 3.46447C5.63604 2 7.75736 2 12 2C16.2426 2 18.364 2 19.682 3.46447C20.5583 4.43821 20.852 5.80655 20.9504 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
@@ -136,12 +136,13 @@
                 </svg>
             </a>
         </div>
+
     </div>
 
     <!-- Today Sales -->
     <div class="mt-4 panel">
         <div class="flex items-center justify-between mb-5">
-            <div class="w-40 btn btn-success my-4">{{ __('today sales') }}
+            <div class="w-52 btn btn-success my-4">{{ __('Today Sales') }}
                 <span class="badge my-0 bg-white-light text-black ltr:ml-4 rtl:mr-4">{{ count($latestBills) }}</span>
             </div>
 
@@ -153,11 +154,11 @@
                     <thead>
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                branch name
+                                {{ __('Branch Name') }}
                             </th>
 
                             <th scope="col" class="px-6 py-3">
-                                plate
+                                {{ __('Plate') }}
                             </th>
 
                             <th scope="col" class="px-6 py-3">
@@ -165,10 +166,13 @@
                             </th>
 
                             <th scope="col" class="px-6 py-3">
-                                رصد
+                                {{ __('ROP Bill Number') }}
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                الوقت
+                                {{ __('Time') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                {{ __('Details') }}
                             </th>
                         </tr>
                     </thead>
@@ -201,17 +205,21 @@
                             <td class="px-6 py-4">
                                 {{ $latestBill->created_at->format('H:i') }}
                             </td>
+                            <td>
+
+                                <a href="{{ route('admin.bill.show',$latestBill->id) }}">{{ __('Show') }}</a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
                     <tfoot>
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                branch name
+                                {{ __('Branch Name') }}
                             </th>
 
                             <th scope="col" class="px-6 py-3">
-                                plate
+                                {{ __('Plate') }}
                             </th>
 
                             <th scope="col" class="px-6 py-3">
@@ -219,10 +227,13 @@
                             </th>
 
                             <th scope="col" class="px-6 py-3">
-                                رصد
+                                {{ __('ROP Bill Number') }}
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                الوقت
+                                {{ __('Time') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                {{ __('Details') }}
                             </th>
                         </tr>
                     </tfoot>

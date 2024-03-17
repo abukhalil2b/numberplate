@@ -7,38 +7,15 @@ use App\Models\Item;
 use App\Models\Statement;
 use App\Models\Stock;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class BillController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function delete(Bill $bill)
-    {
-        $loggedUser = auth()->user();
-
-        if ($loggedUser->id == $bill->branch_id) {
-            Stock::where('bill_id', $bill->id)->delete();
-
-            Statement::where('bill_id', $bill->id)->delete();
-
-            Item::where('bill_id', $bill->id)->delete();
-
-            $bill->delete();
-        }
-
-
-        return redirect()->route('branch.dashboard');
-    }
-
     public function create()
     {
         return view('bill.create');
     }
-
 
     public function store(Request $request)
     {
@@ -79,6 +56,15 @@ class BillController extends Controller
             array_push($items, ['size' => 'bike', 'quantity' => $request->bike]);
         }
 
+        // items must be greater than 0 if plate type in array
+        $plateTypes = ['private','commercial','diplomatic','specific','learner','government'];
+
+        if(in_array($request->type,$plateTypes)){
+            if( count($items) == 0){
+                return back();
+            }
+        }
+
         // dd($items);
         // return $request->all();
         //--ignore if there is no items--
@@ -110,7 +96,6 @@ class BillController extends Controller
                 'branch_id' => $loggedUser->id,
                 'issue_date' => date('Y-m-d')
             ]);
-
 
             /**-- items */
             foreach ($items as $item) {
@@ -283,18 +268,7 @@ class BillController extends Controller
 
         return back();
     }
-
-
-
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Bill $bill)
-    {
-        //
-    }
-
+    
     /**
      * Update the specified resource in storage.
      */
@@ -317,16 +291,10 @@ class BillController extends Controller
             'plate_code' => Str::upper($request->plate_code),
             'plate_num' => $request->plate_num,
             'ref_num' => $request->ref_num,
+            'payment_method' => $request->payment_method,
         ]);
 
         return redirect()->route('branch.dashboard');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Bill $bill)
-    {
-        //
-    }
 }

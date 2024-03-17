@@ -64,6 +64,7 @@
     "learner": "تعليم",
     "government": "حكومي",
     "other": "آخر",
+    
     "ROP Bill Number":"رقم الرصد أو الفاتورة",
     "show stock balance": "مشاهدة المتبقي قي المخزن",
     "select plate type": "اختر نوع اللوحة",
@@ -105,6 +106,7 @@
     "Plate Type":"نوع اللوحة",
     "Count": "العدد",
 
+    "Today Sales":"مبيعات اليوم",
     "Today Sale": "مبيعات اليوم",
     "plate": "اللوحة",
     "single/pair": "فردي/زوجي",
@@ -125,7 +127,9 @@
     "email": "username",
 
     "New Admin User":"مستخدم إداري جديد",
-    
+
+    "Transfer To Main Branch":"نقل إلى الفرع الرئيسي",
+
     "superadmin": "إدارة البرنامج",
     "director": "المدير العام",
     "executive": "الرئيس التنفيذي",

@@ -219,21 +219,6 @@ class ItemController extends Controller
         return back();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function extraDelete(Item $item)
-    {
-        $loggedUser = auth()->user();
-
-        Item::where([
-            'id' => $item->id,
-            'branch_id' => $loggedUser->id
-        ])->delete();
-
-        return back();
-    }
-
 
     public function pritingStore(Request $request)
     {

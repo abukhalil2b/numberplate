@@ -16,7 +16,7 @@
                      </button>
                  </div>
                  <div class="p-5">
-                 <a class="btn btn-danger" href="{{ route('item.extra.delete',$extraItem->id) }}">{{ __('Confirm Delete') }}</a>
+                 <a class="btn btn-danger" href="{{ route('admin.item.delete',$extraItem->id) }}">{{ __('Confirm Delete') }}</a>
                  </div>
 
              </div>

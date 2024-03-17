@@ -31,6 +31,8 @@ return new class extends Migration
             
             $table->foreign('branch_id')->references('id')->on('users')->cascadeOnDelete();
 
+            $table->boolean('main_branch')->default(0);//is this moderator branch?
+            
             $table->text('description')->nullable();//
 
             $table->string('note',15)->default('received');//received - transferred - sold - failed

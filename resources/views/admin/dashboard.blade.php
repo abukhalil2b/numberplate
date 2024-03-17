@@ -22,6 +22,9 @@
                     <th scope="col" class="px-2 py-1">
                         {{ __('ROP Bill Number') }}
                     </th>
+                    <th scope="col" class="px-2 py-1">
+                        {{ __('Details') }}
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -49,6 +52,12 @@
 
                     <td class="px-2 py-1">
                         {{ $latestBill->ref_num }}
+                    </td>
+
+                    <td class="px-2 py-1">
+                        <a href="{{ route('admin.bill.show',$latestBill->id) }}">
+                        {{ __('Show') }}
+                        </a>
                     </td>
                 </tr>
                 @endforeach

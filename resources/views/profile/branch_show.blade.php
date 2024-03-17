@@ -42,8 +42,8 @@
     <div class="table-responsive px-5">
         <table>
             <tr>
-                <td>{{ __('Job Done') }}</td>
                 <td>{{ __('Plate Type') }}</td>
+                <td>{{ __('Job Done') }}</td>
                 <td>{{ __('Count') }}</td>
                 <td>{{ __('Total Price') }}</td>
             </tr>
@@ -86,15 +86,13 @@
             }
 
             @endphp
-
             <tr>
+                <td>{{ __($item->type) }}</td>
                 <td>
                     <div class="w-40 text-xs badge {{ $style }}">
                         {{ __($item->description) }}
                     </div>
                 </td>
-                <td>{{ __($item->type) }}</td>
-
                 <td>
                     {{ $item->count }}
                 </td>
@@ -106,7 +104,6 @@
             $allPlateTotal = $allPlateTotal + $item->totalPrice;
             @endphp
             @endforeach
-
             <tr>
                 <td colspan="4">
                     <div class="text-center text-xl">{{ $allPlateTotal }}</div>

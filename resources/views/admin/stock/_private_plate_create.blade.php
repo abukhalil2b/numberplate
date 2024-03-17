@@ -51,6 +51,6 @@
             Description if available
         </div>
         <textarea name="description" class="border rounded w-full h-40"></textarea>
-        <button class="mt-4 btn btn-outline-primary">Send</button>
+        <button class="mt-4 btn btn-outline-primary">{{ __('Transfer') }}</button>
     </div>
 </form>

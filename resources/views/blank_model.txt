@@ -30,21 +30,10 @@
                         </div>
 
                         <div class="text-center w-full">
-                            {{ __('ROP Bill Number') }}
+                        رصد
                             <input class="form-input" name="ref_num" value="{{ $bill->ref_num }}">
                         </div>
 
-                        <p class="mt-3 text-center">{{ __('Payment Method') }}:</p>
-                        <div class="mt-3 w-80 flex gap-3">
-                            <label class="py-3 px-1 border rounded w-full flex gap-1 items-center bg-white cursor-pointer">
-                                <input type="radio" id="cash" name="payment_method" value="cash" @if($bill->payment_method == 'cash') checked @endif>
-                                {{ __('cash') }}
-                            </label>
-                            <label class="py-3 px-1 border rounded w-full flex gap-1 items-center bg-white cursor-pointer">
-                                <input type="radio" id="visa" name="payment_method" value="visa" @if($bill->payment_method == 'visa') checked @endif>
-                                {{ __('visa') }}
-                            </label>
-                        </div>
 
                         <div class="mt-3 flex gap-3">
 

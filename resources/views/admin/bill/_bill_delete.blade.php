@@ -27,7 +27,7 @@
                     3- {{ __('failed print') }}
                  </div>
                  <div class="p-5">
-                 <a class="btn btn-danger" href="{{ route('bill.plate.delete',$bill->id) }}">{{ __('Confirm Delete') }}</a>
+                 <a class="btn btn-danger" href="{{ route('admin.bill.delete',$bill->id) }}">{{ __('Confirm Delete') }}</a>
                  </div>
 
              </div>

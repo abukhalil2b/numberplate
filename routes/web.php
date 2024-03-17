@@ -8,6 +8,8 @@ use App\Http\Controllers\AdminBranchPermissionController;
 use App\Http\Controllers\AdminUserPermissionController;
 use App\Http\Controllers\AdminPermissionRoleController;
 use App\Http\Controllers\AdminStatementController;
+use App\Http\Controllers\AdminSupplierController;
+use App\Http\Controllers\AdminMainstockController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestBillController;
@@ -16,6 +18,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\AdminStockController;
 use App\Http\Controllers\AdminBranchController;
 use App\Http\Controllers\AdminBillController;
+use App\Http\Controllers\AdminItemController;
 use App\Http\Controllers\AdminRoleController;
 use App\Http\Controllers\AdminImpersonateController;
 
@@ -177,6 +180,22 @@ Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 });
 
 
+/*
+|--------------------------------------------------------------------------
+| admin - bill 
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth', 'adminProfile']], function () {
+
+    Route::get('admin/bill/show/{bill}', [AdminBillController::class, 'show'])
+        ->middleware('permission:admin.bill.show')
+        ->name('admin.bill.show');
+
+    Route::get('admin/bill/delete/{bill}', [AdminBillController::class, 'delete'])
+        ->middleware('permission:admin.bill.delete')
+        ->name('admin.bill.delete');
+});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -185,13 +204,9 @@ Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 */
 Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 
-    Route::get('admin/bill/plate/index/{branch}', [AdminBillController::class, 'plateIndex'])
+    Route::match(['get', 'post'], 'admin/bill/plate/index/{branch}', [AdminBillController::class, 'plateIndex'])
         ->middleware('permission:admin.bill.plate.index')
         ->name('admin.bill.plate.index');
-
-    Route::post('admin/bill/plate/search/{branch}', [AdminBillController::class, 'plateIndex'])
-        ->middleware('permission:admin.bill.plate.index')
-        ->name('admin.bill.plate.search');
 });
 
 
@@ -202,13 +217,9 @@ Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 */
 Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 
-    Route::get('admin/bill/extra/index/{branch}', [AdminBillController::class, 'extraIndex'])
+    Route::match(['get', 'post'], 'admin/bill/extra/index/{branch}', [AdminBillController::class, 'extraIndex'])
         ->middleware('permission:admin.bill.extra.index')
         ->name('admin.bill.extra.index');
-
-    Route::post('admin/bill/extra/search/{branch}', [AdminBillController::class, 'extraIndex'])
-        ->middleware('permission:admin.bill.extra.index')
-        ->name('admin.bill.extra.search');
 });
 
 /*
@@ -246,6 +257,68 @@ Route::group(['middleware' => ['auth', 'adminProfile', 'localization']], functio
     Route::post('admin/stock/store/{branch}/{type}', [AdminStockController::class, 'stockStore'])
         ->middleware('permission:admin.stock.store')
         ->name('admin.stock.store');
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| admin Item
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth', 'adminProfile']], function () {
+
+    Route::get('admin/item/delete/{item}', [AdminItemController::class, 'delete'])
+        ->middleware('permission:admin.item.delete')
+        ->name('admin.item.delete');
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| admin supplier
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth', 'adminProfile']], function () {
+
+    Route::get('admin/supplier/index', [AdminSupplierController::class, 'index'])
+        ->middleware('permission:admin.supplier.index')
+        ->name('admin.supplier.index');
+
+    Route::get('admin/supplier/edit/{supplier}', [AdminSupplierController::class, 'edit'])
+        ->middleware('permission:admin.supplier.update')
+        ->name('admin.supplier.edit');
+
+    Route::post('admin/supplier/store', [AdminSupplierController::class, 'store'])
+        ->middleware('permission:admin.supplier.store')
+        ->name('admin.supplier.store');
+
+    Route::post('admin/supplier/update/{supplier}', [AdminSupplierController::class, 'update'])
+        ->middleware('permission:admin.supplier.update')
+        ->name('admin.supplier.update');
+});
+
+/*
+|--------------------------------------------------------------------------
+| admin mainstock
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth', 'adminProfile']], function () {
+
+    Route::get('admin/mainstock/index', [AdminMainstockController::class, 'index'])
+        ->middleware('permission:admin.mainstock.index')
+        ->name('admin.mainstock.index');
+
+    Route::get('admin/mainstock/edit/{mainstock}', [AdminMainstockController::class, 'edit'])
+        ->middleware('permission:admin.mainstock.update')
+        ->name('admin.mainstock.edit');
+
+    Route::post('admin/mainstock/store', [AdminMainstockController::class, 'store'])
+        ->middleware('permission:admin.mainstock.store')
+        ->name('admin.mainstock.store');
+
+    Route::post('admin/mainstock/update/{mainstock}', [AdminMainstockController::class, 'update'])
+        ->middleware('permission:admin.mainstock.update')
+        ->name('admin.mainstock.update');
 });
 
 /*
@@ -301,9 +374,6 @@ Route::group(['middleware' => ['auth', 'impersonate', 'branchProfile']], functio
     Route::post('bill/plate/store', [BillController::class, 'store'])
         ->name('bill.plate.store');
 
-    Route::get('bill/plate/delete/{bill}', [BillController::class, 'delete'])
-        ->name('bill.plate.delete');
-
     Route::post('bill/plate/update/{bill}', [BillController::class, 'update'])
         ->name('bill.plate.update');
 });
@@ -338,8 +408,7 @@ Route::group(['middleware' => ['auth', 'impersonate', 'branchProfile', 'localiza
     Route::post('item/extra/store', [ItemController::class, 'extraStore'])
         ->name('item.extra.store');
 
-    Route::get('item/extra/delete/{item}', [ItemController::class, 'extraDelete'])
-        ->name('item.extra.delete');
+
 
     Route::post('item/printing/store', [ItemController::class, 'pritingStore'])
         ->name('item.printing.store');

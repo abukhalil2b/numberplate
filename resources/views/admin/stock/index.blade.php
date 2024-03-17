@@ -1,6 +1,5 @@
 <x-layout.admin>
-
-
+<h1 class="text-3xl text-center text-red-600">UNDER CONSTRUCTION</h1>
     <div class="p-3 text-center text-xl">
         Stock: {{ app()->getLocale() == 'ar' ? $branch->ar_name : $branch->en_name }}
     </div>

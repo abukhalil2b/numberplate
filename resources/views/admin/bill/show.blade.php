@@ -1,7 +1,8 @@
-<x-app-layout>
+<x-layout.admin>
+
     <div class="p-3">
         <div class="flex p-3 gap-4 justify-center items-center">
-            @include('item._bill_edit')
+            @include('admin.bill._bill_delete')
         </div>
 
         <div class="w-full bg-{{$bill->type}} p-3 border rounded text-xl flex justify-between">
@@ -22,7 +23,7 @@
         </div>
 
         <!-- do not show if this plate is export or temporary -->
-        @if($bill->type != 'export' &&  $bill->type != 'temporary')
+        @if($bill->type != 'export' && $bill->type != 'temporary')
         <div class="mt-5 overflow-x-auto">
             {{ __('Printing') }}
             <table class="w-full text-sm text-center text-gray-500">
@@ -72,27 +73,17 @@
                         </td>
                         <td>
                             {{ $plateItem->price }}
-                            @if($plateItem->type == 'diplomatic' || $plateItem->size == 'largeWithKhanjer')
-                            @include('inc._modal_update_item_price')
-                            @endif
-                            <!-- another condition -->
-                            @if($plateItem->type == 'government' && $plateItem->size == 'large')
-                            @include('inc._modal_update_item_price')
-                            @endif
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-        <div class="mt-2 flex gap-3">
-            @include('inc._modal_failedprint')
 
-        </div>
         @endif
 
         <div class="mt-5 overflow-x-auto">
-        {{ __('Extra') }}
+            {{ __('Extra') }}
             <table class="w-full text-sm text-center text-gray-500">
                 <thead class="text-xs text-gray-50 bg-gray-600 ">
                     <tr>
@@ -119,15 +110,16 @@
                         <td class="px-6 py-4">
                             {{ $extraItem->price }}
                         </td>
-                    
+                        <td>
+                            @include('item._extra_item_delete')
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
 
-        <div class="mt-1">
-            @include('inc._model_extra')
-        </div>
+
     </div>
-</x-app-layout>
+
+    </x-layout-admin>
