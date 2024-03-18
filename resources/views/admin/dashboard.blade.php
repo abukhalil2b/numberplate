@@ -44,8 +44,8 @@
                     <td class="px-2 py-1">
                         <div> {{ $latestBill->required }}</div>
                         <div class="text-[8px] flex gap-1">
-                            @foreach($latestBill->plateItems as $item)
-                            <div class="text-red-800 border rounded p-1 w-12 text-center">{{ $item->size }}</div>
+                            @foreach($latestBill->successPlateItems as $item)
+                            <div class="text-red-800 border rounded p-1 w-14 text-center truncate">{{ $item->size }}</div>
                             @endforeach
                         </div>
                     </td>

@@ -20,28 +20,28 @@
         @if($bikePlateStock->quantity > 0)
         <div class="mt-4">
             <label for="exampleInpuQuantity"> {{ __('bike quantity maximam is') }}: <span class="text-orange-400"> {{ $bikePlateStock->quantity ?? 0 }} </span></label>
-            <input name="bikeSizeQuantity" type="number" value="{{ $bikePlateStock->quantity ?? 0 }}" class="form-input" id="exampleInpuQuantity" placeholder="bike">
+            <input name="bikeSizeQuantity" type="number" value="{{ $bikePlateStock->quantity ?? 0 }}" class="form-input" id="exampleInpuQuantity" min="0" max="{{ $bikePlateStock->quantity }}">
         </div>
         @endif
 
         @if($mediumPlateStock->quantity > 0)
         <div class="mt-4">
             <label for="exampleInpuQuantity"> {{ __('medium quantity maximam is') }}: <span class="text-orange-400"> {{ $mediumPlateStock->quantity ?? 0 }} </span></label>
-            <input name="mediumSizeQuantity" type="number" value="{{ $mediumPlateStock->quantity ?? 0 }}" class="form-input" id="exampleInpuQuantity" placeholder="medium quantity">
+            <input name="mediumSizeQuantity" type="number" value="{{ $mediumPlateStock->quantity ?? 0 }}" class="form-input" id="exampleInpuQuantity" min="0" max="{{ $mediumPlateStock->quantity }}">
         </div>
         @endif
 
         @if($largePlateStock->quantity > 0)
         <div class="mt-4">
             <label for="exampleInpuQuantity"> {{ __('large quantity maximam is') }}: <span class="text-orange-400"> {{ $largePlateStock->quantity ?? 0 }} </span></label>
-            <input name="largeSizeQuantity" type="number" value="{{ $largePlateStock->quantity ?? 0 }}" class="form-input" id="exampleInpuQuantity" placeholder="large quantity">
+            <input name="largeSizeQuantity" type="number" value="{{ $largePlateStock->quantity ?? 0 }}" class="form-input" id="exampleInpuQuantity" min="0" max="{{ $largePlateStock->quantity }}">
         </div>
         @endif
 
         @if($largeWithKhanjerPlateStock->quantity > 0)
         <div class="mt-4">
             <label for="exampleInpuQuantity"> {{ __('large with khanjer quantity maximam is') }}: <span class="text-orange-400"> {{ $largeWithKhanjerPlateStock->quantity ?? 0 }} </span></label>
-            <input name="largeWithKhanjerSizeQuantity" type="number" value="{{ $largeWithKhanjerPlateStock->quantity ?? 0}}" class="form-input" id="exampleInpuQuantity" placeholder="large with khanjer quantity">
+            <input name="largeWithKhanjerSizeQuantity" type="number" value="{{ $largeWithKhanjerPlateStock->quantity ?? 0}}" class="form-input" id="exampleInpuQuantity" min="0" max="{{ $largeWithKhanjerPlateStock->quantity }}">
         </div>
         @endif
 

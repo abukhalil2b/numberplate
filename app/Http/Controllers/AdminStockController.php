@@ -6,6 +6,7 @@ use App\Http\Helper\Helperfunction;
 use App\Models\Stock;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminStockController extends Controller
 {
@@ -13,100 +14,155 @@ class AdminStockController extends Controller
     public function stockIndex(User $branch)
     {
 
-        // $statistics = DB::select("SELECT `bills`.`type`,`size`,`required`,SUM(`quantity`) as total FROM `items` JOIN `bills` ON `items`.`bill_id` = `bills`.`id` WHERE `cate` = 'plate' AND `items`.`branch_id` = ? AND month(items.created_at) = ? GROUP BY `type`,`required`,`size`;", [$branch->id, $thisMonth]);
+        //get branch permission on plate types
+        $branchHasPermissionOnplateTypes = DB::select("SELECT `permissions`.`title` as plate_type FROM `permission_user` JOIN permissions ON `permission_user`.`permission_id` = permissions.id WHERE `permission_user`.`user_id` = ? AND `permissions`.`cate` = 'plate.type';", [$branch->id]);
+    
+        //modify array
+        $branchHasPermissionOnplateTypes = array_map(function ($plate) {
+            return $plate->plate_type;
+        }, $branchHasPermissionOnplateTypes);
+
+        /*---------------*/
+        /* initial values*/
+        /*-------------- */
+        /*-----Private------*/
+        $bikePrivate = 0;
+        $smallPrivate = 0;
+        $mediumPrivate = 0;
+        $largePrivate = 0;
+        /*-----Commercial------*/
+        $bikeCommercial = 0;
+        $largeCommercial = 0;
+        $mediumCommercial = 0;
+        /*-----Diplomatic------*/
+        $bikeDiplomatic = 0;
+        $largeDiplomatic = 0;
+        $mediumDiplomatic = 0;
+        /*-----Temporary------*/
+        $bikeTemporary = 0;
+        $mediumTemporary = 0;
+        /*-----Export------*/
+        $mediumExport = 0;
+        /*-----Specific------*/
+        $bikeSpecific = 0;
+        $mediumSpecific = 0;
+        $largeSpecific = 0;
+        /*-----Learner------*/
+        $bikeLearner = 0;
+        $mediumLearner = 0;
+        /*-----Government ------*/
+        $bikeGovernment = 0;
+        $mediumGovernment = 0;
+        $largeGovernment = 0;
+        $largeWithKhanjerGovernment = 0;
 
         /*-----------*/
         /* private   */
         /*---------- */
-        /*-- private bike--*/
-        $bikePrivate =   Helperfunction::plateCount($branch->id, 'bike', 'private');
+        if (in_array('private', $branchHasPermissionOnplateTypes)) {
+            /*-- private bike--*/
+            $bikePrivate =   Helperfunction::plateCount($branch->id, 'bike', 'private');
 
-        /*-- private small--*/
-        $smallPrivate = Helperfunction::plateCount($branch->id, 'small', 'private');
+            /*-- private small--*/
+            $smallPrivate = Helperfunction::plateCount($branch->id, 'small', 'private');
 
-        /*-- private medium--*/
-        $mediumPrivate = Helperfunction::plateCount($branch->id, 'medium', 'private');
+            /*-- private medium--*/
+            $mediumPrivate = Helperfunction::plateCount($branch->id, 'medium', 'private');
 
-        /*-- private large--*/
-        $largePrivate = Helperfunction::plateCount($branch->id, 'large', 'private');
+            /*-- private large--*/
+            $largePrivate = Helperfunction::plateCount($branch->id, 'large', 'private');
+        }
 
         /*-----------*/
         /* commercial */
         /*---------- */
-        /*-- commercial bike --*/
-        $bikeCommercial =  Helperfunction::plateCount($branch->id, 'bike', 'commercial');
+        if (in_array('commercial', $branchHasPermissionOnplateTypes)) {
+            /*-- commercial bike --*/
+            $bikeCommercial =  Helperfunction::plateCount($branch->id, 'bike', 'commercial');
 
-        /*-- commercial large --*/
-        $largeCommercial =  Helperfunction::plateCount($branch->id, 'large', 'commercial');
+            /*-- commercial large --*/
+            $largeCommercial =  Helperfunction::plateCount($branch->id, 'large', 'commercial');
 
-        /*-- commercial medium --*/
-        $mediumCommercial =  Helperfunction::plateCount($branch->id, 'medium', 'commercial');
+            /*-- commercial medium --*/
+            $mediumCommercial =  Helperfunction::plateCount($branch->id, 'medium', 'commercial');
+        }
 
         /*-----------*/
         /* diplomatic */
         /*---------- */
-        /*-- diplomatic bike --*/
-        $bikeDiplomatic = Helperfunction::plateCount($branch->id, 'bike', 'diplomatic');
+        if (in_array('diplomatic', $branchHasPermissionOnplateTypes)) {
+            /*-- diplomatic bike --*/
+            $bikeDiplomatic = Helperfunction::plateCount($branch->id, 'bike', 'diplomatic');
 
-        /*-- diplomatic large --*/
-        $largeDiplomatic = Helperfunction::plateCount($branch->id, 'large', 'diplomatic');
+            /*-- diplomatic large --*/
+            $largeDiplomatic = Helperfunction::plateCount($branch->id, 'large', 'diplomatic');
 
-        /*-- diplomatic medium --*/
-        $mediumDiplomatic = Helperfunction::plateCount($branch->id, 'medium', 'diplomatic');
+            /*-- diplomatic medium --*/
+            $mediumDiplomatic = Helperfunction::plateCount($branch->id, 'medium', 'diplomatic');
+        }
 
         /*-----------*/
         /* temporary */
         /*---------- */
-        /*-- temporary bike --*/
-        $bikeTemporary = Helperfunction::plateCount($branch->id, 'bike', 'temporary');
+        if (in_array('temporary', $branchHasPermissionOnplateTypes)) {
+            /*-- temporary bike --*/
+            $bikeTemporary = Helperfunction::plateCount($branch->id, 'bike', 'temporary');
 
-        /*-- temporary medium --*/
-        $mediumTemporary = Helperfunction::plateCount($branch->id, 'medium', 'temporary');
+            /*-- temporary medium --*/
+            $mediumTemporary = Helperfunction::plateCount($branch->id, 'medium', 'temporary');
+        }
 
         /*-----------*/
         /* export */
         /*---------- */
-        /*-- export medium --*/
-        $mediumExport = Helperfunction::plateCount($branch->id, 'medium', 'export');
+        if (in_array('export', $branchHasPermissionOnplateTypes)) {
+            /*-- export medium --*/
+            $mediumExport = Helperfunction::plateCount($branch->id, 'medium', 'export');
+        }
 
         /*-----------*/
         /* specific */
         /*---------- */
-        /*-- specific bike --*/
-        $bikeSpecific = Helperfunction::plateCount($branch->id, 'bike', 'specific');
+        if (in_array('specific', $branchHasPermissionOnplateTypes)) {
+            /*-- specific bike --*/
+            $bikeSpecific = Helperfunction::plateCount($branch->id, 'bike', 'specific');
 
-        /*-- specific medium --*/
-        $mediumSpecific = Helperfunction::plateCount($branch->id, 'medium', 'specific');
+            /*-- specific medium --*/
+            $mediumSpecific = Helperfunction::plateCount($branch->id, 'medium', 'specific');
 
-        /*-- specific large --*/
-        $largeSpecific = Helperfunction::plateCount($branch->id, 'large', 'specific');
-
+            /*-- specific large --*/
+            $largeSpecific = Helperfunction::plateCount($branch->id, 'large', 'specific');
+        }
 
         /*-----------*/
         /* learner */
         /*---------- */
-        /*-- learner bike --*/
-        $bikeLearner = Helperfunction::plateCount($branch->id, 'bike', 'learner');
+        if (in_array('learner', $branchHasPermissionOnplateTypes)) {
+            /*-- learner bike --*/
+            $bikeLearner = Helperfunction::plateCount($branch->id, 'bike', 'learner');
 
-        /*-- learner medium --*/
-        $mediumLearner = Helperfunction::plateCount($branch->id, 'medium', 'learner');
+            /*-- learner medium --*/
+            $mediumLearner = Helperfunction::plateCount($branch->id, 'medium', 'learner');
+        }
 
         /*-----------*/
         /* government */
         /*---------- */
-        /*-- government bike --*/
-        $bikeGovernment = Helperfunction::plateCount($branch->id, 'bike', 'government');
+        if (in_array('government', $branchHasPermissionOnplateTypes)) {
+            /*-- government bike --*/
+            $bikeGovernment = Helperfunction::plateCount($branch->id, 'bike', 'government');
 
-        /*-- government medium --*/
-        $mediumGovernment =  Helperfunction::plateCount($branch->id, 'medium', 'government');
+            /*-- government medium --*/
+            $mediumGovernment =  Helperfunction::plateCount($branch->id, 'medium', 'government');
 
-        /*-- government large --*/
-        $largeGovernment =  Helperfunction::plateCount($branch->id, 'large', 'government');
+            /*-- government large --*/
+            $largeGovernment =  Helperfunction::plateCount($branch->id, 'large', 'government');
 
-        /*-- government largeWithKhanjer --*/
-        $largeWithKhanjerGovernment = Helperfunction::plateCount($branch->id, 'largeWithKhanjer', 'government');
+            /*-- government largeWithKhanjer --*/
+            $largeWithKhanjerGovernment = Helperfunction::plateCount($branch->id, 'largeWithKhanjer', 'government');
+        }
 
-         $logs = Stock::select('type', 'quantity', 'size', 'stocks.description', 'issue_date')
+        $logs = Stock::select('type', 'quantity', 'size', 'stocks.description', 'issue_date')
             ->where([
                 'stocks.branch_id' => $branch->id,
                 'stocks.note' => 'received'
@@ -145,7 +201,8 @@ class AdminStockController extends Controller
             'largeGovernment',
             'largeWithKhanjerGovernment',
             'branch',
-            'logs'
+            'logs',
+            'branchHasPermissionOnplateTypes'
         ));
     }
 
