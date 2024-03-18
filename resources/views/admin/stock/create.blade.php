@@ -1,6 +1,6 @@
 <x-layout.admin>
 <div class="p-3 text-2xl">
-    Send Plates From Main Stock To Main Branches
+    Transfer Plates From Main Stock To Main Branches
 </div>
 
     <!-- private -->
@@ -18,16 +18,6 @@
     @include('admin.stock._diplomatic_plate_create')
     @endif
     
-    <!-- temporary -->
-    @if($type == 'temporary')
-    @include('admin.stock._temporary_plate_create')
-    @endif
-
-    <!-- export -->
-    @if($type == 'export')
-    @include('admin.stock._export_plate_create')
-    @endif
-
     <!-- specific -->
     @if($type == 'specific')
     @include('admin.stock._specific_plate_create')

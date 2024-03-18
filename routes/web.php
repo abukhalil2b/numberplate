@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\Drink\DrinkStockController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
@@ -58,13 +57,11 @@ Route::group(['middleware' => ['auth', 'localization']], function () {
 });
 
 
-
 /*
 |--------------------------------------------------------------------------
 | admin user
 |--------------------------------------------------------------------------
 */
-
 Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 
     Route::get('admin/user/index', [UserController::class, 'index'])
@@ -227,7 +224,6 @@ Route::group(['middleware' => ['auth', 'adminProfile']], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => ['auth', 'adminProfile']], function () {
-
     Route::get('admin/statement/index/{branch}', [AdminStatementController::class, 'index'])
         ->middleware('permission:admin.statement.index')
         ->name('admin.statement.index');
@@ -341,14 +337,6 @@ Route::group(['middleware' => ['auth', 'impersonate', 'branchProfile', 'localiza
     Route::post('stock/transfer/diplomatic_store', [StockController::class, 'transferDiplomaticStore'])
         ->middleware('permission:stock.transfer')
         ->name('stock.transfer.diplomatic_store');
-
-    Route::post('stock/transfer/temporary_store', [StockController::class, 'transferTemporaryStore'])
-        ->middleware('permission:stock.transfer')
-        ->name('stock.transfer.temporary_store');
-
-    Route::post('stock/transfer/export_store', [StockController::class, 'transferExportStore'])
-        ->middleware('permission:stock.transfer')
-        ->name('stock.transfer.export_store');
 
     Route::post('stock/transfer/specific_store', [StockController::class, 'transferSpecificStore'])
         ->middleware('permission:stock.transfer')

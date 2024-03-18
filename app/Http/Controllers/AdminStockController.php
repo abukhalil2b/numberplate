@@ -101,24 +101,6 @@ class AdminStockController extends Controller
             $mediumDiplomatic = Helperfunction::plateCount($branch->id, 'medium', 'diplomatic');
         }
 
-        /*-----------*/
-        /* temporary */
-        /*---------- */
-        if (in_array('temporary', $branchHasPermissionOnplateTypes)) {
-            /*-- temporary bike --*/
-            $bikeTemporary = Helperfunction::plateCount($branch->id, 'bike', 'temporary');
-
-            /*-- temporary medium --*/
-            $mediumTemporary = Helperfunction::plateCount($branch->id, 'medium', 'temporary');
-        }
-
-        /*-----------*/
-        /* export */
-        /*---------- */
-        if (in_array('export', $branchHasPermissionOnplateTypes)) {
-            /*-- export medium --*/
-            $mediumExport = Helperfunction::plateCount($branch->id, 'medium', 'export');
-        }
 
         /*-----------*/
         /* specific */
@@ -215,15 +197,15 @@ class AdminStockController extends Controller
     {
 
         // if type not specified threw error.
-        if (!in_array($type, ['private', 'commercial', 'diplomatic', 'temporary', 'export', 'specific', 'learner', 'government'])) {
+        if (!in_array($type, ['private', 'commercial', 'diplomatic', 'specific', 'learner', 'government'])) {
             abort(403);
         }
 
-        //store only to main branch
+        //store only to main branch//[ ] activate later
 
-        if ($branch->main_branch != 1) {
-            die('we cannot add, this is not main branch');
-        }
+        // if ($branch->main_branch != 1) {
+        //     die('we cannot add, this is not main branch');
+        // }
 
         // return $request->all();
 
